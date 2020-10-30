@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import kr.co.gdu.cash.NoticeService;
+import kr.co.gdu.cash.service.NoticeService;
 import kr.co.gdu.cash.vo.Notice;
 
 @Controller
