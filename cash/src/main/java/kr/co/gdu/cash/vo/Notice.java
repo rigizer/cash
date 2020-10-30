@@ -1,15 +1,15 @@
 package kr.co.gdu.cash.vo;
 
 public class Notice {
-	private int noticeNo;
+	private int noticeId;
 	private String noticeTitle;
 	private String noticeContent;
 	private String noticeDate;
-	public int getNoticeNo() {
-		return noticeNo;
+	public int getNoticeId() {
+		return noticeId;
 	}
-	public void setNoticeNo(int noticeNo) {
-		this.noticeNo = noticeNo;
+	public void setNoticeId(int noticeId) {
+		this.noticeId = noticeId;
 	}
 	public String getNoticeTitle() {
 		return noticeTitle;
@@ -31,7 +31,7 @@ public class Notice {
 	}
 	@Override
 	public String toString() {
-		return "Notice [noticeNo=" + noticeNo + ", noticeTitle=" + noticeTitle + ", noticeContent=" + noticeContent
+		return "Notice [noticeNo=" + noticeId + ", noticeTitle=" + noticeTitle + ", noticeContent=" + noticeContent
 				+ ", noticeDate=" + noticeDate + "]";
 	}
 }

@@ -15,7 +15,8 @@ public class NoticeService {
 	@Autowired
 	private NoticeMapper noticeMapper;
 	public List<Notice> getLatestNoticeList() {
-		List<Notice> list = noticeMapper.selectLatestNoticeList();
-		return list;
+		// List<Notice> list = noticeMapper.selectLatestNoticeList();
+		// return list;
+		return noticeMapper.selectLatestNoticeList();
 	}
 }
