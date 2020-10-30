@@ -4,6 +4,6 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.gdu.cash.mapper.NoticeMapper">
   <select id="selectLatestNoticeList" resultType="kr.co.gdu.cash.vo.Notice">
-    select notice_id, notice_title, notice_content, notice_date from notice order by notice_date desc limit 0, 5;
+    select notice_id, notice_title, notice_date from notice order by notice_date desc limit 0, 5;
   </select>
 </mapper>
