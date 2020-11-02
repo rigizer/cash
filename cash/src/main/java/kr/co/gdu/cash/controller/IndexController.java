@@ -18,20 +18,38 @@ public class IndexController {
 	private IndexService indexService;
 	
 	@GetMapping(value={"/","/index"})
-	public String index(Model model) {
-		// request.getParameter("paramMonth", paramMonth);와 동일하다.
+	public String index(Model model, 
+			@RequestParam(name = "currentYear", defaultValue = "-1") int currentYear, 		// request.getParameter("currentYear", currentYear);와 동일한 코드
+			@RequestParam(name = "currentMonth", defaultValue = "-1") int currentMonth) {	// request.getParameter("currentMonth", currentMonth);와 동일한 코드
 		
 		// 1. 요청 분석
-		Calendar c = Calendar.getInstance();	// 오늘 날짜
-		int month = c.get(Calendar.MONTH) + 1;	// Calendar.MONTH에 1을 더해야 실제 월이 나온다.
-		int lastDay = c.getActualMaximum(Calendar.DATE); // 월 마지막 날짜
+		Calendar currentDay = Calendar.getInstance();	// 오늘 날짜
 		
+		// currentYear와 currentMonth의 값이 모두 넘어왔을 경우
+		if (currentYear != -1 && currentMonth != -1) {
+			if (currentMonth == 0) {
+				currentYear -= 1;
+				currentMonth = 12;
+			}
+			
+			if (currentMonth == 13) {
+				currentYear += 1;
+				currentMonth = 1;
+			}
+			
+			currentDay.set(Calendar.YEAR, currentYear);
+			currentDay.set(Calendar.MONTH, currentMonth - 1);	// Calendar 함수의 값 보정 위해 1만큼 감안하여 설정
+		}
+		
+		currentDay.set(Calendar.DATE, 1);	// 오늘 날짜 기준 일을 1로 바꾸어 이번 달 1일의 요일을 구한다.
+		int year = currentDay.get(Calendar.YEAR);	// 올해 연도
+		int month = currentDay.get(Calendar.MONTH) + 1;	// Calendar.MONTH에 1을 더해야 실제 월이 나온다.
+		int lastDay = currentDay.getActualMaximum(Calendar.DATE); // 월 마지막 날짜
+		int firstDayOfWeek = currentDay.get(Calendar.DAY_OF_WEEK);	// 이번 달 1일의 요일
+		
+		System.out.println(year);
 		System.out.println(month);
 		System.out.println(lastDay);
-
-		Calendar firstDay = Calendar.getInstance();		// 오늘 날짜
-		firstDay.set(Calendar.DATE, 1);	// 오늘 날짜 기준 일을 1로 바꾸어 이번 달 1일의 요일을 구한다.
-		int firstDayOfWeek = firstDay.get(Calendar.DAY_OF_WEEK);
 		System.out.println(firstDayOfWeek);
 		
 		// 2. 서비스 호출
