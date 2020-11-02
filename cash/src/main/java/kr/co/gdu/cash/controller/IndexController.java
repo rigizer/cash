@@ -54,17 +54,16 @@ public class IndexController {
 		
 		// 2. 서비스 호출
 		List<Notice> list = indexService.getLatestNoticeList();
-		System.out.println("list.size(5) : " + (list.size() == 5));	// true
-		model.addAttribute("list", list);
 		
 		// 3. 뷰 연결
 		/*
-		 * 1) 월, 마지막 일(28일, 29일, 30일, 31일), 1일의 요일
+		 * 1) 년도, 월, 마지막 일(28일, 29일, 30일, 31일), 1일의 요일
 		 */
+		model.addAttribute("year", year);		// 년도
 		model.addAttribute("month", month);		// 월
 		model.addAttribute("lastDay", lastDay);	// 마지막 날
-		model.addAttribute("month", month);		// 1일의 요일
-		model.addAttribute("firstDayOfWeek", firstDayOfWeek);
+		model.addAttribute("firstDayOfWeek", firstDayOfWeek);	// 1일의 요일
+		model.addAttribute("list", list);
 		return "index";	// 실제로 포워딩 되는 것은 prefix에서 지정한 /WEB-INF/view/index.jsp으로 반환됨
 	}
 }

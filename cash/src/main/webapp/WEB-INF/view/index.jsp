@@ -62,10 +62,10 @@
 						</c:if>
 						
 						<c:if test="${i - (firstDayOfWeek - 1) > 0}">
-							<c:if test="${i % 7} == 1">
-								<td calss="sunday">${i - (firstDayOfWeek - 1)}</td>
+							<c:if test="${i % 7 == 1}">
+								<td class="sunday">${i - (firstDayOfWeek - 1)}</td>
 							</c:if>
-							<c:if test="${i % 7} != 1">
+							<c:if test="${i % 7 != 1}">
 								<td>${i - (firstDayOfWeek - 1)}</td>
 							</c:if>
 						</c:if>
