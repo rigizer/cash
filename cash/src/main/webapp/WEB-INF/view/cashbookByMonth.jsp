@@ -4,7 +4,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>index.jsp</title>
+		<title>cashbookByMonth.jsp</title>
 		
 		<style type="text/css">
 			.sunday {
@@ -15,31 +15,11 @@
 	<body>
 		<h1>index.jsp</h1>
 		
-		<h3>공지사항</h3>
-		<table border="1" width="100%">
-			<thead>
-				<tr>
-					<th>notice_id</th>
-					<th>notice_title</th>
-					<th>notice_date</th>
-				</tr>
-			</thead>
-			<tbody>
-				<c:forEach var="notice" items="${list}">
-					<tr>
-						<td>${notice.noticeId}</td>
-						<td>${notice.noticeTitle}</td>
-						<td>${notice.noticeDate}</td>
-					</tr>
-				</c:forEach>
-			</tbody>
-		</table>
-		
 		<!-- 다이어리 -->
 		<h3>
-			<a href="/index?currentYear=${year}&currentMonth=${month - 1}">[이전달]</a>
+			<a href="/cashbookByMonth?currentYear=${year}&currentMonth=${month - 1}">[이전달]</a>
 			${year}년 ${month}월
-			<a href="/index?currentYear=${year}&currentMonth=${month + 1}">[다음달]</a>
+			<a href="/cashbookByMonth?currentYear=${year}&currentMonth=${month + 1}">[다음달]</a>
 		</h3>
 		
 		<table border="1">

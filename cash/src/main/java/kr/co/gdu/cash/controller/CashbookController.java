@@ -57,6 +57,7 @@ public class CashbookController {
 		model.addAttribute("month", month);		// 월
 		model.addAttribute("lastDay", lastDay);	// 마지막 날
 		model.addAttribute("firstDayOfWeek", firstDayOfWeek);	// 1일의 요일
+		
 		return "cashbookByMonth";	// 실제로 포워딩 되는 것은 prefix에서 지정한 /WEB-INF/view/cashbookByMonth.jsp으로 반환됨
 	}
 }
