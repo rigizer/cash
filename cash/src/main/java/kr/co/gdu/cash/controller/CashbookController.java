@@ -13,12 +13,9 @@ import kr.co.gdu.cash.service.IndexService;
 import kr.co.gdu.cash.vo.Notice;
 
 @Controller
-public class IndexController {
-	@Autowired
-	private IndexService indexService;
-	
-	@GetMapping(value={"/","/index"})
-	public String index(Model model, 
+public class CashbookController {
+	@GetMapping(value="/cashbookByMonth")
+	public String cashbookByMonth(Model model, 
 			@RequestParam(name = "currentYear", defaultValue = "-1") int currentYear, 		// request.getParameter("currentYear", currentYear);와 동일한 코드
 			@RequestParam(name = "currentMonth", defaultValue = "-1") int currentMonth) {	// request.getParameter("currentMonth", currentMonth);와 동일한 코드
 		
@@ -52,10 +49,7 @@ public class IndexController {
 		System.out.println(lastDay);
 		System.out.println(firstDayOfWeek);
 		
-		// 2. 서비스 호출
-		List<Notice> list = indexService.getLatestNoticeList();
-		
-		// 3. 뷰 연결
+		// 2. 뷰 연결
 		/*
 		 * 1) 년도, 월, 마지막 일(28일, 29일, 30일, 31일), 1일의 요일
 		 */
@@ -63,7 +57,6 @@ public class IndexController {
 		model.addAttribute("month", month);		// 월
 		model.addAttribute("lastDay", lastDay);	// 마지막 날
 		model.addAttribute("firstDayOfWeek", firstDayOfWeek);	// 1일의 요일
-		model.addAttribute("list", list);
-		return "index";	// 실제로 포워딩 되는 것은 prefix에서 지정한 /WEB-INF/view/index.jsp으로 반환됨
+		return "cashbookByMonth";	// 실제로 포워딩 되는 것은 prefix에서 지정한 /WEB-INF/view/cashbookByMonth.jsp으로 반환됨
 	}
 }
