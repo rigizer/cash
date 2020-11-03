@@ -15,11 +15,19 @@
 	<body>
 		<h1>cashbookByMonth.jsp</h1>
 		
+		<!-- 이번 달 총 수입/지출 -->
+		<div>
+			${currentYear}년 ${currentMonth}월 수입 합계 : ${sumIn}
+		</div>
+		<div>
+			${currentYear}년 ${currentMonth}월 지출 합계 : ${sumOut}
+		</div>
+		
 		<!-- 다이어리 -->
 		<h3>
-			<a href="/cashbookByMonth?currentYear=${year}&currentMonth=${month - 1}">[이전달]</a>
-			${year}년 ${month}월
-			<a href="/cashbookByMonth?currentYear=${year}&currentMonth=${month + 1}">[다음달]</a>
+			<a href="/cashbookByMonth?currentYear=${currentYear}&currentMonth=${currentMonth - 1}">[이전달]</a>
+			${currentYear}년 ${currentMonth}월
+			<a href="/cashbookByMonth?currentYear=${currentYear}&currentMonth=${currentMonth + 1}">[다음달]</a>
 		</h3>
 		
 		<table border="1">

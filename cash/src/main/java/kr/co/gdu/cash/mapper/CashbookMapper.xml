@@ -14,4 +14,12 @@
 	ORDER BY "날짜"
 	LIMIT 0, 3;
   </select>
+  
+  <select id="selectSumCashbookPriceByInOut" parameterType="java.util.Map" resultType="Integer">
+  	select nvl(sum(cashbook_price), 0)
+	from cashbook
+	where cashbook_kind = #{cashbookKind}
+	AND YEAR(cashbook_date) = #{currentYear}
+	AND MONTH(cashbook_date) = #{currentMonth}
+  </select>
 </mapper>
