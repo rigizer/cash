@@ -13,7 +13,7 @@
 		</style>
 	</head>
 	<body>
-		<h1>index.jsp</h1>
+		<h1>cashbookByMonth.jsp</h1>
 		
 		<!-- 다이어리 -->
 		<h3>
