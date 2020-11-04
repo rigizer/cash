@@ -44,4 +44,24 @@
 	AND MONTH(cashbook_date) = #{currentMonth}
 	AND DAY(cashbook_date) = #{currentDay}
   </select>
+  
+  <insert id="insertCashbook" parameterType="kr.co.gdu.cash.vo.Cashbook">
+  	insert into cashbook (
+  		cashbook_kind,
+  		category_name,
+  		cashbook_price,
+  		cashbook_content,
+  		cashbook_date,
+  		create_date,
+  		update_date
+  	) values (
+  		#{cashbookKind},
+  		#{categoryName}, 
+  		#{cashbookPrice}, 
+  		#{cashbookContent}, 
+  		#{cashbookDate}, 
+  		now(), 
+  		now()
+  	)
+  </insert>
 </mapper>

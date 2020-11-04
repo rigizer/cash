@@ -41,4 +41,8 @@ public class CashbookService {
 		
 		return cashBookMapper.selectCashbookListByDay(map);
 	}
+	
+	public int addCashbook(Cashbook cashbook) {
+		return cashBookMapper.insertCashbook(cashbook);
+	}
 }

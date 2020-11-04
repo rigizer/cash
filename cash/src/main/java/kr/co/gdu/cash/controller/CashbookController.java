@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import kr.co.gdu.cash.service.*;
@@ -15,33 +16,8 @@ import kr.co.gdu.cash.vo.*;
 
 @Controller
 public class CashbookController {
-	@Autowired private CashbookService cashbookService;
 	@Autowired private CategoryService categoryService;
-	
-	@GetMapping(value="/addCashbook")
-	public String addCashbook(Model model, 
-			@RequestParam(name = "currentYear", required = true) int currentYear, 		// request.getParameter("currentYear", currentYear);와 동일한 코드
-			@RequestParam(name = "currentMonth", required = true) int currentMonth, 	// request.getParameter("currentMonth", currentMonth);와 동일한 코드
-			@RequestParam(name = "currentDay", required = true) int currentDay) {		// request.getParameter("currentDay", currentDay);와 동일한 코드
-		
-		List<Category> categoryList = categoryService.getCategoryList();
-		model.addAttribute("categoryList", categoryList);
-		
-		return "addCashbook";
-	}
-	
-	@GetMapping(value="/cashbookByDay")
-	public String cashbookByDay(Model model,
-			@RequestParam(name = "currentYear", required = true) int currentYear, 		// request.getParameter("currentYear", currentYear);와 동일한 코드
-			@RequestParam(name = "currentMonth", required = true) int currentMonth, 	// request.getParameter("currentMonth", currentMonth);와 동일한 코드
-			@RequestParam(name = "currentDay", required = true) int currentDay) {		// request.getParameter("currentDay", currentDay);와 동일한 코드
-
-		List<Cashbook> cashbookList = cashbookService.getCashbookListByDay(currentYear, currentMonth, currentDay);
-		
-		model.addAttribute("cashbookList", cashbookList);	// 일일 수입/지출 내역을 model을 통해 전달
-		
-		return "cashbookByDay";
-	}
+	@Autowired private CashbookService cashbookService;
 	
 	@GetMapping(value="/cashbookByMonth")
 	public String cashbookByMonth(Model model, 
@@ -102,5 +78,38 @@ public class CashbookController {
 		model.addAttribute("cashList", cashList);	// 월별 수입/지출 내역
 		
 		return "cashbookByMonth";	// 실제로 포워딩 되는 것은 prefix에서 지정한 /WEB-INF/view/cashbookByMonth.jsp으로 반환됨
+	}
+	
+	@GetMapping(value="/cashbookByDay")
+	public String cashbookByDay(Model model,
+			@RequestParam(name = "currentYear", required = true) int currentYear, 		// request.getParameter("currentYear", currentYear);와 동일한 코드
+			@RequestParam(name = "currentMonth", required = true) int currentMonth, 	// request.getParameter("currentMonth", currentMonth);와 동일한 코드
+			@RequestParam(name = "currentDay", required = true) int currentDay) {		// request.getParameter("currentDay", currentDay);와 동일한 코드
+
+		List<Cashbook> cashbookList = cashbookService.getCashbookListByDay(currentYear, currentMonth, currentDay);
+		
+		model.addAttribute("cashbookList", cashbookList);	// 일일 수입/지출 내역을 model을 통해 전달
+		
+		return "cashbookByDay";
+	}
+	
+	@GetMapping(value="/addCashbook")
+	public String addCashbook(Model model, 
+			@RequestParam(name = "currentYear", required = true) int currentYear, 		// request.getParameter("currentYear", currentYear);와 동일한 코드
+			@RequestParam(name = "currentMonth", required = true) int currentMonth, 	// request.getParameter("currentMonth", currentMonth);와 동일한 코드
+			@RequestParam(name = "currentDay", required = true) int currentDay) {		// request.getParameter("currentDay", currentDay);와 동일한 코드
+		
+		List<Category> categoryList = categoryService.getCategoryList();
+		model.addAttribute("categoryList", categoryList);
+		
+		return "addCashbook";
+	}
+	
+	@PostMapping("/addCashbook")
+	public String addCashbook(Cashbook cashbook) {	// 커맨드 객체 이용
+		//System.out.println(cashbook);
+		cashbookService.addCashbook(cashbook);
+		
+		return "redirect:/cashbookByMonth";	// response.sendRedirect();
 	}
 }

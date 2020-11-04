@@ -7,11 +7,14 @@
 		<title>cashbookByMonth.jsp</title>
 		
 		<style type="text/css">
-			.sunday {
+			.sunday a {
 				color: #FF0000;
 			}
-			.saturday {
+			.saturday a {
 				color: #0000FF;
+			}
+			.weekday a {
+				color: #000000;
 			}
 			
 			th {
@@ -21,9 +24,6 @@
 				height: 80px;
 				vertical-align: top;
 			}
-			a:link { color: red; text-decoration: none;}
-			a:visited { color: black; text-decoration: none;}
-			a:hover { color: blue; text-decoration: underline;}
 		</style>
 	</head>
 	<body>
@@ -83,7 +83,7 @@
 								
 								<!-- 평일 (월요일 ~ 금요일) -->
 								<c:if test="${i % 7 != 1 && i % 7 != 0}">
-									<div>
+									<div class="weekday">
 										<a href="/cashbookByDay?currentYear=${currentYear}&currentMonth=${currentMonth}&currentDay=${i - (firstDayOfWeek - 1)}">${i - (firstDayOfWeek - 1)}</a>
 									</div>
 								</c:if>
