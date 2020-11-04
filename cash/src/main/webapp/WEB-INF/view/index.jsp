@@ -7,6 +7,8 @@
 		<title>index.jsp</title>
 	</head>
 	<body>
+		<jsp:include page="/WEB-INF/view/inc/menu.jsp" />
+	
 		<h1>index</h1>
 		
 		<!-- 공지 -->

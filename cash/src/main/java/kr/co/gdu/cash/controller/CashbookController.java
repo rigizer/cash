@@ -16,6 +16,32 @@ import kr.co.gdu.cash.vo.*;
 @Controller
 public class CashbookController {
 	@Autowired private CashbookService cashbookService;
+	@Autowired private CategoryService categoryService;
+	
+	@GetMapping(value="/addCashbook")
+	public String addCashbook(Model model, 
+			@RequestParam(name = "currentYear", required = true) int currentYear, 		// request.getParameter("currentYear", currentYear);와 동일한 코드
+			@RequestParam(name = "currentMonth", required = true) int currentMonth, 	// request.getParameter("currentMonth", currentMonth);와 동일한 코드
+			@RequestParam(name = "currentDay", required = true) int currentDay) {		// request.getParameter("currentDay", currentDay);와 동일한 코드
+		
+		List<Category> categoryList = categoryService.getCategoryList();
+		model.addAttribute("categoryList", categoryList);
+		
+		return "addCashbook";
+	}
+	
+	@GetMapping(value="/cashbookByDay")
+	public String cashbookByDay(Model model,
+			@RequestParam(name = "currentYear", required = true) int currentYear, 		// request.getParameter("currentYear", currentYear);와 동일한 코드
+			@RequestParam(name = "currentMonth", required = true) int currentMonth, 	// request.getParameter("currentMonth", currentMonth);와 동일한 코드
+			@RequestParam(name = "currentDay", required = true) int currentDay) {		// request.getParameter("currentDay", currentDay);와 동일한 코드
+
+		List<Cashbook> cashbookList = cashbookService.getCashbookListByDay(currentYear, currentMonth, currentDay);
+		
+		model.addAttribute("cashbookList", cashbookList);	// 일일 수입/지출 내역을 model을 통해 전달
+		
+		return "cashbookByDay";
+	}
 	
 	@GetMapping(value="/cashbookByMonth")
 	public String cashbookByMonth(Model model, 

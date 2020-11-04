@@ -4,6 +4,8 @@ import java.util.*;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import kr.co.gdu.cash.vo.Cashbook;
+
 /*
  * @Compoment
  * @Controller, @Service, @Mapper, @Repository : 스테레오 타입
@@ -16,4 +18,6 @@ public interface CashbookMapper {
 	//int selectSumCashbookPriceByInOut(String cashbookKind, int year, int month);
 	
 	List<Map<String, Object>> selectCashListByMonth(Map<String, Object> map);
+	
+	List<Cashbook> selectCashbookListByDay(Map<String, Object> map);
 }
