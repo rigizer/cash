@@ -30,7 +30,7 @@
 			<a href="/cashbookByMonth?currentYear=${currentYear}&currentMonth=${currentMonth + 1}">[다음달]</a>
 		</h3>
 		
-		<table border="1">
+		<table border="1" width="100%">
 			<thead>
 				<tr>
 					<th>일</th>
@@ -51,10 +51,38 @@
 						
 						<c:if test="${i - (firstDayOfWeek - 1) > 0}">
 							<c:if test="${i % 7 == 1}">
-								<td class="sunday">${i - (firstDayOfWeek - 1)}</td>
+								<td class="sunday">
+									<div>${i - (firstDayOfWeek - 1)}</div>
+									
+									<!-- 수입/지출 목록이 있는 날짜를 cashList에서 검색 -->
+									<c:forEach var="c" items="${cashList}">
+										<c:if test="${i - (firstDayOfWeek - 1) == c.dDay}">
+											<c:if test="${c.cashbookKind == '수입'}">
+												<div>수입 : ${c.cashbookPrice}</div>
+											</c:if>
+											<c:if test="${c.cashbookKind == '지출'}">
+												<div>지출 : ${c.cashbookPrice}</div>
+											</c:if>
+										</c:if>
+									</c:forEach>								
+								</td>
 							</c:if>
 							<c:if test="${i % 7 != 1}">
-								<td>${i - (firstDayOfWeek - 1)}</td>
+								<td>
+									<div>${i - (firstDayOfWeek - 1)}</div>
+									
+									<!-- 수입/지출 목록이 있는 날짜를 cashList에서 검색 -->
+									<c:forEach var="c" items="${cashList}">
+										<c:if test="${i - (firstDayOfWeek - 1) == c.dDay}">
+											<c:if test="${c.cashbookKind == '수입'}">
+												<div>수입 : ${c.cashbookPrice}</div>
+											</c:if>
+											<c:if test="${c.cashbookKind == '지출'}">
+												<div>지출 : ${c.cashbookPrice}</div>
+											</c:if>
+										</c:if>
+									</c:forEach>
+								</td>
 							</c:if>
 						</c:if>
 						

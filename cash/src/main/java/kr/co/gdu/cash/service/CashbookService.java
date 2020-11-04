@@ -19,8 +19,16 @@ public class CashbookService {
 		map.put("currentYear", currentYear);
 		map.put("currentMonth", currentMonth);
 		
-		int sum = cashBookMapper.selectSumCashbookPriceByInOut(map);
+		Integer sum = cashBookMapper.selectSumCashbookPriceByInOut(map);
 		
 		return sum;
+	}
+	
+	public List<Map<String, Object>> getCashListByMonth(int currentYear, int currentMonth) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("currentYear", currentYear);
+		map.put("currentMonth", currentMonth);
+		
+		return cashBookMapper.selectCashListByMonth(map);
 	}
 }

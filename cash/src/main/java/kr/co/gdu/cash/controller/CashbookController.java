@@ -2,6 +2,7 @@ package kr.co.gdu.cash.controller;
 
 import java.util.Calendar;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -56,6 +57,10 @@ public class CashbookController {
 		int sumOut = cashbookService.getSumCashbookPriceByInOut("지출", currentYear, currentMonth);
 		
 		//-------------------------------------
+		
+		List<Map<String, Object>> cashList = cashbookService.getCashListByMonth(currentYear, currentMonth);
+		
+		//-------------------------------------
 		// 2. 뷰 연결
 		/*
 		 * 1) 년도, 월, 마지막 일(28일, 29일, 30일, 31일), 1일의 요일
@@ -67,6 +72,8 @@ public class CashbookController {
 		
 		model.addAttribute("sumIn", sumIn);	// 한 달의 총 수입
 		model.addAttribute("sumOut", sumOut);	// 한 달의 총 지출
+		
+		model.addAttribute("cashList", cashList);	// 월별 수입/지출 내역
 		
 		return "cashbookByMonth";	// 실제로 포워딩 되는 것은 prefix에서 지정한 /WEB-INF/view/cashbookByMonth.jsp으로 반환됨
 	}
