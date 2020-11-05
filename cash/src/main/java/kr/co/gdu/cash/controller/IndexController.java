@@ -11,11 +11,11 @@ import kr.co.gdu.cash.service.*;
 
 @Controller
 public class IndexController {
-	@Autowired private IndexService indexService;
+	@Autowired private NoticeService noticeService;
 	
-	@GetMapping(value= {"/","/index"})
+	@GetMapping(value="/admin/index")
 	public String index(Model model) {	// request.getAttribute();
-		Map<String, Object> map = indexService.getLatestNoticeListAndInOutList();
+		Map<String, Object> map = noticeService.getLatestNoticeListAndInOutList();
 		model.addAttribute("noticeList", map.get("noticeList"));
 		model.addAttribute("inOutList", map.get("inOutList"));
 		

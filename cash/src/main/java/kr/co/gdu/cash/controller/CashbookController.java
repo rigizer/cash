@@ -19,7 +19,7 @@ public class CashbookController {
 	@Autowired private CategoryService categoryService;
 	@Autowired private CashbookService cashbookService;
 	
-	@GetMapping(value="/cashbookByMonth")
+	@GetMapping(value="/admin/cashbookByMonth")
 	public String cashbookByMonth(Model model, 
 			@RequestParam(name = "currentYear", defaultValue = "-1") int currentYear, 		// request.getParameter("currentYear", currentYear);와 동일한 코드
 			@RequestParam(name = "currentMonth", defaultValue = "-1") int currentMonth) {	// request.getParameter("currentMonth", currentMonth);와 동일한 코드
@@ -80,7 +80,7 @@ public class CashbookController {
 		return "cashbookByMonth";	// 실제로 포워딩 되는 것은 prefix에서 지정한 /WEB-INF/view/cashbookByMonth.jsp으로 반환됨
 	}
 	
-	@GetMapping(value="/cashbookByDay")
+	@GetMapping(value="/admin/cashbookByDay")
 	public String cashbookByDay(Model model,
 			@RequestParam(name = "currentYear", required = true) int currentYear, 		// request.getParameter("currentYear", currentYear);와 동일한 코드
 			@RequestParam(name = "currentMonth", required = true) int currentMonth, 	// request.getParameter("currentMonth", currentMonth);와 동일한 코드
@@ -93,7 +93,7 @@ public class CashbookController {
 		return "cashbookByDay";
 	}
 	
-	@GetMapping(value="/addCashbook")
+	@GetMapping(value="/admin/addCashbook")
 	public String addCashbook(Model model, 
 			@RequestParam(name = "currentYear", required = true) int currentYear, 		// request.getParameter("currentYear", currentYear);와 동일한 코드
 			@RequestParam(name = "currentMonth", required = true) int currentMonth, 	// request.getParameter("currentMonth", currentMonth);와 동일한 코드
@@ -105,11 +105,11 @@ public class CashbookController {
 		return "addCashbook";
 	}
 	
-	@PostMapping("/addCashbook")
+	@PostMapping("/admin/addCashbook")
 	public String addCashbook(Cashbook cashbook) {	// 커맨드 객체 이용
 		//System.out.println(cashbook);
 		cashbookService.addCashbook(cashbook);
 		
-		return "redirect:/cashbookByMonth";	// response.sendRedirect();
+		return "redirect:/admin/cashbookByMonth";	// response.sendRedirect();
 	}
 }

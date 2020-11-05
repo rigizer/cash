@@ -12,12 +12,14 @@
 		<h1>cashbookByDay</h1>
 		
 		<div>
-			<a href="#">◀◀</a>
-			<h3>${param.currentYear}.${param.currentMonth}.${param.currentDay}</h3>
-			<a href="#">▶▶</a>
+			<h3>
+				<a href="#">◀◀</a>
+				${param.currentYear}.${param.currentMonth}.${param.currentDay}
+				<a href="#">▶▶</a>
+			</h3>
 		</div>
 		
-		<a href="/addCashbook?currentYear=${param.currentYear}&currentMonth=${param.currentMonth}&currentDay=${param.currentDay}">수입/지출 입력</a>
+		<a href="/admin/addCashbook?currentYear=${param.currentYear}&currentMonth=${param.currentMonth}&currentDay=${param.currentDay}">수입/지출 입력</a>
 		
 		<table border="1">
 			<thead>

@@ -4,7 +4,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>cashbookByMonth.jsp</title>
+		<title>cashbookByMonth</title>
 		
 		<style type="text/css">
 			.sunday a {
@@ -41,9 +41,9 @@
 		
 		<!-- 다이어리 -->
 		<h3>
-			<a href="/cashbookByMonth?currentYear=${currentYear}&currentMonth=${currentMonth - 1}">[이전달]</a>
+			<a href="/admin/cashbookByMonth?currentYear=${currentYear}&currentMonth=${currentMonth - 1}">[이전달]</a>
 			${currentYear}년 ${currentMonth}월
-			<a href="/cashbookByMonth?currentYear=${currentYear}&currentMonth=${currentMonth + 1}">[다음달]</a>
+			<a href="/admin/cashbookByMonth?currentYear=${currentYear}&currentMonth=${currentMonth + 1}">[다음달]</a>
 		</h3>
 		
 		<table border="1" width="100%">
@@ -70,21 +70,21 @@
 								<!-- 일요일 -->
 								<c:if test="${i % 7 == 1}">
 									<div class="sunday">
-										<a href="/cashbookByDay?currentYear=${currentYear}&currentMonth=${currentMonth}&currentDay=${i - (firstDayOfWeek - 1)}">${i - (firstDayOfWeek - 1)}</a>
+										<a href="/admin/cashbookByDay?currentYear=${currentYear}&currentMonth=${currentMonth}&currentDay=${i - (firstDayOfWeek - 1)}">${i - (firstDayOfWeek - 1)}</a>
 									</div>
 								</c:if>
 								
 								<!-- 토요일 -->
 								<c:if test="${i % 7 == 0}">
 									<div class="saturday">
-										<a href="/cashbookByDay?currentYear=${currentYear}&currentMonth=${currentMonth}&currentDay=${i - (firstDayOfWeek - 1)}">${i - (firstDayOfWeek - 1)}</a>
+										<a href="/admin/cashbookByDay?currentYear=${currentYear}&currentMonth=${currentMonth}&currentDay=${i - (firstDayOfWeek - 1)}">${i - (firstDayOfWeek - 1)}</a>
 									</div>
 								</c:if>
 								
 								<!-- 평일 (월요일 ~ 금요일) -->
 								<c:if test="${i % 7 != 1 && i % 7 != 0}">
 									<div class="weekday">
-										<a href="/cashbookByDay?currentYear=${currentYear}&currentMonth=${currentMonth}&currentDay=${i - (firstDayOfWeek - 1)}">${i - (firstDayOfWeek - 1)}</a>
+										<a href="/admin/cashbookByDay?currentYear=${currentYear}&currentMonth=${currentMonth}&currentDay=${i - (firstDayOfWeek - 1)}">${i - (firstDayOfWeek - 1)}</a>
 									</div>
 								</c:if>
 								

@@ -11,10 +11,11 @@ import kr.co.gdu.cash.vo.*;
 
 @Service
 @Transactional
-public class IndexService {
+public class NoticeService {
 	@Autowired private NoticeMapper noticeMapper;
 	@Autowired private CashbookMapper cashbookMapper;
 	
+	// ISSUE : noticeList 중복. 추후 분리/제거바람.
 	public Map<String, Object> getLatestNoticeListAndInOutList() {
 		List<Notice> noticeList = noticeMapper.selectLatestNoticeList();
 		List<Map<String, Object>> inOutList = cashbookMapper.selectCashInOutList();
@@ -23,5 +24,9 @@ public class IndexService {
 		map.put("inOutList", inOutList);
 		
 		return map;
+	}
+	
+	public List<Notice> getNoticeList() {
+		return noticeMapper.selectLatestNoticeList();
 	}
 }
