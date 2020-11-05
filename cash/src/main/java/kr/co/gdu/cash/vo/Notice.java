@@ -5,6 +5,7 @@ public class Notice {
 	private String noticeTitle;
 	private String noticeContent;
 	private String noticeDate;
+	
 	public int getNoticeId() {
 		return noticeId;
 	}
@@ -29,6 +30,7 @@ public class Notice {
 	public void setNoticeDate(String noticeDate) {
 		this.noticeDate = noticeDate;
 	}
+	
 	@Override
 	public String toString() {
 		return "Notice [noticeNo=" + noticeId + ", noticeTitle=" + noticeTitle + ", noticeContent=" + noticeContent

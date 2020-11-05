@@ -22,4 +22,42 @@
     order by notice_date desc
     limit #{beginRow}, #{rowPerPage}
   </select>
+  
+  <select id="countNotice" resultType="Integer">
+  	SELECT COUNT(*) FROM notice
+  </select>
+  
+  <select id="selectNoticeOne" parameterType="Integer" resultType="kr.co.gdu.cash.vo.Notice">
+  	SELECT notice_id AS noticeId, 
+	notice_title noticeTitle, 
+	notice_content noticeContent, 
+	notice_date noticeDate
+	FROM notice
+	WHERE notice_id = #{noticeId}
+  </select>
+  
+  <insert id="insertNotice" parameterType="kr.co.gdu.cash.vo.Notice">
+	insert into notice (
+		notice_title, 
+		notice_content, 
+		notice_date
+	) values (
+		#{noticeTitle}, 
+		#{noticeContent}, 
+		now()
+	)
+  </insert>
+  
+  <update id="updateNotice" parameterType="kr.co.gdu.cash.vo.Notice">
+  	update notice set
+	notice_title = #{noticeTitle}, 
+	notice_content = #{noticeContent}, 
+	notice_date = now()
+	where notice_id = #{noticeId}
+  </update>
+  
+  <delete id="deleteNotice" parameterType="Integer">
+  	delete from notice
+  	where notice_id = #{noticeId}
+  </delete>
 </mapper>

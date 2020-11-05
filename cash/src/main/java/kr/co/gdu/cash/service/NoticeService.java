@@ -35,6 +35,36 @@ public class NoticeService {
 		// noticeMapper 메소드를 호출한다.
 		// 이후 결과값을 받아 return 한다.
 		
-		return null;
+		int beginRow = (currentPage - 1) * rowPerPage;
+		
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		map.put("beginRow", beginRow);
+		map.put("rowPerPage", rowPerPage);
+		
+		List<Notice> noticeList = noticeMapper.selectNoticeListByPage(map);
+		
+		return noticeList;
+	}
+	
+	public int getCountNotice() {
+		return noticeMapper.countNotice();
+	}
+	
+	public Notice getNoticeOne(int noticeId) {
+		Notice noticeOne = noticeMapper.selectNoticeOne(noticeId);
+		
+		return noticeOne;
+	}
+	
+	public int addNotice(Notice notice) {
+		return noticeMapper.insertNotice(notice);
+	}
+	
+	public int modifyNotice(Notice notice) {
+		return noticeMapper.updateNotice(notice);
+	}
+	
+	public int removeNotice(int noticeId) {
+		return noticeMapper.deleteNotice(noticeId);
 	}
 }
