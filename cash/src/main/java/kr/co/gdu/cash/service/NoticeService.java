@@ -29,4 +29,12 @@ public class NoticeService {
 	public List<Notice> getNoticeList() {
 		return noticeMapper.selectLatestNoticeList();
 	}
+	
+	public List<Notice> getNoticeListPage(int currentPage, int rowPerPage) {
+		// currentPage, rowPerPage를 통해 beginRow, rowPerPage 전달하여
+		// noticeMapper 메소드를 호출한다.
+		// 이후 결과값을 받아 return 한다.
+		
+		return null;
+	}
 }

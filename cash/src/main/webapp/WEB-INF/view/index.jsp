@@ -12,7 +12,7 @@
 		<h1>index</h1>
 		
 		<!-- 공지 -->
-		<h3>공지사항</h3>
+		<h3>공지사항 <a href="/admin/noticeList">[more]</a></h3>
 		<div>
 			<table border="1" width="100%">
 				<thead>

@@ -12,4 +12,14 @@
     order by notice_date desc
     limit 0, 5
   </select>
+  
+  <select id="selectNoticeListByPage" parameterType="java.util.Map" resultType="kr.co.gdu.cash.vo.Notice">
+  	select
+    	notice_id as noticeId,
+    	notice_title as noticeTitle,
+    	notice_date as noticeDate
+    from notice
+    order by notice_date desc
+    limit #{beginRow}, #{rowPerPage}
+  </select>
 </mapper>
