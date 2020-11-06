@@ -26,7 +26,7 @@ public class NoticeController {
 		List<Notice> noticeList = noticeService.getNoticeListPage(currentPage, rowPerPage);
 		System.out.println("Debug: " + noticeList);
 		
-		int totalCount = noticeService.getCountNotice();	// 전체 데이커
+		int totalCount = noticeService.getCountNotice();	// 전체 데이터 수
 		int lastPage = totalCount / rowPerPage;	// 마지막 페이지
 		
 		if (totalCount % rowPerPage != 0) {	// 10 미만의 개수의 데이터가 있는 페이지를 표시

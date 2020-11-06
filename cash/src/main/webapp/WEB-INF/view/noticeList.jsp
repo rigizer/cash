@@ -19,6 +19,10 @@
 			    border : 0;
 			    float: left;
 			}
+			
+			table {
+				text-align: center;
+			}
 		</style>
 	</head>
 	<body>

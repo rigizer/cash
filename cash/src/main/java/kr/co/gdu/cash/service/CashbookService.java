@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import kr.co.gdu.cash.mapper.*;
-import kr.co.gdu.cash.vo.Cashbook;
+import kr.co.gdu.cash.vo.*;
 
 @Service
 @Transactional
@@ -42,7 +42,22 @@ public class CashbookService {
 		return cashBookMapper.selectCashbookListByDay(map);
 	}
 	
+	public Cashbook getCashbookByDay(int cashbookId) {
+		Cashbook cashbook = cashBookMapper.selectCashbookByDay(cashbookId);
+		
+		return cashbook;
+	}
+	
 	public int addCashbook(Cashbook cashbook) {
 		return cashBookMapper.insertCashbook(cashbook);
+	}
+	
+	public int modifyCashbook(Cashbook cashbook) {
+		System.out.println("Debug: modifyCashbook 실행 - " + cashbook);
+		return cashBookMapper.updateCashbook(cashbook);
+	}
+	
+	public int removeCashbook(int cashbookId) {
+		return cashBookMapper.deleteCashbook(cashbookId);
 	}
 }

@@ -80,19 +80,40 @@ public class CashbookController {
 		return "cashbookByMonth";	// 실제로 포워딩 되는 것은 prefix에서 지정한 /WEB-INF/view/cashbookByMonth.jsp으로 반환됨
 	}
 	
+	// cashbookByDay 상세 페이지
 	@GetMapping(value="/admin/cashbookByDay")
 	public String cashbookByDay(Model model,
+			@RequestParam(name = "target", defaultValue="") String target,				// pre, next
 			@RequestParam(name = "currentYear", required = true) int currentYear, 		// request.getParameter("currentYear", currentYear);와 동일한 코드
 			@RequestParam(name = "currentMonth", required = true) int currentMonth, 	// request.getParameter("currentMonth", currentMonth);와 동일한 코드
 			@RequestParam(name = "currentDay", required = true) int currentDay) {		// request.getParameter("currentDay", currentDay);와 동일한 코드
 
-		List<Cashbook> cashbookList = cashbookService.getCashbookListByDay(currentYear, currentMonth, currentDay);
+		Calendar targetDay = Calendar.getInstance();
+		targetDay.set(Calendar.YEAR, currentYear);
+		targetDay.set(Calendar.MONTH, currentMonth - 1);
+		targetDay.set(Calendar.DATE, currentDay);
+		
+		if (target.equals("pre")) {
+			targetDay.add(Calendar.DATE, -1);
+		} else if (target.equals("next")) {
+			targetDay.add(Calendar.DATE, 1);
+		}
+		
+		List<Cashbook> cashbookList = cashbookService.getCashbookListByDay(
+				targetDay.get(Calendar.YEAR), 
+				targetDay.get(Calendar.MONTH) + 1, 
+				targetDay.get(Calendar.DATE));
 		
 		model.addAttribute("cashbookList", cashbookList);	// 일일 수입/지출 내역을 model을 통해 전달
+		
+		model.addAttribute("currentYear", targetDay.get(Calendar.YEAR));
+		model.addAttribute("currentMonth", targetDay.get(Calendar.MONTH) + 1);
+		model.addAttribute("currentDay", targetDay.get(Calendar.DATE));
 		
 		return "cashbookByDay";
 	}
 	
+	// cashbookByDay 입력 Form
 	@GetMapping(value="/admin/addCashbook")
 	public String addCashbook(Model model, 
 			@RequestParam(name = "currentYear", required = true) int currentYear, 		// request.getParameter("currentYear", currentYear);와 동일한 코드
@@ -105,11 +126,48 @@ public class CashbookController {
 		return "addCashbook";
 	}
 	
+	// cashbookByDay 입력 Action
 	@PostMapping("/admin/addCashbook")
 	public String addCashbook(Cashbook cashbook) {	// 커맨드 객체 이용
 		//System.out.println(cashbook);
 		cashbookService.addCashbook(cashbook);
 		
 		return "redirect:/admin/cashbookByMonth";	// response.sendRedirect();
+	}
+	
+	// cashbookByDay 삭제
+	@GetMapping("/admin/removeCashbookByDay")
+	public String removeCashbook(Model model, 
+			@RequestParam(value = "cashbookId") int cashbookId) {
+		
+		System.out.println("Debug: cashbookId[" + cashbookId + "] 삭제");
+		cashbookService.removeCashbook(cashbookId);
+		
+		return "redirect:/admin/cashbookByMonth";
+	}
+	
+	// cashbookByDay 수정 Form
+	@GetMapping("/admin/modifyCashbookByDay")
+	public String modifyCashbookForm(Model model, 
+			@RequestParam(value = "cashbookId") int cashbookId) {
+	
+		Cashbook cashbook = cashbookService.getCashbookByDay(cashbookId);
+		System.out.println("Debug: " + cashbook);
+		
+		List<Category> categoryList = categoryService.getCategoryList();
+		model.addAttribute("categoryList", categoryList);
+		
+		model.addAttribute("cashbook", cashbook);
+		
+		return "modifyCashbookByDay";
+	}
+	
+	// cashbookByDay 수정 Action
+	@PostMapping("/admin/modifyCashbookByDay")
+	public String modifyCashbookAction(Cashbook cashbook) {
+		System.out.println("Debug: " + cashbook);
+		cashbookService.modifyCashbook(cashbook);
+		
+		return "redirect:/admin/cashbookByMonth";
 	}
 }
