@@ -6,8 +6,45 @@
 		<meta charset="UTF-8">
 		<title>addNotice</title>
 		
-		<!-- jQuery Google CDN -->
+		<!-- Bootstrap Framework 사용 -->
+		
+		<!-- Latest compiled and minified CSS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+		
+		<!-- jQuery library -->
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		
+		<!-- Popper JS -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+		
+		<!-- Latest compiled JavaScript -->
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+		
+		<style>
+			textarea {
+				min-height: 300px;
+			}
+		
+			.table {
+				text-align: center;
+			}
+			
+			.table td {
+				vertical-align: middle;
+			}
+			
+			.table a {
+				color: #000000;
+			}
+			
+			.ioTable td {
+				width: 25%;
+			}
+			
+			.msgDiv {
+				color: #FF0000;
+			}
+		</style>
 		
 		<!-- jQuery를 이용하여 제목, 내용 검사 -->
 		<script>
@@ -38,50 +75,45 @@
 				});
 			});
 		</script>
-		
-		<style>
-			table {
-				text-align: center;
-			}
-		</style>
-		
-		<style>
-			.msgDiv {
-				color: #FF0000;
-			}
-		</style>
 	</head>
 	<body>
 		<jsp:include page="/WEB-INF/view/inc/menu.jsp" />
 		
-		<h1>addNotice</h1>
+		<div class="jumbotron">
+			<div class="container">
+				<h1>공지사항 작성</h1>
+				<p>공지사항 게시판에 글을 작성할 수 있는 페이지입니다</p>
+			</div>
+		</div>
 		
-		<!-- 공지사항 작성 -->
-		<h3>공지사항 작성</h3>
-		<div>
-			<form method="post" action="/admin/addNotice" id="noticeForm">
-				<table border="1" width="100%">
-					<tr>
-						<td>notice_title</td>
-						<td>
-							<input type="text" name="noticeTitle" id="noticeTitle">
-							<div class="msgDiv" id="noticeTitleMsg"></div>
-						</td>
-					</tr>
-					<tr>
-						<td>notice_content</td>
-						<td>
-							<textarea name="noticeContent" id="noticeContent"></textarea>
-							<div class="msgDiv" id="noticeContentMsg"></div>
-						</td>
-					</tr>
-					<tr>
-						<td colspan="2">
-							<button type="button" id="btn">입력</button>
-						</td>
-					</tr>
-				</table>
-			</form>
+		<div class="container">
+			<!-- 공지사항 작성 -->
+			<div>
+				<form method="post" action="/admin/addNotice" id="noticeForm">
+					<table class="table">
+						<tr>
+							<td width="20%">제목</td>
+							<td width="80%">
+								<input type="text" class="form-control" name="noticeTitle" id="noticeTitle">
+								<div class="msgDiv" id="noticeTitleMsg"></div>
+							</td>
+						</tr>
+						<tr>
+							<td>내용</td>
+							<td>
+								<textarea class="form-control" name="noticeContent" id="noticeContent"></textarea>
+								<div class="msgDiv" id="noticeContentMsg"></div>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="2">
+								<button type="button" class="btn btn-success btn-block" id="btn">글쓰기</button>
+							</td>
+						</tr>
+					</table>
+				</form>
+			</div>
+			<br><br>
 		</div>
 	</body>
 </html>

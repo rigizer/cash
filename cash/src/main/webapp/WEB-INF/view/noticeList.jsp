@@ -6,42 +6,60 @@
 		<meta charset="UTF-8">
 		<title>noticeList</title>
 		
+		<!-- Bootstrap Framework 사용 -->
+		
+		<!-- Latest compiled and minified CSS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+		
+		<!-- jQuery library -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		
+		<!-- Popper JS -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+		
+		<!-- Latest compiled JavaScript -->
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+		
 		<style>
-			ul {
-			    list-style:none;
-			    margin:0;
-			    padding:0;
-			}
-			
-			li {
-			    margin: 0 0 0 0;
-			    padding: 0 0 0 0;
-			    border : 0;
-			    float: left;
-			}
-			
-			table {
+			.table {
 				text-align: center;
+			}
+			
+			.table td {
+				vertical-align: middle;
+			}
+			
+			.table a {
+				color: #000000;
+			}
+			
+			.ioTable td {
+				width: 25%;
 			}
 		</style>
 	</head>
 	<body>
 		<jsp:include page="/WEB-INF/view/inc/menu.jsp" />
 		
-		<h1>noticeList</h1>
+		<div class="jumbotron">
+			<div class="container">
+				<h1>공지사항</h1>
+				<p>공지사항 목록을 확인할 수 있는 페이지입니다</p>
+			</div>
+		</div>
 		
-		<!-- 공지 -->
-		<h3>공지사항</h3>
+		<div class="container">
+			<!-- 공지 -->
+			<h3>공지사항
+				<button type="button" class="btn btn-sm btn-success" style="float: right;" onclick="location.href='/admin/addNotice'">글쓰기</button>	
+			</h3>
 		
-		<a href="/admin/addNotice">[글쓰기]</a>
-		
-		<div>
-			<table border="1" width="100%">
+			<table class="table">
 				<thead>
 					<tr>
-						<th>notice_id</th>
-						<th>notice_title</th>
-						<th>notice_date</th>
+						<th width="15%">번호</th>
+						<th width="60%">제목</th>
+						<th width="25%">날짜</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -65,12 +83,12 @@
 				<c:choose>
 					<c:when test="${currentPage > 1}">
 						<li class="page-item">
-							<a class="page-link" href="/admin/noticeList?currentPage=1">[처음]</a>
+							<a class="page-link" href="/admin/noticeList?currentPage=1">처음</a>
 						</li>
 					</c:when>
 					<c:otherwise>
 						<li class="page-item disabled">
-							<a class="page-link" href="#">[처음]</a>
+							<a class="page-link" href="#">처음</a>
 						</li>
 					</c:otherwise>
 				</c:choose>
@@ -79,12 +97,12 @@
 				<c:choose>
 					<c:when test="${currentPage > 1}">
 						<li class="page-item">
-							<a class="page-link" href="/admin/noticeList?currentPage=${currentPage - 1}">[이전]</a>
+							<a class="page-link" href="/admin/noticeList?currentPage=${currentPage - 1}">이전</a>
 						</li>
 					</c:when>
 					<c:otherwise>
 						<li class="page-item disabled">
-							<a class="page-link" href="#">[이전]</a>
+							<a class="page-link" href="#">이전</a>
 						</li>
 					</c:otherwise>
 				</c:choose>
@@ -96,13 +114,13 @@
 							<%-- 현재 페이지 --%>
 							<c:when test="${i == currentPage}">
 								<li class="page-item disabled">
-									<a class="page-link" href="#">[${i}]</a>
+									<a class="page-link" href="#">${i}</a>
 								</li>
 							</c:when>
 							<%-- 현재 페이지가 아닌 선택 가능한 페이지 --%>
 							<c:otherwise>
 								<li class="page-item">
-									<a class="page-link" href="/admin/noticeList?currentPage=${i}">[${i}]</a>
+									<a class="page-link" href="/admin/noticeList?currentPage=${i}">${i}</a>
 								</li>
 							</c:otherwise>
 						</c:choose>
@@ -113,12 +131,12 @@
 				<c:choose>
 					<c:when test="${currentPage < lastPage}">
 						<li class="page-item">
-							<a class="page-link" href="/admin/noticeList?currentPage=${currentPage + 1}">[다음]</a>
+							<a class="page-link" href="/admin/noticeList?currentPage=${currentPage + 1}">다음</a>
 						</li>
 					</c:when>
 					<c:otherwise>
 						<li class="page-item disabled">
-							<a class="page-link" href="#">[다음]</a>
+							<a class="page-link" href="#">다음</a>
 						</li>
 					</c:otherwise>
 				</c:choose>
@@ -127,19 +145,17 @@
 				<c:choose>
 					<c:when test="${currentPage < lastPage}">
 						<li class="page-item">
-							<a class="page-link" href="/admin/noticeList?currentPage=${lastPage}">[마지막]</a>
+							<a class="page-link" href="/admin/noticeList?currentPage=${lastPage}">마지막</a>
 						</li>
 					</c:when>
 					<c:otherwise>
 						<li class="page-item disabled">
-							<a class="page-link" href="#">[마지막]</a>
+							<a class="page-link" href="#">마지막</a>
 						</li>
 					</c:otherwise>
 				</c:choose>
 			</ul>
 		</div>
-		
-		<br>
 		
 		<div>
 			<!-- 총 페이지 수 출력 -->
@@ -152,6 +168,8 @@
 					</td>
 				</tr>
 			</table>
+			
+			<br><br>
 		</div>
 	</body>
 </html>
