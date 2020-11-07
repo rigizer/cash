@@ -1,24 +1,41 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 	<head>
-		<meta charset="UTF-8">
+		<meta charset="utf-8">
+		<meta content="width=device-width, initial-scale=1.0" name="viewport">
+		
 		<title>addNotice</title>
+		<meta content="" name="descriptison">
+		<meta content="" name="keywords">
 		
-		<!-- Bootstrap Framework 사용 -->
+		<!-- Favicons -->
+		<link href="/assets/img/favicon.png" rel="icon">
+		<link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 		
-		<!-- Latest compiled and minified CSS -->
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+		<!-- Google Fonts -->
+		<link
+			href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Montserrat:300,400,500,600,700"
+			rel="stylesheet">
+		
+		<!-- Vendor CSS Files -->
+		<link href="/assets/vendor/bootstrap/css/bootstrap.min.css"
+			rel="stylesheet">
+		<link href="/assets/vendor/font-awesome/css/font-awesome.min.css"
+			rel="stylesheet">
+		<link href="/assets/vendor/ionicons/css/ionicons.min.css"
+			rel="stylesheet">
+		<link href="/assets/vendor/venobox/venobox.css" rel="stylesheet">
+		<link href="/assets/vendor/owl.carousel/assets/owl.carousel.min.css"
+			rel="stylesheet">
+		<link href="/assets/vendor/aos/aos.css" rel="stylesheet">
+		
+		<!-- Template Main CSS File -->
+		<link href="/assets/css/style.css" rel="stylesheet">
 		
 		<!-- jQuery library -->
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-		
-		<!-- Popper JS -->
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-		
-		<!-- Latest compiled JavaScript -->
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 		
 		<style>
 			textarea {
@@ -53,8 +70,8 @@
 				
 				$("#btn").click(function() {	// 버튼 클릭시 폼 내용의 유효성 검사를 수행
 					if ($("#noticeTitle").val() == "") {	// noticeTitle이 공백인 경우 수행
-						$("#noticeTitleMsg").text('');	// 메시지 초기화
-						$('#noticeTitleMsg').text('제목을 입력하세요');
+						$("#noticeTitleMsg").html('');	// 메시지 초기화
+						$('#noticeTitleMsg').append('<div style="margin-top: 10px;">제목을 입력하세요<div>');
 						$('#noticeTitle').focus();
 					
 						return;
@@ -63,57 +80,112 @@
 					}
 					
 					if ($("#noticeContent").val() == "") { // noticeContent가 공백인 경우 수행
-						$("#noticeContentMsg").text('');	// 메시지 초기화
-						$('#noticeContentMsg').text('내용을 입력하세요');
+						$("#noticeContentMsg").html('');	// 메시지 초기화
+						$('#noticeContentMsg').append('<div style="margin-top: 10px;">내용을 입력하세요<div>');
 						$('#noticeContent').focus();
 					
 						return;
 					} else {
-						$("#noticeContentMsg").text('');	// 메시지 초기화
+						$("#noticeContentMsg").html('');	// 메시지 초기화
 					}
 					$("#noticeForm").submit();
 				});
 			});
 		</script>
 	</head>
+	
 	<body>
-		<jsp:include page="/WEB-INF/view/inc/menu.jsp" />
-		
-		<div class="jumbotron">
+	
+		<!-- ======= Top Bar ======= -->
+		<div id="topbar" class="d-none d-lg-flex align-items-end fixed-top ">
+		    <div class="container d-flex justify-content-end">
+		      	&nbsp;
+		    </div>
+	    </div>
+	
+		<!-- ======= Header ======= -->
+		<header id="header" class="fixed-top">
+			<jsp:include page="/WEB-INF/view/inc/menu.jsp" />
+		</header>
+		<!-- End Header -->
+	
+		<main id="main">
+	
+			<!-- ======= Breadcrumbs ======= -->
+			<section id="breadcrumbs" class="breadcrumbs">
+				<div class="container">
+	
+					<ol>
+						<li><a href="/admin/index">Home</a></li>
+						<li><a href="/admin/noticeList">NoticeList</a></li>
+						<li>AddNotice</li>
+					</ol>
+					<h2>공지사항 작성</h2>
+	
+				</div>
+			</section>
+			<!-- End Breadcrumbs -->
+	
+			<section class="inner-page pt-4">
+				<div class="container">
+					<!-- 공지사항 작성 -->
+					<div>
+						<form method="post" action="/admin/addNotice" id="noticeForm">
+							<table class="table">
+								<tr>
+									<td width="20%">제목</td>
+									<td width="80%">
+										<input type="text" class="form-control" name="noticeTitle" id="noticeTitle">
+										<div class="msgDiv" id="noticeTitleMsg"></div>
+									</td>
+								</tr>
+								<tr>
+									<td>내용</td>
+									<td>
+										<textarea class="form-control" name="noticeContent" id="noticeContent"></textarea>
+										<div class="msgDiv" id="noticeContentMsg"></div>
+									</td>
+								</tr>
+								<tr>
+									<td colspan="2">
+										<button type="button" class="btn btn-success btn-block" id="btn">글쓰기</button>
+									</td>
+								</tr>
+							</table>
+						</form>
+					</div>
+				</div>
+			</section>
+	
+		</main>
+		<!-- End #main -->
+	
+		<!-- ======= Footer ======= -->
+		<footer id="footer" class="section-bg">
 			<div class="container">
-				<h1>공지사항 작성</h1>
-				<p>공지사항 게시판에 글을 작성할 수 있는 페이지입니다</p>
+				<div class="copyright">
+					&copy; Copyright <strong>Jaeyong Han</strong>. All Rights Reserved
+				</div>
 			</div>
-		</div>
-		
-		<div class="container">
-			<!-- 공지사항 작성 -->
-			<div>
-				<form method="post" action="/admin/addNotice" id="noticeForm">
-					<table class="table">
-						<tr>
-							<td width="20%">제목</td>
-							<td width="80%">
-								<input type="text" class="form-control" name="noticeTitle" id="noticeTitle">
-								<div class="msgDiv" id="noticeTitleMsg"></div>
-							</td>
-						</tr>
-						<tr>
-							<td>내용</td>
-							<td>
-								<textarea class="form-control" name="noticeContent" id="noticeContent"></textarea>
-								<div class="msgDiv" id="noticeContentMsg"></div>
-							</td>
-						</tr>
-						<tr>
-							<td colspan="2">
-								<button type="button" class="btn btn-success btn-block" id="btn">글쓰기</button>
-							</td>
-						</tr>
-					</table>
-				</form>
-			</div>
-			<br><br>
-		</div>
+		</footer>
+		<!-- End  Footer -->
+	
+		<a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
+	
+		<!-- Vendor JS Files -->
+		<script src="/assets/vendor/jquery/jquery.min.js"></script>
+		<script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+		<script src="/assets/vendor/jquery.easing/jquery.easing.min.js"></script>
+		<script src="/assets/vendor/php-email-form/validate.js"></script>
+		<script src="/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+		<script src="/assets/vendor/counterup/counterup.min.js"></script>
+		<script src="/assets/vendor/venobox/venobox.min.js"></script>
+		<script src="/assets/vendor/owl.carousel/owl.carousel.min.js"></script>
+		<script src="/assets/vendor/waypoints/jquery.waypoints.min.js"></script>
+		<script src="/assets/vendor/aos/aos.js"></script>
+	
+		<!-- Template Main JS File -->
+		<script src="/assets/js/main.js"></script>
+	
 	</body>
 </html>

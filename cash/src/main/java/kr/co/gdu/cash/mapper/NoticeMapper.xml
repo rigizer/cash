@@ -9,7 +9,7 @@
     	notice_title as noticeTitle,
     	notice_date as noticeDate
     from notice
-    order by notice_date desc
+    order by notice_id desc
     limit 0, 5
   </select>
   
@@ -19,7 +19,7 @@
     	notice_title as noticeTitle,
     	notice_date as noticeDate
     from notice
-    order by notice_date desc
+    order by notice_id desc
     limit #{beginRow}, #{rowPerPage}
   </select>
   
