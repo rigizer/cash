@@ -209,10 +209,10 @@
 											<c:forEach var="c" items="${cashList}">
 												<c:if test="${i - (firstDayOfWeek - 1) == c.dDay}">
 													<c:if test="${c.cashbookKind == '수입'}">
-														<div>수입 : <script>document.write(addComma(${c.cashbookPrice}));</script></div>
+														<div><font color="blue"><b>수입</b></font> : <script>document.write(addComma(${c.cashbookPrice}));</script></div>
 													</c:if>
 													<c:if test="${c.cashbookKind == '지출'}">
-														<div>지출 : <script>document.write(addComma(${c.cashbookPrice}));</script></div>
+														<div><font color="red"><b>지출</b></font> : <script>document.write(addComma(${c.cashbookPrice}));</script></div>
 													</c:if>
 												</c:if>
 											</c:forEach>

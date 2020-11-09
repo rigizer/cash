@@ -50,6 +50,10 @@
 			.ioTable td {
 				width: 25%;
 			}
+			th {
+				text-align: center;
+				background-color: #F9F9FB;
+			}
 		</style>
 		
 		<script>
