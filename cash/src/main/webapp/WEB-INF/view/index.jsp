@@ -144,7 +144,7 @@
 				<div class="container" data-aos="fade-up">
 					<!-- 공지 -->
 					<h3>공지사항
-						<button type="button" class="btn btn-sm btn-secondary" style="float: right;" onclick="location.href='/admin/noticeList'">더 보기</button>	
+						<button type="button" class="btn btn-sm btn-secondary" style="float: right;" onclick="location.href='/admin/noticeList/1'">더 보기</button>	
 					</h3>
 					<table class="table">
 						<thead>
@@ -158,7 +158,7 @@
 							<c:forEach var="n" items="${noticeList}">
 								<tr>
 									<td>${n.noticeId}</td>
-									<td><a href="/admin/noticeOne?noticeId=${n.noticeId}">${n.noticeTitle}</a></td>
+									<td><a href="/admin/noticeOne/${n.noticeId}">${n.noticeTitle}</a></td>
 									<td>${n.noticeDate}</td>
 								</tr>
 							</c:forEach>

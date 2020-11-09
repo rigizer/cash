@@ -72,7 +72,7 @@
 	
 					<ol>
 						<li><a href="/admin/index">Home</a></li>
-						<li><a href="/admin/cashbookByMonth">CashbookByMonth</a></li>
+						<li><a href="/admin/cashbookByMonth/-1/-1">CashbookByMonth</a></li>
 						<li>CashbookByDay</li>
 						<li>ModifyCashbook</li>
 					</ol>

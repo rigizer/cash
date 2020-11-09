@@ -117,7 +117,7 @@
 	
 					<ol>
 						<li><a href="/admin/index">Home</a></li>
-						<li><a href="/admin/noticeList">NoticeList</a></li>
+						<li><a href="/admin/noticeList/1">NoticeList</a></li>
 						<li>AddNotice</li>
 					</ol>
 					<h2>공지사항 작성</h2>

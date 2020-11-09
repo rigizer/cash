@@ -26,41 +26,10 @@
 	
 	<nav class="main-nav d-none d-lg-block">
 		<ul id="menuList">
-			<script>
-				/*
-					JSTL과 Javascript간의 우선순위 문제로
-					메뉴를 Javascript로 구현
-				*/
-				let elem = '';
-				
-				if (thisPageName == 'index') {
-					elem += '<li class="active"><a href="/admin/index">Home</a></li>';
-				} else {
-					elem += '<li><a href="/admin/index">Home</a></li>';
-				}
-
-				if (thisPageName == "cashbookByMonth" ||
-						thisPageName == "cashbookByDay" ||
-						thisPageName == "addCashbook" ||
-						thisPageName == "modifyCashbookByDay") {
-					elem += '<li class="active"><a href="/admin/cashbookByMonth">Cashbook</a></li>';
-				} else {
-					elem += '<li><a href="/admin/cashbookByMonth">Cashbook</a></li>';
-				}
-
-				if (thisPageName == "noticeList" ||
-						thisPageName == "noticeOne" || 
-						thisPageName == "addNotice" ||
-						thisPageName == "modifyNotice") {
-					elem += '<li class="active"><a href="/admin/noticeList">Notice</a></li>';
-				} else {
-					elem += '<li><a href="/admin/noticeList">Notice</a></li>';
-				}
-
-				elem += '<li><a href="/admin/logout"><font color="red">Logout</font></a></li>';
-
-				document.getElementById('menuList').innerHTML = elem;
-			</script>
+			<li><a href="/admin/index">Home</a></li>
+			<li><a href="/admin/cashbookByMonth/-1/-1">Cashbook</a></li>
+			<li><a href="/admin/noticeList/1">Notice</a></li>
+			<li><a href="/admin/logout"><font color="red">Logout</font></a></li>
 		</ul>
 	</nav>
 </div>

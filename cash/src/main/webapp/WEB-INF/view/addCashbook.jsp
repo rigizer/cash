@@ -93,8 +93,8 @@
 	
 					<ol>
 						<li><a href="/admin/index">Home</a></li>
-						<li><a href="/admin/cashbookByMonth">CashbookByMonth</a></li>
-						<li>CashbookByDay</li>
+						<li><a href="/admin/cashbookByMonth/-1/-1">CashbookByMonth</a></li>
+						<li><a href="/admin/cashbookByDay/default/${currentYear}/${currentMonth}/${currentDay}">CashbookByDay</a></li>
 						<li>AddCashbook</li>
 					</ol>
 					<h2>가계부 작성</h2>
@@ -110,7 +110,7 @@
 							<tr>
 								<td>날짜</td>
 								<td>
-									<input type="text" class="form-control" name="cashbookDate" value="${param.currentYear}-${param.currentMonth}-${param.currentDay}" readonly="readonly">
+									<input type="text" class="form-control" name="cashbookDate" value="${currentYear}-${currentMonth}-${currentDay}" readonly="readonly">
 								</td>
 							</tr>			
 							<tr>

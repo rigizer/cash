@@ -110,7 +110,7 @@
 							<c:forEach var="n" items="${noticeList}">
 								<tr>
 									<td>${n.noticeId}</td>
-									<td><a href="/admin/noticeOne?noticeId=${n.noticeId}">${n.noticeTitle}</a></td>
+									<td><a href="/admin/noticeOne/${n.noticeId}">${n.noticeTitle}</a></td>
 									<td>${n.noticeDate}</td>
 								</tr>
 							</c:forEach>
@@ -125,7 +125,7 @@
 						<c:choose>
 							<c:when test="${currentPage > 1}">
 								<li class="page-item">
-									<a class="page-link" href="/admin/noticeList?currentPage=1">
+									<a class="page-link" href="/admin/noticeList/1">
 										<i class='fas fa-angle-double-left'></i>
 									</a>
 								</li>
@@ -143,7 +143,7 @@
 						<c:choose>
 							<c:when test="${currentPage > 1}">
 								<li class="page-item">
-									<a class="page-link" href="/admin/noticeList?currentPage=${currentPage - 1}">
+									<a class="page-link" href="/admin/noticeList/${currentPage - 1}">
 										<i class='fas fa-angle-left'></i>
 									</a>
 								</li>
@@ -170,7 +170,7 @@
 									<%-- 현재 페이지가 아닌 선택 가능한 페이지 --%>
 									<c:otherwise>
 										<li class="page-item">
-											<a class="page-link" href="/admin/noticeList?currentPage=${i}">${i}</a>
+											<a class="page-link" href="/admin/noticeList/${i}">${i}</a>
 										</li>
 									</c:otherwise>
 								</c:choose>
@@ -181,7 +181,7 @@
 						<c:choose>
 							<c:when test="${currentPage < lastPage}">
 								<li class="page-item">
-									<a class="page-link" href="/admin/noticeList?currentPage=${currentPage + 1}">
+									<a class="page-link" href="/admin/noticeList/${currentPage + 1}">
 										<i class='fas fa-angle-right'></i>
 									</a>
 								</li>
@@ -199,7 +199,7 @@
 						<c:choose>
 							<c:when test="${currentPage < lastPage}">
 								<li class="page-item">
-									<a class="page-link" href="/admin/noticeList?currentPage=${lastPage}">
+									<a class="page-link" href="/admin/noticeList/${lastPage}">
 										<i class='fas fa-angle-double-right'></i>
 									</a>
 								</li>

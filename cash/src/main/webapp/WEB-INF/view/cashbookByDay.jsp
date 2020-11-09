@@ -93,7 +93,7 @@
 	
 					<ol>
 						<li><a href="/admin/index">Home</a></li>
-						<li><a href="/admin/cashbookByMonth">CashbookByMonth</a></li>
+						<li><a href="/admin/cashbookByMonth/-1/-1">CashbookByMonth</a></li>
 						<li>CashbookByDay</li>
 					</ol>
 					<h2>일일 가계부</h2>
@@ -108,7 +108,8 @@
 						<tr>
 							<td width="20%">&nbsp;</td>
 							<td width="15%" style="text-align: right;">
-								<button type="button" class="btn btn-secondary" onclick="location.href='/admin/cashbookByDay?target=pre&currentYear=${currentYear}&currentMonth=${currentMonth}&currentDay=${currentDay}'">
+								<!-- 이전 -->
+								<button type="button" class="btn btn-secondary" onclick="location.href='/admin/cashbookByDay/pre/${currentYear}/${currentMonth}/${currentDay}'">
 									&nbsp;<i class='fas fa-angle-left' style='font-size:36px'></i>&nbsp;
 								</button>
 							</td>
@@ -116,7 +117,8 @@
 								<h3>${currentYear}년 ${currentMonth}월 ${currentDay}일</h3>
 							</td>
 							<td width="15%" style="text-align: left;">
-								<button type="button" class="btn btn-secondary" onclick="location.href='/admin/cashbookByDay?target=next&currentYear=${currentYear}&currentMonth=${currentMonth}&currentDay=${currentDay}'">
+								<!-- 이후 -->
+								<button type="button" class="btn btn-secondary" onclick="location.href='/admin/cashbookByDay/next/${currentYear}/${currentMonth}/${currentDay}'">
 									&nbsp;<i class='fas fa-angle-right' style='font-size:36px'></i>&nbsp;
 								</button>
 							</td>
@@ -125,7 +127,7 @@
 					</table>
 					
 					<h3>&nbsp;
-						<button type="button" class="btn btn-sm btn-success" style="float: right;" onclick="location.href='/admin/addCashbook?currentYear=${currentYear}&currentMonth=${currentMonth}&currentDay=${currentDay}'">수입/지출 입력</button>	
+						<button type="button" class="btn btn-sm btn-success" style="float: right;" onclick="location.href='/admin/addCashbook/${currentYear}/${currentMonth}/${currentDay}'">수입/지출 입력</button>	
 					</h3>
 					
 					<table class="table">
@@ -148,10 +150,10 @@
 										<td><script>document.write(addComma(${c.cashbookPrice}));</script></td>
 										<td>${c.cashbookContent}</td>
 										<td>
-											<button class="btn btn-sm btn-primary" onclick="location.href='/admin/modifyCashbookByDay?cashbookId=${c.cashbookId}'">수정</button>
+											<button class="btn btn-sm btn-primary" onclick="location.href='/admin/modifyCashbookByDay/${c.cashbookId}'">수정</button>
 										</td>
 										<td>
-											<button class="btn btn-sm btn-danger" onclick="location.href='/admin/removeCashbookByDay?cashbookId=${c.cashbookId}'">삭제</button>
+											<button class="btn btn-sm btn-danger" onclick="location.href='/admin/removeCashbookByDay/${c.cashbookId}'">삭제</button>
 										</td>
 									</tr>
 								</c:forEach>

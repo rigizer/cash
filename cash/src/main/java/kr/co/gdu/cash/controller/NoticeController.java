@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -18,9 +19,9 @@ public class NoticeController {
 	@Autowired private NoticeService noticeService;
 	
 	// 공지사항 목록
-	@GetMapping("/admin/noticeList")
+	@GetMapping("/admin/noticeList/{currentPage}")
 	public String noticeList(Model model,
-			@RequestParam(value = "", defaultValue = "1") int currentPage) {
+			@PathVariable(value = "") int currentPage) {
 		int rowPerPage = 10;
 		
 		List<Notice> noticeList = noticeService.getNoticeListPage(currentPage, rowPerPage);
@@ -71,13 +72,13 @@ public class NoticeController {
 		System.out.println("Debug: " + notice);
 		noticeService.addNotice(notice);
 		
-		return "redirect:/admin/noticeList";
+		return "redirect:/admin/noticeList/1";
 	}
 	
 	// 공지사항 상세 페이지
-	@GetMapping("/admin/noticeOne")
+	@GetMapping("/admin/noticeOne/{noticeId}")
 	public String noticeOne(Model model, 
-			@RequestParam(value = "noticeId") int noticeId) {
+			@PathVariable(value = "noticeId") int noticeId) {
 		
 		Notice notice = noticeService.getNoticeOne(noticeId);
 		System.out.println("Debug: " + notice);
@@ -87,20 +88,20 @@ public class NoticeController {
 	}
 	
 	// 공지사항 삭제
-	@GetMapping("/admin/removeNotice")
+	@GetMapping("/admin/removeNotice/{noticeId}")
 	public String removeNotice(Model model, 
-			@RequestParam(value = "noticeId") int noticeId) {
+			@PathVariable(value = "noticeId") int noticeId) {
 		
 		System.out.println("Debug: noticeId[" + noticeId + "] 삭제");
 		noticeService.removeNotice(noticeId);
 		
-		return "redirect:/admin/noticeList";
+		return "redirect:/admin/noticeList/1";
 	}
 	
 	// 공지사항 수정 Form
-	@GetMapping("/admin/modifyNotice")
+	@GetMapping("/admin/modifyNotice/{noticeId}")
 	public String modifyNoticeForm(Model model, 
-			@RequestParam(value = "noticeId") int noticeId) {
+			@PathVariable(value = "noticeId") int noticeId) {
 	
 		Notice notice = noticeService.getNoticeOne(noticeId);
 		System.out.println("Debug: " + notice);
@@ -115,6 +116,6 @@ public class NoticeController {
 		System.out.println("Debug: " + notice);
 		noticeService.modifyNotice(notice);
 		
-		return "redirect:/admin/noticeOne?noticeId=" + notice.getNoticeId();
+		return "redirect:/admin/noticeOne/" + notice.getNoticeId();
 	}
 }

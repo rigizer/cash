@@ -136,7 +136,7 @@
 								</div>
 							</td>
 							<td width="15%" style="text-align: right;">
-								<button type="button" class="btn btn-secondary" onclick="location.href='/admin/cashbookByMonth?currentYear=${currentYear}&currentMonth=${currentMonth - 1}'">
+								<button type="button" class="btn btn-secondary" onclick="location.href='/admin/cashbookByMonth/${currentYear}/${currentMonth - 1}'">
 									<i class='fas fa-angle-double-left' style='font-size:36px'></i>
 								</button>
 		
@@ -145,7 +145,7 @@
 								<h3>${currentYear}년 ${currentMonth}월</h3>
 							</td>
 							<td width="15%" style="text-align: left;">
-								<button type="button" class="btn btn-secondary" onclick="location.href='/admin/cashbookByMonth?currentYear=${currentYear}&currentMonth=${currentMonth + 1}'">
+								<button type="button" class="btn btn-secondary" onclick="location.href='/admin/cashbookByMonth/${currentYear}/${currentMonth + 1}'">
 									<i class='fas fa-angle-double-right' style='font-size:36px'></i>
 								</button>
 							</td>
@@ -187,21 +187,21 @@
 											<!-- 일요일 -->
 											<c:if test="${i % 7 == 1}">
 												<div class="sunday">
-													<a href="/admin/cashbookByDay?currentYear=${currentYear}&currentMonth=${currentMonth}&currentDay=${i - (firstDayOfWeek - 1)}">${i - (firstDayOfWeek - 1)}</a>
+													<a href="/admin/cashbookByDay/default/${currentYear}/${currentMonth}/${i - (firstDayOfWeek - 1)}">${i - (firstDayOfWeek - 1)}</a>
 												</div>
 											</c:if>
 											
 											<!-- 토요일 -->
 											<c:if test="${i % 7 == 0}">
 												<div class="saturday">
-													<a href="/admin/cashbookByDay?currentYear=${currentYear}&currentMonth=${currentMonth}&currentDay=${i - (firstDayOfWeek - 1)}">${i - (firstDayOfWeek - 1)}</a>
+													<a href="/admin/cashbookByDay/default/${currentYear}/${currentMonth}/${i - (firstDayOfWeek - 1)}">${i - (firstDayOfWeek - 1)}</a>
 												</div>
 											</c:if>
 											
 											<!-- 평일 (월요일 ~ 금요일) -->
 											<c:if test="${i % 7 != 1 && i % 7 != 0}">
 												<div class="weekday">
-													<a href="/admin/cashbookByDay?currentYear=${currentYear}&currentMonth=${currentMonth}&currentDay=${i - (firstDayOfWeek - 1)}">${i - (firstDayOfWeek - 1)}</a>
+													<a href="/admin/cashbookByDay/default/${currentYear}/${currentMonth}/${i - (firstDayOfWeek - 1)}">${i - (firstDayOfWeek - 1)}</a>
 												</div>
 											</c:if>
 											

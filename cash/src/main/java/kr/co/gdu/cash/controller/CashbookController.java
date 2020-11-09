@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -19,10 +20,10 @@ public class CashbookController {
 	@Autowired private CategoryService categoryService;
 	@Autowired private CashbookService cashbookService;
 	
-	@GetMapping(value="/admin/cashbookByMonth")
+	@GetMapping(value="/admin/cashbookByMonth/{currentYear}/{currentMonth}")
 	public String cashbookByMonth(Model model, 
-			@RequestParam(name = "currentYear", defaultValue = "-1") int currentYear, 		// request.getParameter("currentYear", currentYear);와 동일한 코드
-			@RequestParam(name = "currentMonth", defaultValue = "-1") int currentMonth) {	// request.getParameter("currentMonth", currentMonth);와 동일한 코드
+			@PathVariable(name = "currentYear") int currentYear, 		// request.getParameter("currentYear", currentYear);와 동일한 코드
+			@PathVariable(name = "currentMonth") int currentMonth) {	// request.getParameter("currentMonth", currentMonth);와 동일한 코드
 		
 		// 1. 요청 분석
 		Calendar currentDay = Calendar.getInstance();	// 오늘 날짜
@@ -81,12 +82,12 @@ public class CashbookController {
 	}
 	
 	// cashbookByDay 상세 페이지
-	@GetMapping(value="/admin/cashbookByDay")
+	@GetMapping(value="/admin/cashbookByDay/{target}/{currentYear}/{currentMonth}/{currentDay}")
 	public String cashbookByDay(Model model,
-			@RequestParam(name = "target", defaultValue="") String target,				// pre, next
-			@RequestParam(name = "currentYear", required = true) int currentYear, 		// request.getParameter("currentYear", currentYear);와 동일한 코드
-			@RequestParam(name = "currentMonth", required = true) int currentMonth, 	// request.getParameter("currentMonth", currentMonth);와 동일한 코드
-			@RequestParam(name = "currentDay", required = true) int currentDay) {		// request.getParameter("currentDay", currentDay);와 동일한 코드
+			@PathVariable(name = "target") String target,								// pre, next, default
+			@PathVariable(name = "currentYear", required = true) int currentYear, 		// request.getParameter("currentYear", currentYear);와 동일한 코드
+			@PathVariable(name = "currentMonth", required = true) int currentMonth, 	// request.getParameter("currentMonth", currentMonth);와 동일한 코드
+			@PathVariable(name = "currentDay", required = true) int currentDay) {		// request.getParameter("currentDay", currentDay);와 동일한 코드
 
 		Calendar targetDay = Calendar.getInstance();
 		targetDay.set(Calendar.YEAR, currentYear);
@@ -114,14 +115,18 @@ public class CashbookController {
 	}
 	
 	// cashbookByDay 입력 Form
-	@GetMapping(value="/admin/addCashbook")
+	@GetMapping(value="/admin/addCashbook/{currentYear}/{currentMonth}/{currentDay}")
 	public String addCashbook(Model model, 
-			@RequestParam(name = "currentYear", required = true) int currentYear, 		// request.getParameter("currentYear", currentYear);와 동일한 코드
-			@RequestParam(name = "currentMonth", required = true) int currentMonth, 	// request.getParameter("currentMonth", currentMonth);와 동일한 코드
-			@RequestParam(name = "currentDay", required = true) int currentDay) {		// request.getParameter("currentDay", currentDay);와 동일한 코드
+			@PathVariable(name = "currentYear", required = true) int currentYear, 		// request.getParameter("currentYear", currentYear);와 동일한 코드
+			@PathVariable(name = "currentMonth", required = true) int currentMonth, 	// request.getParameter("currentMonth", currentMonth);와 동일한 코드
+			@PathVariable(name = "currentDay", required = true) int currentDay) {		// request.getParameter("currentDay", currentDay);와 동일한 코드
 		
 		List<Category> categoryList = categoryService.getCategoryList();
 		model.addAttribute("categoryList", categoryList);
+		
+		model.addAttribute("currentYear", currentYear);
+		model.addAttribute("currentMonth", currentMonth);
+		model.addAttribute("currentDay", currentDay);
 		
 		return "addCashbook";
 	}
@@ -132,7 +137,7 @@ public class CashbookController {
 		//System.out.println(cashbook);
 		cashbookService.addCashbook(cashbook);
 		
-		return "redirect:/admin/cashbookByMonth";	// response.sendRedirect();
+		return "redirect:/admin/cashbookByMonth/-1/-1";	// response.sendRedirect();
 	}
 	
 	// cashbookByDay 삭제
@@ -143,13 +148,13 @@ public class CashbookController {
 		System.out.println("Debug: cashbookId[" + cashbookId + "] 삭제");
 		cashbookService.removeCashbook(cashbookId);
 		
-		return "redirect:/admin/cashbookByMonth";
+		return "redirect:/admin/cashbookByMonth/-1/-1";
 	}
 	
 	// cashbookByDay 수정 Form
-	@GetMapping("/admin/modifyCashbookByDay")
+	@GetMapping("/admin/modifyCashbookByDay/{cashbookId}")
 	public String modifyCashbookForm(Model model, 
-			@RequestParam(value = "cashbookId") int cashbookId) {
+			@PathVariable(value = "cashbookId") int cashbookId) {
 	
 		Cashbook cashbook = cashbookService.getCashbookByDay(cashbookId);
 		System.out.println("Debug: " + cashbook);
@@ -168,6 +173,6 @@ public class CashbookController {
 		System.out.println("Debug: " + cashbook);
 		cashbookService.modifyCashbook(cashbook);
 		
-		return "redirect:/admin/cashbookByMonth";
+		return "redirect:/admin/cashbookByMonth/-1/-1";
 	}
 }
