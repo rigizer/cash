@@ -29,6 +29,7 @@
 			<li><a href="/admin/index">Home</a></li>
 			<li><a href="/admin/cashbookByMonth/-1/-1">Cashbook</a></li>
 			<li><a href="/admin/noticeList/1">Notice</a></li>
+			<li><a href="http://localhost:8080/cashStats.html">Statistics</a></li>
 			<li><a href="/admin/logout"><font color="red">Logout</font></a></li>
 		</ul>
 	</nav>
