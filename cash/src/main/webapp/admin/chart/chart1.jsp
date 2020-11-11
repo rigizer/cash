@@ -157,7 +157,7 @@
 	<script>
 		<!-- Table -->
 		$.ajax({
-			url:'/admin/totalOfMonthByYear',
+			url:${pageContext.request.contextPath}+'/admin/totalOfMonthByYear',
 		    type:'GET',
 		    success: function(data) {
 				// console.log(data);
@@ -222,7 +222,7 @@
 	
 		<!-- Chart -->
 		$.ajax({
-		     url:'/admin/totalOfMonthByYear',
+		     url:${pageContext.request.contextPath}+'/admin/totalOfMonthByYear',
 		     type:'GET',
 		     success: function(data) {
 		        var ctx = document.getElementById('totalOfMonthByYearChartResult').getContext('2d');
