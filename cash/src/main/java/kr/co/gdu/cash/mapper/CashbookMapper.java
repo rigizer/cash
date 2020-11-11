@@ -4,8 +4,7 @@ import java.util.*;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import kr.co.gdu.cash.vo.Cashbook;
-import kr.co.gdu.cash.vo.Notice;
+import kr.co.gdu.cash.vo.*;
 
 /*
  * @Compoment
@@ -14,6 +13,16 @@ import kr.co.gdu.cash.vo.Notice;
 
 @Mapper
 public interface CashbookMapper {
+	// 전체 Cashbook의 수입/지출 목록을 페이징을 적용하여 출력
+	// int beginRow, int rowPerPage를 받아온다
+	List<Cashbook> selectCashbookListByPage(Map<String, Object> map);
+	
+	// cashbookList 페이지 카운트
+	int countCashbookList();
+	
+	// 페이징 없이 전체 cashbook의 목록을 출력 (Excel)
+	List<Cashbook> selectCashbookListAll();
+	
 	List<Map<String, Object>> selectCashInOutList();
 	Integer selectSumCashbookPriceByInOut(Map<String, Object> map);
 	//int selectSumCashbookPriceByInOut(String cashbookKind, int year, int month);

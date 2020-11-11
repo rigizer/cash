@@ -6,7 +6,7 @@
 		<meta charset="utf-8">
 		<meta content="width=device-width, initial-scale=1.0" name="viewport">
 		
-		<title>index</title>
+		<title>chart3</title>
 		<meta content="" name="descriptison">
 		<meta content="" name="keywords">
 		
@@ -34,8 +34,11 @@
 		<!-- Template Main CSS File -->
 		<link href="${pageContext.request.contextPath}/assets/css/style.css" rel="stylesheet">
 		
+		<!-- Bootstrap 4 Icons -->
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+		
 		<style>
-			.table {
+			table {
 				text-align: center;
 			}
 			
@@ -43,12 +46,14 @@
 				vertical-align: middle;
 			}
 			
-			.table a {
-				color: #000000;
+			.cashbookTableMenu {
+				width: 100%;
+				text-align: center;
 			}
 			
-			.ioTable td {
-				width: 25%;
+			.cashbookTableMenu td {
+				vertical-align: middle;
+				height: 120px;
 			}
 			th {
 				text-align: center;
@@ -57,6 +62,7 @@
 		</style>
 		
 		<script>
+			// 금액 숫자에 콤마 찍는 함수
 			function addComma(num) {
 				let regexp = /\B(?=(\d{3})+(?!\d))/g;
 				return num.toString().replace(regexp, ',');
@@ -65,109 +71,42 @@
 	</head>
 	
 	<body>
-		
+	
 		<!-- ======= Top Bar ======= -->
-	  	<div id="topbar" class="d-none d-lg-flex align-items-end fixed-top topbar-transparent">
-	    	<div class="container d-flex justify-content-end">
-	      		&nbsp;
-	    	</div>
-	  	</div>
+		<div id="topbar" class="d-none d-lg-flex align-items-end fixed-top ">
+		    <div class="container d-flex justify-content-end">
+		      	&nbsp;
+		    </div>
+	    </div>
 	
 		<!-- ======= Header ======= -->
-		<header id="header" class="fixed-top header-transparent">
-			<div class="container d-flex align-items-center">				
-				<jsp:include page="/WEB-INF/view/inc/menu.jsp" />
-			</div>
+		<header id="header" class="fixed-top">
+			<jsp:include page="/WEB-INF/view/inc/menu.jsp" />
 		</header>
 		<!-- End Header -->
 	
-		<!-- ======= Hero Section ======= -->
-		<!-- 수입/지출/총계 -->
-		<section id="hero" class="clearfix">
-			<div class="container d-flex h-100">
-				<div class="row justify-content-center align-self-center" data-aos="fade-up" style="width: 100%; text-align: center;">
-			        <div style="display: inline-block;" class="col-md-12 intro-img order-md-last order-first" data-aos="zoom-out" data-aos-delay="0">
-			        	<h1>최근 수입/지출 내역</h1>
-			        	<br><br>
-			        </div>
-			        <br>
-			        <input type="hidden" value="${i = 0}">
-			        <c:forEach var="io" items="${inOutList}">
-			        	<input type="hidden" value="${i = i + 200}">
-				        <div style="display: inline-block;" class="col-md-4 intro-img order-md-last order-first" data-aos="zoom-out" data-aos-delay="${i}">
-				          	<div class="card">
-				          		<div class="card-header">
-				          			<font size="5em"><b>${io["날짜"]}</b></font>
-				          		</div>
-							  	<div class="card-body">
-							  		<br>
-									<table class="table" style="margin: auto; text-align: center; width: 80%;">
-										<tr>
-											<td width="40%">
-												<font size="4em">수입</font>
-											</td>
-											<td width="60%">
-												<script>document.write(addComma(${io["수입"]}));</script>
-											</td>
-										</tr>
-										<tr style="border-collapse: separate; border-spacing: 0 10px;">
-											<td>
-												<font size="4em">지출</font>
-											</td>
-											<td>
-												<script>document.write(addComma(${io["지출"]}));</script>
-											</td>
-										</tr>
-										<tr style="border-collapse: separate; border-spacing: 0 10px;">
-											<td>
-												<font size="4em">합계</font>
-											</td>
-											<td>
-												<script>document.write(addComma(${io["합계"]}));</script>
-											</td>
-										</tr>
-									</table>
-									<br>
-								</div>
-							</div>
-				    	</div>
-				    </c:forEach>
-				</div>
-			</div>
-		</section>
-	
 		<main id="main">
 	
-			<!-- ======= About Section ======= -->
-			<section id="about" class="about">
+			<!-- ======= Breadcrumbs ======= -->
+			<section id="breadcrumbs" class="breadcrumbs">
+				<div class="container">
 	
-				<div class="container" data-aos="fade-up">
-					<!-- 공지 -->
-					<h3>공지사항
-						<button type="button" class="btn btn-sm btn-secondary" style="float: right;" onclick="location.href='/admin/noticeList/1'">더 보기</button>	
-					</h3>
-					<table class="table">
-						<thead>
-							<tr>
-								<th width="15%">번호</th>
-								<th width="60%">제목</th>
-								<th width="25%">날짜</th>
-							</tr>
-						</thead>
-						<tbody>
-							<c:forEach var="n" items="${noticeList}">
-								<tr>
-									<td>${n.noticeId}</td>
-									<td><a href="${pageContext.request.contextPath}/admin/noticeOne/${n.noticeId}">${n.noticeTitle}</a></td>
-									<td>${n.noticeDate}</td>
-								</tr>
-							</c:forEach>
-						</tbody>
-					</table>
+					<ol>
+						<li><a href="${pageContext.request.contextPath}/admin/index">Home</a></li>
+						<li>Statistics</li>
+						<li>Chart3</li>
+					</ol>
+					<h2>Chart 3</h2>
+	
 				</div>
-	
 			</section>
-			<!-- End About Section -->
+			<!-- End Breadcrumbs -->
+	
+			<section class="inner-page pt-4">
+				<div class="container">
+					asdf
+				</div>
+			</section>
 	
 		</main>
 		<!-- End #main -->
@@ -198,7 +137,15 @@
 	
 		<!-- Template Main JS File -->
 		<script src="${pageContext.request.contextPath}/assets/js/main.js"></script>
-	
-	</body>
+		
+		<!-- jQuery Google CDN -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		
+		<!-- Chart.js CDN -->
+		<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+		
+		<script>
 
+		</script>
+	</body>
 </html>

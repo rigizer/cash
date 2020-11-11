@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.gdu.cash.restmapper.CashRestMapper">
+   <select id="selectTotalOfMonthByYear" resultType="java.util.Map">
+      SELECT
+         SUM(CASE WHEN MONTH(cashbook_date)=1 THEN cashbook_price END) january,
+         SUM(CASE WHEN MONTH(cashbook_date)=2 THEN cashbook_price END) february,
+         SUM(CASE WHEN MONTH(cashbook_date)=3 THEN cashbook_price END) march,
+         SUM(CASE WHEN MONTH(cashbook_date)=4 THEN cashbook_price END) april,
+         SUM(CASE WHEN MONTH(cashbook_date)=5 THEN cashbook_price END) may,
+         SUM(CASE WHEN MONTH(cashbook_date)=6 THEN cashbook_price END) june,
+         SUM(CASE WHEN MONTH(cashbook_date)=7 THEN cashbook_price END) july,
+         SUM(CASE WHEN MONTH(cashbook_date)=8 THEN cashbook_price END) august,
+         SUM(CASE WHEN MONTH(cashbook_date)=9 THEN cashbook_price END) september,
+         SUM(CASE WHEN MONTH(cashbook_date)=10 THEN cashbook_price END) october,
+         SUM(CASE WHEN MONTH(cashbook_date)=11 THEN cashbook_price END) november,
+         SUM(CASE WHEN MONTH(cashbook_date)=12 THEN cashbook_price END) december
+      FROM cashbook
+      WHERE YEAR(cashbook_date) = 2019
+      AND cashbook.cashbook_kind = '지출';
+   </select>
+   
+   <select id="selectTotalOutAndInByYear" parameterType="int" resultType="java.util.Map">
+      SELECT YEAR(cashbook_date) '년',
+      sum(case when cashbook_kind='수입' then cashbook_price END) '수입',
+      sum(case when cashbook_kind='지출' then cashbook_price END) '지출'
+      FROM cashbook
+      WHERE YEAR(cashbook_date) = #{year}
+      GROUP BY Year(cashbook_date);
+   </select>
+</mapper>

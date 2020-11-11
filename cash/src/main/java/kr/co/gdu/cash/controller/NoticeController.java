@@ -3,6 +3,8 @@ package kr.co.gdu.cash.controller;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -89,7 +91,7 @@ public class NoticeController {
 	
 	// 공지사항 삭제
 	@GetMapping("/admin/removeNotice/{noticeId}")
-	public String removeNotice(Model model, 
+	public String removeNotice(Model model,
 			@PathVariable(value = "noticeId") int noticeId) {
 		
 		System.out.println("Debug: noticeId[" + noticeId + "] 삭제");

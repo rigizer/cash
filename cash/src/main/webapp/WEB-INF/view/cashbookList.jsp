@@ -6,7 +6,7 @@
 		<meta charset="utf-8">
 		<meta content="width=device-width, initial-scale=1.0" name="viewport">
 		
-		<title>cashbookByDay</title>
+		<title>cashbookList</title>
 		<meta content="" name="descriptison">
 		<meta content="" name="keywords">
 		
@@ -38,7 +38,7 @@
 		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
 		
 		<style>
-			table {
+			.table {
 				text-align: center;
 			}
 			
@@ -46,14 +46,12 @@
 				vertical-align: middle;
 			}
 			
-			.cashbookTableMenu {
-				width: 100%;
-				text-align: center;
+			.table a {
+				color: #000000;
 			}
 			
-			.cashbookTableMenu td {
-				vertical-align: middle;
-				height: 120px;
+			.ioTable td {
+				width: 25%;
 			}
 			th {
 				text-align: center;
@@ -93,77 +91,154 @@
 	
 					<ol>
 						<li><a href="${pageContext.request.contextPath}/admin/index">Home</a></li>
-						<li><a href="${pageContext.request.contextPath}/admin/cashbookByMonth/-1/-1">CashbookByMonth</a></li>
-						<li>CashbookByDay</li>
+						<li>CashbookList</a></li>
 					</ol>
-					<h2>일일 가계부</h2>
-	
+					<h2>가계부 수입/지출 전체 목록</h2>
 				</div>
 			</section>
 			<!-- End Breadcrumbs -->
 	
 			<section class="inner-page pt-4">
 				<div class="container">
-					<table class="cashbookTableMenu">
-						<tr>
-							<td width="20%">&nbsp;</td>
-							<td width="15%" style="text-align: right;">
-								<!-- 이전 -->
-								<button type="button" class="btn btn-secondary" onclick="location.href='/admin/cashbookByDay/pre/${currentYear}/${currentMonth}/${currentDay}'">
-									&nbsp;<i class='fas fa-angle-left' style='font-size:36px'></i>&nbsp;
-								</button>
-							</td>
-							<td width="30%">
-								<h3>${currentYear}년 ${currentMonth}월 ${currentDay}일</h3>
-							</td>
-							<td width="15%" style="text-align: left;">
-								<!-- 이후 -->
-								<button type="button" class="btn btn-secondary" onclick="location.href='/admin/cashbookByDay/next/${currentYear}/${currentMonth}/${currentDay}'">
-									&nbsp;<i class='fas fa-angle-right' style='font-size:36px'></i>&nbsp;
-								</button>
-							</td>
-							<td width="20%">&nbsp;</td>
-						</tr>
-					</table>
-					
 					<h3>&nbsp;
-						<button type="button" class="btn btn-sm btn-success" style="float: right;" onclick="location.href='/admin/addCashbook/${currentYear}/${currentMonth}/${currentDay}'">수입/지출 입력</button>	
+						<button type="button" class="btn btn-sm btn-success" style="float: right;" onclick="location.href='/admin/cashbookListExcel'">전체 가계부 리스트 Excel 다운로드</button>	
 					</h3>
-					
-					<table class="table">
+				
+					<table class="table table-hover">
 						<thead>
-							<th width="10%">번호</th>
-							<th width="10%">수입/지출</th>
-							<th width="15%">카테고리</th>
-							<th width="20%">금액</th>
-							<th width="25%">내용</th>
-							<th width="10%">수정</th>
-							<th width="10%">삭제</th>
+							<tr>
+								<th>번호</th>
+								<th>수입/지출</th>
+								<th>카테고리</th>
+								<th>금액</th>
+								<th>내용</th>
+								<th>날짜</th>
+								<th>데이터 생성일시</th>
+								<th>최종 수정일시</th>
+							</tr>
 						</thead>
 						<tbody>
-							<c:if test="${!empty cashbookList}">
-								<c:forEach var="c" items="${cashbookList}">
-									<tr>
-										<td>${c.cashbookId}</td>
-										<td>${c.cashbookKind}</td>
-										<td>${c.categoryName}</td>
-										<td><script>document.write(addComma(${c.cashbookPrice}));</script></td>
-										<td>${c.cashbookContent}</td>
-										<td>
-											<button class="btn btn-sm btn-primary" onclick="location.href='/admin/modifyCashbookByDay/${c.cashbookId}'">수정</button>
-										</td>
-										<td>
-											<button class="btn btn-sm btn-danger" onclick="location.href='/admin/removeCashbookByDay/${c.cashbookId}'">삭제</button>
-										</td>
-									</tr>
-								</c:forEach>
-							</c:if>
-							<c:if test="${empty cashbookList}">
+							<c:forEach var="c" items="${cashbookList}">
 								<tr>
-									<td colspan="7"><br>조회된 데이터가 없습니다<br></td>
+									<td>${c.cashbookId}</td>
+									<td>${c.cashbookKind}</td>
+									<td>${c.categoryName}</td>
+									<td>${c.cashbookPrice}</td>
+									<td>${c.cashbookContent}</td>
+									<td>${c.cashbookDate}</td>
+									<td>${c.createDate}</td>
+									<td>${c.updateDate}</td>
 								</tr>
-							</c:if>
+							</c:forEach>
 						</tbody>
+					</table>
+					
+					<br>
+					
+					<!-- 페이지 네비게이션 -->
+					<ul class="pagination justify-content-center">
+						<!-- 처음으로 버튼 -->
+						<c:choose>
+							<c:when test="${currentPage > 1}">
+								<li class="page-item">
+									<a class="page-link" href="${pageContext.request.contextPath}/admin/cashbookList/1">
+										<i class='fas fa-angle-double-left'></i>
+									</a>
+								</li>
+							</c:when>
+							<c:otherwise>
+								<li class="page-item disabled">
+									<a class="page-link" href="#">
+										<i class='fas fa-angle-double-left'></i>
+									</a>
+								</li>
+							</c:otherwise>
+						</c:choose>
+						
+						<!-- 이전 버튼 -->
+						<c:choose>
+							<c:when test="${currentPage > 1}">
+								<li class="page-item">
+									<a class="page-link" href="${pageContext.request.contextPath}/admin/cashbookList/${currentPage - 1}">
+										<i class='fas fa-angle-left'></i>
+									</a>
+								</li>
+							</c:when>
+							<c:otherwise>
+								<li class="page-item disabled">
+									<a class="page-link" href="#">
+										<i class='fas fa-angle-left'></i>
+									</a>
+								</li>
+							</c:otherwise>
+						</c:choose>
+						
+						<!-- 현재 페이지 표시 -->
+						<c:forEach var="i" begin="${navFirstPage}" end="${navLastPage}">
+							<c:if test="${i <= lastPage}">
+								<c:choose>
+									<%-- 현재 페이지 --%>
+									<c:when test="${i == currentPage}">
+										<li class="page-item active">
+											<a class="page-link" href="#">${i}</a>
+										</li>
+									</c:when>
+									<%-- 현재 페이지가 아닌 선택 가능한 페이지 --%>
+									<c:otherwise>
+										<li class="page-item">
+											<a class="page-link" href="${pageContext.request.contextPath}/admin/cashbookList/${i}">${i}</a>
+										</li>
+									</c:otherwise>
+								</c:choose>
+							</c:if>
+						</c:forEach>
+						
+						<!-- 다음 버튼 -->
+						<c:choose>
+							<c:when test="${currentPage < lastPage}">
+								<li class="page-item">
+									<a class="page-link" href="${pageContext.request.contextPath}/admin/cashbookList/${currentPage + 1}">
+										<i class='fas fa-angle-right'></i>
+									</a>
+								</li>
+							</c:when>
+							<c:otherwise>
+								<li class="page-item disabled">
+									<a class="page-link" href="#">
+										<i class='fas fa-angle-right'></i>
+									</a>
+								</li>
+							</c:otherwise>
+						</c:choose>
+						
+						<!-- 마지막으로 버튼 -->
+						<c:choose>
+							<c:when test="${currentPage < lastPage}">
+								<li class="page-item">
+									<a class="page-link" href="${pageContext.request.contextPath}/admin/cashbookList/${lastPage}">
+										<i class='fas fa-angle-double-right'></i>
+									</a>
+								</li>
+							</c:when>
+							<c:otherwise>
+								<li class="page-item disabled">
+									<a class="page-link" href="#">
+										<i class='fas fa-angle-double-right'></i>
+									</a>
+								</li>
+							</c:otherwise>
+						</c:choose>
+					</ul>
+					
+					<!-- 총 페이지 수 출력 -->
+					<table style="margin: auto;">
+						<tr>
+							<td>
+								<button type="button" class="btn btn-outline-dark btn-sm">
+									${currentPage} / ${lastPage} 페이지
+								</button>
+							</td>
+						</tr>
 					</table>
 				</div>
 			</section>

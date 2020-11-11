@@ -11,8 +11,8 @@
       <meta content="" name="keywords">
       
       <!-- Favicons -->
-      <link href="/assets/img/favicon.png" rel="icon">
-      <link href="/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+      <link href="${pageContext.request.contextPath}/assets/img/favicon.png" rel="icon">
+      <link href="${pageContext.request.contextPath}/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
       
       <!-- Google Fonts -->
       <link
@@ -20,19 +20,19 @@
          rel="stylesheet">
       
       <!-- Vendor CSS Files -->
-      <link href="/assets/vendor/bootstrap/css/bootstrap.min.css"
+      <link href="${pageContext.request.contextPath}/assets/vendor/bootstrap/css/bootstrap.min.css"
          rel="stylesheet">
-      <link href="/assets/vendor/font-awesome/css/font-awesome.min.css"
+      <link href="${pageContext.request.contextPath}/assets/vendor/font-awesome/css/font-awesome.min.css"
          rel="stylesheet">
-      <link href="/assets/vendor/ionicons/css/ionicons.min.css"
+      <link href="${pageContext.request.contextPath}/assets/vendor/ionicons/css/ionicons.min.css"
          rel="stylesheet">
-      <link href="/assets/vendor/venobox/venobox.css" rel="stylesheet">
-      <link href="/assets/vendor/owl.carousel/assets/owl.carousel.min.css"
+      <link href="${pageContext.request.contextPath}/assets/vendor/venobox/venobox.css" rel="stylesheet">
+      <link href="${pageContext.request.contextPath}/assets/vendor/owl.carousel/assets/owl.carousel.min.css"
          rel="stylesheet">
-      <link href="/assets/vendor/aos/aos.css" rel="stylesheet">
+      <link href="${pageContext.request.contextPath}/assets/vendor/aos/aos.css" rel="stylesheet">
       
       <!-- Template Main CSS File -->
-      <link href="/assets/css/style.css" rel="stylesheet">
+      <link href="${pageContext.request.contextPath}/assets/css/style.css" rel="stylesheet">
       
       <!-- Bootstrap 4 Icons -->
       <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
@@ -143,7 +143,7 @@
             <div class="container">
    
                <ol>
-                  <li><a href="/admin/index">Home</a></li>
+                  <li><a href="${pageContext.request.contextPath}/admin/index">Home</a></li>
                   <li>CashbookByMonth</li>
                </ol>
                <h2>월별 가계부</h2>
@@ -218,21 +218,21 @@
                                  <!-- 일요일 -->
                                  <c:if test="${i % 7 == 1}">
                                     <div class="sunday">
-                                       <a href="/admin/cashbookByDay/default/${currentYear}/${currentMonth}/${i - (firstDayOfWeek - 1)}">${i - (firstDayOfWeek - 1)}</a>
+                                       <a href="${pageContext.request.contextPath}/admin/cashbookByDay/default/${currentYear}/${currentMonth}/${i - (firstDayOfWeek - 1)}">${i - (firstDayOfWeek - 1)}</a>
                                     </div>
                                  </c:if>
                                  
                                  <!-- 토요일 -->
                                  <c:if test="${i % 7 == 0}">
                                     <div class="saturday">
-                                       <a href="/admin/cashbookByDay/default/${currentYear}/${currentMonth}/${i - (firstDayOfWeek - 1)}">${i - (firstDayOfWeek - 1)}</a>
+                                       <a href="${pageContext.request.contextPath}/admin/cashbookByDay/default/${currentYear}/${currentMonth}/${i - (firstDayOfWeek - 1)}">${i - (firstDayOfWeek - 1)}</a>
                                     </div>
                                  </c:if>
                                  
                                  <!-- 평일 (월요일 ~ 금요일) -->
                                  <c:if test="${i % 7 != 1 && i % 7 != 0}">
                                     <div class="weekday">
-                                       <a href="/admin/cashbookByDay/default/${currentYear}/${currentMonth}/${i - (firstDayOfWeek - 1)}">${i - (firstDayOfWeek - 1)}</a>
+                                       <a href="${pageContext.request.contextPath}/admin/cashbookByDay/default/${currentYear}/${currentMonth}/${i - (firstDayOfWeek - 1)}">${i - (firstDayOfWeek - 1)}</a>
                                     </div>
                                  </c:if>
                                  
@@ -284,19 +284,19 @@
       <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
    
       <!-- Vendor JS Files -->
-      <script src="/assets/vendor/jquery/jquery.min.js"></script>
-      <script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-      <script src="/assets/vendor/jquery.easing/jquery.easing.min.js"></script>
-      <script src="/assets/vendor/php-email-form/validate.js"></script>
-      <script src="/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-      <script src="/assets/vendor/counterup/counterup.min.js"></script>
-      <script src="/assets/vendor/venobox/venobox.min.js"></script>
-      <script src="/assets/vendor/owl.carousel/owl.carousel.min.js"></script>
-      <script src="/assets/vendor/waypoints/jquery.waypoints.min.js"></script>
-      <script src="/assets/vendor/aos/aos.js"></script>
+      <script src="${pageContext.request.contextPath}/assets/vendor/jquery/jquery.min.js"></script>
+      <script src="${pageContext.request.contextPath}/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+      <script src="${pageContext.request.contextPath}/assets/vendor/jquery.easing/jquery.easing.min.js"></script>
+      <script src="${pageContext.request.contextPath}/assets/vendor/php-email-form/validate.js"></script>
+      <script src="${pageContext.request.contextPath}/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+      <script src="${pageContext.request.contextPath}/assets/vendor/counterup/counterup.min.js"></script>
+      <script src="${pageContext.request.contextPath}/assets/vendor/venobox/venobox.min.js"></script>
+      <script src="${pageContext.request.contextPath}/assets/vendor/owl.carousel/owl.carousel.min.js"></script>
+      <script src="${pageContext.request.contextPath}/assets/vendor/waypoints/jquery.waypoints.min.js"></script>
+      <script src="${pageContext.request.contextPath}/assets/vendor/aos/aos.js"></script>
    
       <!-- Template Main JS File -->
-      <script src="/assets/js/main.js"></script>
+      <script src="${pageContext.request.contextPath}/assets/js/main.js"></script>
    
    </body>
 </html>

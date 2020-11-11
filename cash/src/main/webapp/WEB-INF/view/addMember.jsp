@@ -6,7 +6,7 @@
 		<meta charset="utf-8">
 		<meta content="width=device-width, initial-scale=1.0" name="viewport">
 		
-		<title>index</title>
+		<title>addMember</title>
 		<meta content="" name="descriptison">
 		<meta content="" name="keywords">
 		
@@ -34,7 +34,14 @@
 		<!-- Template Main CSS File -->
 		<link href="${pageContext.request.contextPath}/assets/css/style.css" rel="stylesheet">
 		
+		<!-- jQuery library -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		
 		<style>
+			textarea {
+				min-height: 300px;
+			}
+		
 			.table {
 				text-align: center;
 			}
@@ -50,124 +57,130 @@
 			.ioTable td {
 				width: 25%;
 			}
-			th {
-				text-align: center;
-				background-color: #F9F9FB;
+			
+			.msgDiv {
+				color: #FF0000;
 			}
 		</style>
 		
+		<!-- jQuery를 이용하여 아이디, 비밀번호 검사 -->
 		<script>
-			function addComma(num) {
-				let regexp = /\B(?=(\d{3})+(?!\d))/g;
-				return num.toString().replace(regexp, ',');
-			}
+			$(document).ready(function() {	// 문서가 로드되면 이 스크립트를 제일 마지막에 실행해주세요
+				$('#id').focus();	// 시작 시 폼 커서를 아이디쪽으로 이동
+
+				$('#id').blur(function(){
+					// 비동기 요청으로 #id를 서버에 보내고 아이디가 중복인지 아닌지 확인한다.
+					
+					// 공백 확인
+					if($('#id').val() == '') {
+						$('#id').focus();
+						return;
+					}
+					
+					$.ajax({
+						url:'/admin/idCheck',
+						type:'POST',
+						data:{id:$('#id').val()},
+						success: function(data) {	// "YES" : 사용가능, "NO" : 사용불가
+							if(data == 'yes') {
+								alert($('#id').val() + '사용가능');
+								$('#pw').focus();
+							} else {
+								alert($('#id').val() + '사용중');
+								$('#id').select();
+								$('#id').focus();
+							}
+						}
+					});
+				});
+				
+				$("#btn").click(function() {	// 버튼 클릭시 폼 내용의 유효성 검사를 수행
+					if ($("#id").val() == '') {	// 아이디가 공백인 경우 수행
+						$("#idMsg").html('');	// 메시지 초기화
+						$('#idMsg').append('<div style="margin-top: 10px;">아이디를 입력하세요<div>');
+						$('#id').focus();
+					
+						return;
+					} else {
+						$("#idMsg").text('');	// 메시지 초기화
+					}
+					
+					if ($("#pw").val() == '') { // 비밀번호가 공백인 경우 수행
+						$("#pwMsg").html('');	// 메시지 초기화
+						$('#pwMsg').append('<div style="margin-top: 10px;">비밀번호를 입력하세요<div>');
+						$('#pw').focus();
+					
+						return;
+					} else {
+						$("#pwMsg").html('');	// 메시지 초기화
+					}
+					$("#memberForm").submit();
+				});
+			});
 		</script>
 	</head>
 	
 	<body>
-		
+	
 		<!-- ======= Top Bar ======= -->
-	  	<div id="topbar" class="d-none d-lg-flex align-items-end fixed-top topbar-transparent">
-	    	<div class="container d-flex justify-content-end">
-	      		&nbsp;
-	    	</div>
-	  	</div>
+		<div id="topbar" class="d-none d-lg-flex align-items-end fixed-top ">
+		    <div class="container d-flex justify-content-end">
+		      	&nbsp;
+		    </div>
+	    </div>
 	
 		<!-- ======= Header ======= -->
-		<header id="header" class="fixed-top header-transparent">
-			<div class="container d-flex align-items-center">				
-				<jsp:include page="/WEB-INF/view/inc/menu.jsp" />
-			</div>
+		<header id="header" class="fixed-top">
+			<jsp:include page="/WEB-INF/view/inc/menu.jsp" />
 		</header>
 		<!-- End Header -->
 	
-		<!-- ======= Hero Section ======= -->
-		<!-- 수입/지출/총계 -->
-		<section id="hero" class="clearfix">
-			<div class="container d-flex h-100">
-				<div class="row justify-content-center align-self-center" data-aos="fade-up" style="width: 100%; text-align: center;">
-			        <div style="display: inline-block;" class="col-md-12 intro-img order-md-last order-first" data-aos="zoom-out" data-aos-delay="0">
-			        	<h1>최근 수입/지출 내역</h1>
-			        	<br><br>
-			        </div>
-			        <br>
-			        <input type="hidden" value="${i = 0}">
-			        <c:forEach var="io" items="${inOutList}">
-			        	<input type="hidden" value="${i = i + 200}">
-				        <div style="display: inline-block;" class="col-md-4 intro-img order-md-last order-first" data-aos="zoom-out" data-aos-delay="${i}">
-				          	<div class="card">
-				          		<div class="card-header">
-				          			<font size="5em"><b>${io["날짜"]}</b></font>
-				          		</div>
-							  	<div class="card-body">
-							  		<br>
-									<table class="table" style="margin: auto; text-align: center; width: 80%;">
-										<tr>
-											<td width="40%">
-												<font size="4em">수입</font>
-											</td>
-											<td width="60%">
-												<script>document.write(addComma(${io["수입"]}));</script>
-											</td>
-										</tr>
-										<tr style="border-collapse: separate; border-spacing: 0 10px;">
-											<td>
-												<font size="4em">지출</font>
-											</td>
-											<td>
-												<script>document.write(addComma(${io["지출"]}));</script>
-											</td>
-										</tr>
-										<tr style="border-collapse: separate; border-spacing: 0 10px;">
-											<td>
-												<font size="4em">합계</font>
-											</td>
-											<td>
-												<script>document.write(addComma(${io["합계"]}));</script>
-											</td>
-										</tr>
-									</table>
-									<br>
-								</div>
-							</div>
-				    	</div>
-				    </c:forEach>
-				</div>
-			</div>
-		</section>
-	
 		<main id="main">
 	
-			<!-- ======= About Section ======= -->
-			<section id="about" class="about">
+			<!-- ======= Breadcrumbs ======= -->
+			<section id="breadcrumbs" class="breadcrumbs">
+				<div class="container">
 	
-				<div class="container" data-aos="fade-up">
-					<!-- 공지 -->
-					<h3>공지사항
-						<button type="button" class="btn btn-sm btn-secondary" style="float: right;" onclick="location.href='/admin/noticeList/1'">더 보기</button>	
-					</h3>
-					<table class="table">
-						<thead>
-							<tr>
-								<th width="15%">번호</th>
-								<th width="60%">제목</th>
-								<th width="25%">날짜</th>
-							</tr>
-						</thead>
-						<tbody>
-							<c:forEach var="n" items="${noticeList}">
-								<tr>
-									<td>${n.noticeId}</td>
-									<td><a href="${pageContext.request.contextPath}/admin/noticeOne/${n.noticeId}">${n.noticeTitle}</a></td>
-									<td>${n.noticeDate}</td>
-								</tr>
-							</c:forEach>
-						</tbody>
-					</table>
+					<ol>
+						<li><a href="${pageContext.request.contextPath}/admin/index">Home</a></li>
+						<li>AddMember</li>
+					</ol>
+					<h2>회원 추가</h2>
+	
 				</div>
-	
 			</section>
-			<!-- End About Section -->
+			<!-- End Breadcrumbs -->
+	
+			<section class="inner-page pt-4">
+				<div class="container">
+					<!-- 회원 추가 -->
+					<div>
+						<form method="post" action="${pageContext.request.contextPath}/admin/addMember" id="memberForm">
+							<table class="table">
+								<tr>
+									<td width="20%">ID</td>
+									<td width="80%">
+										<input type="text" class="form-control" name="id" id="id">
+										<div class="msgDiv" id="idMsg"></div>
+									</td>
+								</tr>
+								<tr>
+									<td>PW</td>
+									<td>
+										<input type="password" class="form-control" name="pw" id="pw">
+										<div class="msgDiv" id="pwMsg"></div>
+									</td>
+								</tr>
+								<tr>
+									<td colspan="2">
+										<button type="submit" class="btn btn-success btn-block" id="btn">회원 추가</button>
+									</td>
+								</tr>
+							</table>
+						</form>
+					</div>
+				</div>
+			</section>
 	
 		</main>
 		<!-- End #main -->
@@ -200,5 +213,4 @@
 		<script src="${pageContext.request.contextPath}/assets/js/main.js"></script>
 	
 	</body>
-
 </html>

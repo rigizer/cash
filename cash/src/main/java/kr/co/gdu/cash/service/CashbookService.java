@@ -14,6 +14,32 @@ import kr.co.gdu.cash.vo.*;
 public class CashbookService {
 	@Autowired private CashbookMapper cashBookMapper;
 	
+	public List<Cashbook> getCashbookListByPage(int currentPage, int rowPerPage) {
+		// currentPage, rowPerPage를 통해 beginRow, rowPerPage 전달하여
+		// cashBookMapper 메소드를 호출한다.
+		// 이후 결과값을 받아 return 한다.
+		
+		int beginRow = (currentPage - 1) * rowPerPage;
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("beginRow", beginRow);
+		map.put("rowPerPage", rowPerPage);
+		
+		List<Cashbook> cashbookList = cashBookMapper.selectCashbookListByPage(map);
+		
+		return cashbookList;
+	}
+	
+	public int getCountCashbookList() {
+		return cashBookMapper.countCashbookList();
+	}
+	
+	public List<Cashbook> getCashbookListAll() {
+		List<Cashbook> cashbookList = cashBookMapper.selectCashbookListAll();
+		
+		return cashbookList;
+	}
+	
 	public int getSumCashbookPriceByInOut(String cashbookKind, int currentYear, int currentMonth) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("cashbookKind", cashbookKind);

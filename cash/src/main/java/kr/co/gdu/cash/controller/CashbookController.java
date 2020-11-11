@@ -4,6 +4,8 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -174,5 +176,47 @@ public class CashbookController {
 		cashbookService.modifyCashbook(cashbook);
 		
 		return "redirect:/admin/cashbookByMonth/-1/-1";
+	}
+	
+	// cashbookList
+	@GetMapping("/admin/cashbookList/{currentPage}")
+	public String cashbookList(Model model,
+			@PathVariable(name = "currentPage", required = true) int currentPage) {
+		// 한 번에 20개의 데이터씩 출력
+		int rowPerPage = 20;
+		
+		List<Cashbook> cashbookList = cashbookService.getCashbookListByPage(currentPage, rowPerPage);
+		System.out.println("Debug: " + cashbookList);
+		
+		int totalCount = cashbookService.getCountCashbookList();	// 전체 데이터 수
+		int lastPage = totalCount / rowPerPage;	// 마지막 페이지
+		
+		if (totalCount % rowPerPage != 0) {	// 10 미만의 개수의 데이터가 있는 페이지를 표시
+			lastPage += 1;
+		}
+		
+		if (lastPage == 0) { // 전체 페이지가 0개이면 현재 페이지도 0으로 표시
+			currentPage = 0;
+		}
+		
+		int navPerPage = 10;	// 네비게이션에 표시할 페이지 수
+		int navFirstPage = currentPage - (currentPage % navPerPage) + 1;	// 네비게이션 첫번째 페이지
+		int navLastPage = navFirstPage + navPerPage - 1;	// 네비게이션 마지막 페이지
+		
+		if (currentPage % navPerPage == 0 && currentPage != 0) {	// 10으로 나누어 떨어지는 경우 처리하는 코드
+			navFirstPage = navFirstPage - navPerPage;
+			navLastPage = navLastPage - navPerPage;
+		}
+		
+		model.addAttribute("cashbookList", cashbookList);
+		
+		model.addAttribute("currentPage", currentPage);
+		model.addAttribute("lastPage", lastPage);
+		
+		model.addAttribute("navPerPage", navPerPage);
+		model.addAttribute("navFirstPage", navFirstPage);
+		model.addAttribute("navLastPage", navLastPage);
+		
+		return "cashbookList";
 	}
 }
