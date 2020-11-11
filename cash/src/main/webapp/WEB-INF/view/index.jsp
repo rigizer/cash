@@ -144,7 +144,7 @@
 				<div class="container" data-aos="fade-up">
 					<!-- 공지 -->
 					<h3>공지사항
-						<button type="button" class="btn btn-sm btn-secondary" style="float: right;" onclick="location.href='/admin/noticeList/1'">더 보기</button>	
+						<button type="button" class="btn btn-sm btn-secondary" style="float: right;" onclick="location.href='${pageContext.request.contextPath}/admin/noticeList/1'">더 보기</button>	
 					</h3>
 					<table class="table">
 						<thead>

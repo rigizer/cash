@@ -95,7 +95,7 @@
 				<div class="container">
 					<!-- 공지 -->
 					<h3>&nbsp;
-						<button type="button" class="btn btn-sm btn-success" style="float: right;" onclick="location.href='/admin/addNotice'">글쓰기</button>	
+						<button type="button" class="btn btn-sm btn-success" style="float: right;" onclick="location.href='${pageContext.request.contextPath}/admin/addNotice'">글쓰기</button>	
 					</h3>
 				
 					<table class="table table-hover">

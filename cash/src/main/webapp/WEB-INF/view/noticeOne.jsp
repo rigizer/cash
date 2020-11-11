@@ -107,16 +107,16 @@
 							</tr>
 						</table>
 						
-						<button type="button" class="btn btn-dark" style="float: left;" onclick="location.href='/admin/noticeList/1'">목록</button>
+						<button type="button" class="btn btn-dark" style="float: left;" onclick="location.href='${pageContext.request.contextPath}/admin/noticeList/1'">목록</button>
 						
 						<table style="float: right;">
 							<tr>
 								<td>
-									<button type="button" class="btn btn-primary" onclick="location.href='/admin/modifyNotice/${notice.noticeId}'">수정</button>
+									<button type="button" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/admin/modifyNotice/${notice.noticeId}'">수정</button>
 								</td>
 								<td>&nbsp;</td>
 								<td>
-									<button type="button" class="btn btn-danger" onclick="location.href='/admin/removeNotice/${notice.noticeId}'">삭제</button>
+									<button type="button" class="btn btn-danger" onclick="location.href='${pageContext.request.contextPath}/admin/removeNotice/${notice.noticeId}'">삭제</button>
 								</td>
 							</tr>
 						</table>

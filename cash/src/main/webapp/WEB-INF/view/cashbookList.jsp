@@ -101,7 +101,7 @@
 			<section class="inner-page pt-4">
 				<div class="container">
 					<h3>&nbsp;
-						<button type="button" class="btn btn-sm btn-success" style="float: right;" onclick="location.href='/admin/cashbookListExcel'">전체 가계부 리스트 Excel 다운로드</button>	
+						<button type="button" class="btn btn-sm btn-success" style="float: right;" onclick="location.href='${pageContext.request.contextPath}/admin/cashbookListExcel'">전체 가계부 리스트 Excel 다운로드</button>	
 					</h3>
 				
 					<table class="table table-hover">

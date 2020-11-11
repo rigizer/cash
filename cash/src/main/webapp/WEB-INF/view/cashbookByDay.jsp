@@ -109,7 +109,7 @@
 							<td width="20%">&nbsp;</td>
 							<td width="15%" style="text-align: right;">
 								<!-- 이전 -->
-								<button type="button" class="btn btn-secondary" onclick="location.href='/admin/cashbookByDay/pre/${currentYear}/${currentMonth}/${currentDay}'">
+								<button type="button" class="btn btn-secondary" onclick="location.href='${pageContext.request.contextPath}/admin/cashbookByDay/pre/${currentYear}/${currentMonth}/${currentDay}'">
 									&nbsp;<i class='fas fa-angle-left' style='font-size:36px'></i>&nbsp;
 								</button>
 							</td>
@@ -118,7 +118,7 @@
 							</td>
 							<td width="15%" style="text-align: left;">
 								<!-- 이후 -->
-								<button type="button" class="btn btn-secondary" onclick="location.href='/admin/cashbookByDay/next/${currentYear}/${currentMonth}/${currentDay}'">
+								<button type="button" class="btn btn-secondary" onclick="location.href='${pageContext.request.contextPath}/admin/cashbookByDay/next/${currentYear}/${currentMonth}/${currentDay}'">
 									&nbsp;<i class='fas fa-angle-right' style='font-size:36px'></i>&nbsp;
 								</button>
 							</td>
@@ -127,7 +127,7 @@
 					</table>
 					
 					<h3>&nbsp;
-						<button type="button" class="btn btn-sm btn-success" style="float: right;" onclick="location.href='/admin/addCashbook/${currentYear}/${currentMonth}/${currentDay}'">수입/지출 입력</button>	
+						<button type="button" class="btn btn-sm btn-success" style="float: right;" onclick="location.href='${pageContext.request.contextPath}/admin/addCashbook/${currentYear}/${currentMonth}/${currentDay}'">수입/지출 입력</button>	
 					</h3>
 					
 					<table class="table">
@@ -150,10 +150,10 @@
 										<td><script>document.write(addComma(${c.cashbookPrice}));</script></td>
 										<td>${c.cashbookContent}</td>
 										<td>
-											<button class="btn btn-sm btn-primary" onclick="location.href='/admin/modifyCashbookByDay/${c.cashbookId}'">수정</button>
+											<button class="btn btn-sm btn-primary" onclick="location.href='${pageContext.request.contextPath}/admin/modifyCashbookByDay/${c.cashbookId}'">수정</button>
 										</td>
 										<td>
-											<button class="btn btn-sm btn-danger" onclick="location.href='/admin/removeCashbookByDay/${c.cashbookId}'">삭제</button>
+											<button class="btn btn-sm btn-danger" onclick="location.href='${pageContext.request.contextPath}/admin/removeCashbookByDay/${c.cashbookId}'">삭제</button>
 										</td>
 									</tr>
 								</c:forEach>

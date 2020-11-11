@@ -167,7 +167,7 @@
                         </div>
                      </td>
                      <td width="15%" style="text-align: right;">
-                        <button type="button" class="btn btn-secondary" onclick="location.href='/admin/cashbookByMonth/${currentYear}/${currentMonth - 1}'">
+                        <button type="button" class="btn btn-secondary" onclick="location.href='${pageContext.request.contextPath}/admin/cashbookByMonth/${currentYear}/${currentMonth - 1}'">
                            <i class='fas fa-angle-double-left' style='font-size:36px'></i>
                         </button>
       
@@ -176,7 +176,7 @@
                         <h3>${currentYear}년 ${currentMonth}월</h3>
                      </td>
                      <td width="15%" style="text-align: left;">
-                        <button type="button" class="btn btn-secondary" onclick="location.href='/admin/cashbookByMonth/${currentYear}/${currentMonth + 1}'">
+                        <button type="button" class="btn btn-secondary" onclick="location.href='${pageContext.request.contextPath}/admin/cashbookByMonth/${currentYear}/${currentMonth + 1}'">
                            <i class='fas fa-angle-double-right' style='font-size:36px'></i>
                         </button>
                      </td>
