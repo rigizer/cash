@@ -24,7 +24,7 @@ public class LoginFilter implements Filter {
 		
 		// 로그인 실패
 		if (session.getAttribute("loginId") == null) {
-			((HttpServletResponse)response).sendRedirect("/login");
+			((HttpServletResponse)response).sendRedirect(((HttpServletRequest) request).getContextPath() + "/login");
 			
 			return;
 		}

@@ -31,7 +31,7 @@
 			<li><a href="${pageContext.request.contextPath}/admin/cashbookList/1">Cashbook List</a></li>
 			<li><a href="${pageContext.request.contextPath}/admin/noticeList/1">Notice</a></li>
 			<li><a href="${pageContext.request.contextPath}/admin/addMember">Member</a></li>
-			<li class="drop-down"><a href="${pageContext.request.contextPath}#">Statistics</a>
+			<li class="drop-down"><a href="#">Statistics</a>
 				<ul>
 					<li><a href="${pageContext.request.contextPath}/admin/chart/chart1.jsp">Chart1</a></li>
 					<li><a href="${pageContext.request.contextPath}/admin/chart/chart2.jsp">Chart2</a></li>
