@@ -6,9 +6,18 @@ import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface CashRestMapper {
-	// 1번
-	public Map<String, Object> selectTotalOfMonthByYear();
+	// 연도별 월간 수입 내역
+	public Map<String, Object> selectTotalInOfMonthByYear(int year);
+	
+	// 연도별 월간 지출 내역
+	public Map<String, Object> selectTotalOutOfMonthByYear(int year);
    
-	// 2번
+	// 월간 카테고리별 수입 내역
+	public Map<String, Object> selectCategoryInByMonth(Map<String, Integer> map);
+	
+	// 월간 카테고리별 지출 내역
+	public Map<String, Object> selectCategoryOutByMonth(Map<String, Integer> map);
+	
+	// 연도별 수입/지출 내역
 	public Map<String, Object> selectTotalOutAndInByYear(int year);
 }

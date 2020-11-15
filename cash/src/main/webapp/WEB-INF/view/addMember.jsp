@@ -78,15 +78,15 @@
 					}
 					
 					$.ajax({
-						url:'/admin/idCheck',
+						url:'${pageContext.request.contextPath}/admin/idCheck',
 						type:'POST',
 						data:{id:$('#id').val()},
 						success: function(data) {	// "YES" : 사용가능, "NO" : 사용불가
-							if(data == 'yes') {
-								alert($('#id').val() + '사용가능');
+							if(data == 'YES') {
+								alert('[' + $('#id').val() + '] 은(는) 사용 가능한 아이디입니다.');
 								$('#pw').focus();
 							} else {
-								alert($('#id').val() + '사용중');
+								alert('[' + $('#id').val() + '] 은(는) 이미 사용 중인 아이디입니다.');
 								$('#id').select();
 								$('#id').focus();
 							}

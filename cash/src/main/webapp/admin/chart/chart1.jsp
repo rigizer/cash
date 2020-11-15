@@ -68,6 +68,33 @@
 				let regexp = /\B(?=(\d{3})+(?!\d))/g;
 				return num.toString().replace(regexp, ',');
 			}
+
+			//현재 페이지의 이름을 확인하는 함수
+			function getPageName(){
+			    let pageName = "";
+			 
+			    let tempPageName = window.location.href;
+			    let strPageName = tempPageName.split("/");
+			    pageName = strPageName[strPageName.length-1].split("?")[0];
+			 
+			    return pageName;
+			}
+			
+			var thisPageName = getPageName();
+			console.log(thisPageName);
+
+			// url 에서 parameter 추출
+			function getParam(sname) {
+			    var params = location.search.substr(location.search.indexOf("?") + 1);
+			    var sval = "";
+			    params = params.split("&");
+			    
+			    for (var i = 0; i < params.length; i++) {
+			        temp = params[i].split("=");
+			        if ([temp[0]] == sname) { sval = temp[1]; }
+			    }
+			    return sval;
+			}
 		</script>
 	</head>
 	
@@ -91,28 +118,36 @@
 			<!-- ======= Breadcrumbs ======= -->
 			<section id="breadcrumbs" class="breadcrumbs">
 				<div class="container">
-	
 					<ol>
 						<li><a href="${pageContext.request.contextPath}/admin/index">Home</a></li>
 						<li>Statistics</li>
-						<li>연간 월별 지출 내역</li>
+						<li>월별 수입 내역</li>
 					</ol>
-					<h2>연간 월별 지출 내역</h2>
-	
+					<h2>월별 수입 내역</h2>
 				</div>
 			</section>
 			<!-- End Breadcrumbs -->
 	
 			<section class="inner-page pt-4">
 				<div class="container">
+					<div class="input-group mb-3" style="width: 50%;">
+						<div class="input-group-prepend">
+					    	<span class="input-group-text">조회 연도</span>
+					    </div>
+						<input type="text" class="form-control" id="year">
+						<div class="input-group-append">
+							<button type="submit" class="btn btn-sm btn-info" onclick="location.href='${pageContext.request.contextPath}/admin/chart/' + getPageName() + '?year='+$('#year').val()">입력</button>
+						</div>
+					</div>
+				
 					<!-- Table -->
 					<div>
-						<div id="totalOfMonthByYearTableResult"></div>
+						<div id="totalInOfMonthByYearTableResult"></div>
 					</div>
 					
 					<!-- Chart -->
 					<div>
-						<canvas id="totalOfMonthByYearChartResult"></canvas>
+						<canvas id="totalInOfMonthByYearChartResult"></canvas>
 					</div>
 				</div>
 			</section>
@@ -157,7 +192,7 @@
 	<script>
 		<!-- Table -->
 		$.ajax({
-			url:${pageContext.request.contextPath}+'/admin/totalOfMonthByYear',
+			url:'${pageContext.request.contextPath}/admin/totalInOfMonthByYear/' + getParam("year"),
 		    type:'GET',
 		    success: function(data) {
 				// console.log(data);
@@ -216,16 +251,16 @@
 					</table>
 				`;
 				
-				$('#totalOfMonthByYearTableResult').html(html);
+				$('#totalInOfMonthByYearTableResult').html(html);
 			}
 		});
 	
 		<!-- Chart -->
 		$.ajax({
-		     url:${pageContext.request.contextPath}+'/admin/totalOfMonthByYear',
+		     url:'${pageContext.request.contextPath}/admin/totalInOfMonthByYear/' + getParam("year"),
 		     type:'GET',
 		     success: function(data) {
-		        var ctx = document.getElementById('totalOfMonthByYearChartResult').getContext('2d');
+		        var ctx = document.getElementById('totalInOfMonthByYearChartResult').getContext('2d');
 		        var chart = new Chart(ctx, {
 		           // The type of chart we want to create
 		            type: 'bar',
@@ -235,7 +270,7 @@
 		               // 배열 형태로 작성
 		                labels: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
 		                datasets: [{
-		                    label: '2019년 월별 지출 내역 차트',
+		                    label: getParam("year")+'년 월별 수입 내역 차트',
 		                    backgroundColor: [
 		                       	'rgba(255, 99, 132, 0.2)',
 		                        'rgba(54, 162, 235, 0.2)',

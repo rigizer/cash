@@ -6,7 +6,7 @@
 		<meta charset="utf-8">
 		<meta content="width=device-width, initial-scale=1.0" name="viewport">
 		
-		<title>chart2</title>
+		<title>chart5</title>
 		<meta content="" name="descriptison">
 		<meta content="" name="keywords">
 		
@@ -121,9 +121,9 @@
 					<ol>
 						<li><a href="${pageContext.request.contextPath}/admin/index">Home</a></li>
 						<li>Statistics</li>
-						<li>월별 지출 내역</li>
+						<li>연도별 수입/지출 내역</li>
 					</ol>
-					<h2>월별 지출 내역</h2>
+					<h2>연도별 수입/지출 내역</h2>
 				</div>
 			</section>
 			<!-- End Breadcrumbs -->
@@ -139,15 +139,10 @@
 							<button type="submit" class="btn btn-sm btn-info" onclick="location.href='${pageContext.request.contextPath}/admin/chart/' + getPageName() + '?year='+$('#year').val()">입력</button>
 						</div>
 					</div>
-				
-					<!-- Table -->
-					<div>
-						<div id="totalOutOfMonthByYearTableResult"></div>
-					</div>
 					
 					<!-- Chart -->
 					<div>
-						<canvas id="totalOutOfMonthByYearChartResult"></canvas>
+						<canvas id="totalOutAndInByYearChartResult"></canvas>
 					</div>
 				</div>
 			</section>
@@ -190,125 +185,32 @@
 	<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 	
 	<script>
-		<!-- Table -->
+
+
 		$.ajax({
-			url:'${pageContext.request.contextPath}/admin/totalOutOfMonthByYear/' + getParam("year"),
-		    type:'GET',
-		    success: function(data) {
-				// console.log(data);
-				
-				let html = `
-					<br>
-					
-					<!-- 1 ~ 6월 -->
-					<table class="table">
-						<thead>
-							<tr>
-								<th>1월</th>
-								<th>2월</th>
-								<th>3월</th>
-								<th>4월</th>
-								<th>5월</th>
-								<th>6월</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td>\${data.january.toLocaleString()}</td>
-								<td>\${data.february.toLocaleString()}</td>
-								<td>\${data.march.toLocaleString()}</td>
-								<td>\${data.april.toLocaleString()}</td>
-								<td>\${data.may.toLocaleString()}</td>
-								<td>\${data.june.toLocaleString()}</td>
-							</tr>
-						</tbody>
-					</table>
-					
-					<br>
-					
-					<!-- 7 ~ 12월 -->
-					<table class="table">
-						<thead>
-							<tr>
-								<th>7월</th>
-								<th>8월</th>
-								<th>9월</th>
-								<th>10월</th>
-								<th>11월</th>
-								<th>12월</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td>\${data.july.toLocaleString()}</td>
-								<td>\${data.august.toLocaleString()}</td>
-								<td>\${data.september.toLocaleString()}</td>
-								<td>\${data.october.toLocaleString()}</td>
-								<td>\${data.november.toLocaleString()}</td>
-								<td>\${data.december.toLocaleString()}</td>
-							</tr>
-						</tbody>
-					</table>
-				`;
-				
-				$('#totalOutOfMonthByYearTableResult').html(html);
-			}
-		});
-	
-		<!-- Chart -->
-		$.ajax({
-		     url:'${pageContext.request.contextPath}/admin/totalOutOfMonthByYear/' + getParam("year"),
-		     type:'GET',
-		     success: function(data) {
-		        var ctx = document.getElementById('totalOutOfMonthByYearChartResult').getContext('2d');
-		        var chart = new Chart(ctx, {
-		           // The type of chart we want to create
-		            type: 'bar',
-		
-		            // The data for our dataset
-		            data: {
-		               // 배열 형태로 작성
-		                labels: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
-		                datasets: [{
-		                    label: getParam("year")+'년 월별 지출 내역 차트',
-		                    backgroundColor: [
-		                       	'rgba(255, 99, 132, 0.2)',
-		                        'rgba(54, 162, 235, 0.2)',
-		                        'rgba(255, 206, 86, 0.2)',
-		                        'rgba(75, 192, 192, 0.2)',
-		                        'rgba(153, 102, 255, 0.2)',
-		                        'rgba(255, 159, 64, 0.2)', 
-		                        'rgba(255, 99, 132, 0.2)',
-		                        'rgba(54, 162, 235, 0.2)',
-		                        'rgba(255, 206, 86, 0.2)',
-		                        'rgba(75, 192, 192, 0.2)',
-		                        'rgba(153, 102, 255, 0.2)',
-		                        'rgba(255, 159, 64, 0.2)'
-		                    ],
-		                    borderColor: [
-		                       	'rgba(255, 99, 132, 1)',
-		                        'rgba(54, 162, 235, 1)',
-		                        'rgba(255, 206, 86, 1)',
-		                        'rgba(75, 192, 192, 1)',
-		                        'rgba(153, 102, 255, 1)',
-		                        'rgba(255, 159, 64, 1)',
-		                        'rgba(255, 99, 132, 1)',
-		                        'rgba(54, 162, 235, 1)',
-		                        'rgba(255, 206, 86, 1)',
-		                        'rgba(75, 192, 192, 1)',
-		                        'rgba(153, 102, 255, 1)',
-		                        'rgba(255, 159, 64, 1)'
-		                    ],
-		                    data:[data.january, data.february, data.march, data.april, data.may, data.june, 
-		                         data.july, data.august, data.september, data.october, data.november, data.december],
-		                    borderWidth: 1
-		                }]
-		            },
-		
-		            // Configuration options go here
-		        	options: {}
-				});
-			}
+            url:'${pageContext.request.contextPath}/admin/totalOutAndInByYear/' + getParam("year"),
+            type:'GET',
+            success: function(data) {
+               let pieCtx = $('#totalOutAndInByYearChartResult');
+               let pieChart = new Chart(pieCtx, {
+                  type: 'pie',
+                  data: {
+                     datasets: [{
+                        data: [data.수입, data.지출], 
+                        backgroundColor: [
+                           'rgba(54, 162, 235, 0.2)',
+                              'rgba(255, 99, 132, 0.2)'
+                           ], 
+                           borderColor: [
+                              'rgba(54, 162, 235, 1)', 
+                              'rgba(255, 99, 132, 1)'
+                           ]
+                     }], 
+                     labels: ['수입', '지출']
+                  },
+                  options: {}
+               });
+            }
 		});
 	</script>
 </html>

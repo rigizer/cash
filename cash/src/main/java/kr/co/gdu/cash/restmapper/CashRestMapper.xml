@@ -3,7 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.gdu.cash.restmapper.CashRestMapper">
-   <select id="selectTotalOfMonthByYear" resultType="java.util.Map">
+   <select id="selectTotalInOfMonthByYear" parameterType="int" resultType="java.util.Map">
       SELECT
          SUM(CASE WHEN MONTH(cashbook_date)=1 THEN cashbook_price END) january,
          SUM(CASE WHEN MONTH(cashbook_date)=2 THEN cashbook_price END) february,
@@ -18,8 +18,49 @@
          SUM(CASE WHEN MONTH(cashbook_date)=11 THEN cashbook_price END) november,
          SUM(CASE WHEN MONTH(cashbook_date)=12 THEN cashbook_price END) december
       FROM cashbook
-      WHERE YEAR(cashbook_date) = 2019
+      WHERE YEAR(cashbook_date) = #{year}
+      AND cashbook.cashbook_kind = '수입';
+   </select>
+
+   <select id="selectTotalOutOfMonthByYear" parameterType="int" resultType="java.util.Map">
+      SELECT
+         SUM(CASE WHEN MONTH(cashbook_date)=1 THEN cashbook_price END) january,
+         SUM(CASE WHEN MONTH(cashbook_date)=2 THEN cashbook_price END) february,
+         SUM(CASE WHEN MONTH(cashbook_date)=3 THEN cashbook_price END) march,
+         SUM(CASE WHEN MONTH(cashbook_date)=4 THEN cashbook_price END) april,
+         SUM(CASE WHEN MONTH(cashbook_date)=5 THEN cashbook_price END) may,
+         SUM(CASE WHEN MONTH(cashbook_date)=6 THEN cashbook_price END) june,
+         SUM(CASE WHEN MONTH(cashbook_date)=7 THEN cashbook_price END) july,
+         SUM(CASE WHEN MONTH(cashbook_date)=8 THEN cashbook_price END) august,
+         SUM(CASE WHEN MONTH(cashbook_date)=9 THEN cashbook_price END) september,
+         SUM(CASE WHEN MONTH(cashbook_date)=10 THEN cashbook_price END) october,
+         SUM(CASE WHEN MONTH(cashbook_date)=11 THEN cashbook_price END) november,
+         SUM(CASE WHEN MONTH(cashbook_date)=12 THEN cashbook_price END) december
+      FROM cashbook
+      WHERE YEAR(cashbook_date) = #{year}
       AND cashbook.cashbook_kind = '지출';
+   </select>
+   
+   <select id="selectCategoryInByMonth" parameterType="java.util.Map" resultType="java.util.Map">
+      SELECT 
+         SUM(CASE WHEN category_name='급여' THEN cashbook_price END) '급여',
+         SUM(CASE WHEN category_name='용돈' THEN cashbook_price END) '용돈'
+      FROM cashbook
+      WHERE cashbook_kind = '수입'
+      AND YEAR(cashbook_date) = #{year}
+      AND MONTH(cashbook_date) = #{month}
+   </select>
+   
+   <select id="selectCategoryOutByMonth" parameterType="java.util.Map" resultType="java.util.Map">
+      SELECT
+      	 SUM(CASE WHEN category_name='관광' THEN cashbook_price END) '관광',
+         SUM(CASE WHEN category_name='생활' THEN cashbook_price END) '생활',
+         SUM(CASE WHEN category_name='식비' THEN cashbook_price END) '식비',
+         SUM(CASE WHEN category_name='의료' THEN cashbook_price END) '의료'
+      FROM cashbook
+      WHERE cashbook_kind = '지출'
+      AND YEAR(cashbook_date) = #{year}
+      AND MONTH(cashbook_date) = #{month}
    </select>
    
    <select id="selectTotalOutAndInByYear" parameterType="int" resultType="java.util.Map">
