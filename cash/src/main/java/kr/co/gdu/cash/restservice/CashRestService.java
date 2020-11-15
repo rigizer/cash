@@ -47,4 +47,18 @@ public class CashRestService {
 	  System.out.println("getTotalOutAndInByYear 호출성공");
       return cashRestMapper.selectTotalOutAndInByYear(year);
    }
+   
+   public Map<String, Object> getTotalMoneyByMonth(int year) {
+	  System.out.println("getTotalMoneyByMonth 호출성공");
+      return cashRestMapper.selectTotalMoneyByMonth(year);
+   }
+   
+   public Map<String, Object> getCategoryInByYear(int year) {
+	  System.out.println("getCategoryInByYear 호출성공");
+      return cashRestMapper.selectCategoryInByYear(year);
+   }
+   
+   public Map<String, Object> getCategoryOutByYear(int year) {
+      return cashRestMapper.selectCategoryOutByYear(year);
+   }
 }

@@ -22,9 +22,9 @@
 					<li><a href="${pageContext.request.contextPath}/admin/chart/chart3.jsp">월간 카테고리별 수입 내역</a></li>
 					<li><a href="${pageContext.request.contextPath}/admin/chart/chart4.jsp">월간 카테고리별 지출 내역</a></li>
 					<li><a href="${pageContext.request.contextPath}/admin/chart/chart5.jsp">연도별 수입/지출 내역</a></li>
-					<li><a href="${pageContext.request.contextPath}/admin/chart/chart6.jsp">Chart6</a></li>
-					<li><a href="${pageContext.request.contextPath}/admin/chart/chart7.jsp">Chart7</a></li>
-					<li><a href="${pageContext.request.contextPath}/admin/chart/chart8.jsp">Chart8</a></li>
+					<li><a href="${pageContext.request.contextPath}/admin/chart/chart6.jsp">월별 자산 내역</a></li>
+					<li><a href="${pageContext.request.contextPath}/admin/chart/chart7.jsp">연간 카테고리별 수입 내역</a></li>
+					<li><a href="${pageContext.request.contextPath}/admin/chart/chart8.jsp">연간 카테고리별 지출 내역</a></li>
 					<li><a href="${pageContext.request.contextPath}/admin/chart/chart9.jsp">Chart9</a></li>
 					<li><a href="${pageContext.request.contextPath}/admin/chart/chart9.jsp">Chart10</a></li>
 				</ul>

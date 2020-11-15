@@ -53,4 +53,28 @@ public class CashRestController {
 		System.out.println("totalOutAndInByYear 호출성공");
 		return cashRestService.getTotalOutAndInByYear(year);
 	}
+	
+	@GetMapping("/admin/totalMoneyByMonth/{year}")
+	public Map<String, Object> totalMoneyByMonth(
+			@PathVariable(name = "year") int year) {
+		System.out.println("totalMoneyByMonth 호출성공");
+		Map<String, Object> map = cashRestService.getTotalMoneyByMonth(year);
+		return map;
+	}
+	
+	@GetMapping("/admin/categoryInByYear/{year}")
+	public Map<String, Object> categoryInByYear(
+			@PathVariable(name = "year") int year) {
+		System.out.println("categoryInByYear 호출성공, " + year);
+		Map<String, Object> map = cashRestService.getCategoryInByYear(year);
+		return map;
+	}
+	
+	@GetMapping("/admin/categoryOutByYear/{year}")
+	public Map<String, Object> categoryOutByYear(
+			@PathVariable(name = "year") int year) {
+		System.out.println("categoryOutByYear 호출성공, " + year);
+		Map<String, Object> map = cashRestService.getCategoryOutByYear(year);
+		return map;
+	}
 }
