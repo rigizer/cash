@@ -121,9 +121,9 @@
 					<ol>
 						<li><a href="${pageContext.request.contextPath}/admin/index">Home</a></li>
 						<li>Statistics</li>
-						<li>연간 카테고리별 수입 내역</li>
+						<li>월별 자산 내역</li>
 					</ol>
-					<h2>연간 카테고리별 수입 내역</h2>
+					<h2>월별 자산 내역</h2>
 				</div>
 			</section>
 			<!-- End Breadcrumbs -->
@@ -142,7 +142,7 @@
 					
 					<!-- Chart -->
 					<div>
-						<canvas id="categoryInByYearChartResult"></canvas>
+						<canvas id="totalMoneyByMonthChartResult"></canvas>
 					</div>
 				</div>
 			</section>
@@ -184,33 +184,60 @@
 	<!-- Chart.js CDN -->
 	<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 	
-	<script>
+	<script>	
 		<!-- Chart -->
 		$.ajax({
-			url:'${pageContext.request.contextPath}/admin/categoryInByYear/' + getParam("year"),
-            type:'GET',
-            success: function(data) {
-               let chartResult = $('#categoryInByYearChartResult');
-               let chart = new Chart(chartResult, {
-                  type: 'doughnut',
-                  data: {
-                     datasets: [{
-                   	 	data: [data.급여, data.용돈], 
-                        label: getParam("year")+'년 카테고리별 수입 내역 차트',
-                        backgroundColor: [
-                           	  'rgba(54, 162, 235, 0.2)',
-                              'rgba(255, 99, 132, 0.2)'
-                           ], 
-                           borderColor: [
-                              'rgba(54, 162, 235, 1)', 
-                              'rgba(255, 99, 132, 1)'
-                           ]
-                     }], 
-                     labels: ['급여', '용돈']
-                  },
-                  options: {}
-               });
-            }
+		     url:'${pageContext.request.contextPath}/admin/totalMoneyByMonth/' + getParam("year"),
+		     type:'GET',
+		     success: function(data) {
+		        var ctx = document.getElementById('totalMoneyByMonthChartResult').getContext('2d');
+		        var chart = new Chart(ctx, {
+		           // The type of chart we want to create
+		            type: 'line',
+		
+		            // The data for our dataset
+		            data: {
+		               // 배열 형태로 작성
+		                labels: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+		                datasets: [{
+		                    label: getParam("year")+'년 월별 자산 내역 차트',
+		                    backgroundColor: [
+		                    	'rgba(153, 102, 255, 0.2)',
+		                    	'rgba(153, 102, 255, 0.2)',
+		                    	'rgba(153, 102, 255, 0.2)',
+		                    	'rgba(153, 102, 255, 0.2)',
+		                    	'rgba(153, 102, 255, 0.2)',
+		                    	'rgba(153, 102, 255, 0.2)',
+		                    	'rgba(153, 102, 255, 0.2)',
+		                    	'rgba(153, 102, 255, 0.2)',
+		                    	'rgba(153, 102, 255, 0.2)',
+		                    	'rgba(153, 102, 255, 0.2)',
+		                    	'rgba(153, 102, 255, 0.2)',
+		                    	'rgba(153, 102, 255, 0.2)'
+		                    ],
+		                    borderColor: [
+		                    	'rgba(153, 102, 255, 1)',
+		                    	'rgba(153, 102, 255, 1)',
+		                    	'rgba(153, 102, 255, 1)',
+		                    	'rgba(153, 102, 255, 1)',
+		                    	'rgba(153, 102, 255, 1)',
+		                    	'rgba(153, 102, 255, 1)',
+		                    	'rgba(153, 102, 255, 1)',
+		                    	'rgba(153, 102, 255, 1)',
+		                    	'rgba(153, 102, 255, 1)',
+		                    	'rgba(153, 102, 255, 1)',
+		                    	'rgba(153, 102, 255, 1)',
+		                    	'rgba(153, 102, 255, 1)'
+		                    ],
+		                    data:[data.january, data.february, data.march, data.april, data.may, data.june, 
+		                         data.july, data.august, data.september, data.october, data.november, data.december]
+		                }]
+		            },
+		
+		            // Configuration options go here
+		        	options: {}
+				});
+			}
 		});
 	</script>
 </html>

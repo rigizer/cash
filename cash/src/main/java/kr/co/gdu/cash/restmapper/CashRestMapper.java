@@ -18,11 +18,17 @@ public interface CashRestMapper {
 	// 월간 카테고리별 지출 내역
 	public Map<String, Object> selectCategoryOutByMonth(Map<String, Integer> map);
 	
+	// 월별 수입/지출 내역
+	public Map<String, Object> selectTotalOutAndInByMonth(int year);
+	
 	// 연도별 수입/지출 내역
 	public Map<String, Object> selectTotalOutAndInByYear(int year);
 	
 	// 월별 자산 내역
 	public Map<String, Object> selectTotalMoneyByMonth(int year);
+	
+	// 연간 누적 자산 내역
+	public Map<String, Object> selectTotalStackMoneyByYear(int year);
 	
 	// 연간 카테고리별 수입 내역
 	public Map<String, Object> selectCategoryInByYear(int year);

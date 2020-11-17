@@ -121,9 +121,9 @@
 					<ol>
 						<li><a href="${pageContext.request.contextPath}/admin/index">Home</a></li>
 						<li>Statistics</li>
-						<li>연도별 수입/지출 내역</li>
+						<li>월별 수입/지출 내역</li>
 					</ol>
-					<h2>연도별 수입/지출 내역</h2>
+					<h2>월별 수입/지출 내역</h2>
 				</div>
 			</section>
 			<!-- End Breadcrumbs -->
@@ -142,7 +142,7 @@
 					
 					<!-- Chart -->
 					<div>
-						<canvas id="totalOutAndInByYearChartResult"></canvas>
+						<canvas id="totalOutAndInByMonthChartResult"></canvas>
 					</div>
 				</div>
 			</section>
@@ -185,32 +185,129 @@
 	<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 	
 	<script>
-
-
+		<!-- Chart -->
 		$.ajax({
-            url:'${pageContext.request.contextPath}/admin/totalOutAndInByYear/' + getParam("year"),
-            type:'GET',
-            success: function(data) {
-               let pieCtx = $('#totalOutAndInByYearChartResult');
-               let pieChart = new Chart(pieCtx, {
-                  type: 'pie',
-                  data: {
-                     datasets: [{
-                        data: [data.수입, data.지출], 
-                        backgroundColor: [
-                           'rgba(54, 162, 235, 0.2)',
-                              'rgba(255, 99, 132, 0.2)'
-                           ], 
-                           borderColor: [
-                              'rgba(54, 162, 235, 1)', 
-                              'rgba(255, 99, 132, 1)'
-                           ]
-                     }], 
-                     labels: ['수입', '지출']
-                  },
-                  options: {}
-               });
-            }
+			url:'${pageContext.request.contextPath}/admin/totalOutAndInByMonth/' + getParam("year"),
+		     type:'GET',
+		     success: function(data) {
+		        var ctx = document.getElementById('totalOutAndInByMonthChartResult').getContext('2d');
+		        var chart = new Chart(ctx, {
+		           // The type of chart we want to create
+		            type: 'line',
+		
+		            // The data for our dataset
+		            data: {
+		               // 배열 형태로 작성
+		                labels: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+		                datasets: [
+			            {
+		                    label: getParam("year")+'년 월별 수입 내역 차트',
+		                    backgroundColor: [
+		                        'rgba(54, 162, 235, 0.2)',
+		                        'rgba(54, 162, 235, 0.2)',
+		                        'rgba(54, 162, 235, 0.2)',
+		                        'rgba(54, 162, 235, 0.2)',
+		                        'rgba(54, 162, 235, 0.2)',
+		                        'rgba(54, 162, 235, 0.2)',
+		                        'rgba(54, 162, 235, 0.2)',
+		                        'rgba(54, 162, 235, 0.2)',
+		                        'rgba(54, 162, 235, 0.2)',
+		                        'rgba(54, 162, 235, 0.2)',
+		                        'rgba(54, 162, 235, 0.2)',
+		                        'rgba(54, 162, 235, 0.2)'
+		                    ],
+		                    borderColor: [
+		                    	'rgba(54, 162, 235, 1)',
+		                    	'rgba(54, 162, 235, 1)',
+		                    	'rgba(54, 162, 235, 1)',
+		                    	'rgba(54, 162, 235, 1)',
+		                    	'rgba(54, 162, 235, 1)',
+		                    	'rgba(54, 162, 235, 1)',
+		                    	'rgba(54, 162, 235, 1)',
+		                    	'rgba(54, 162, 235, 1)',
+		                    	'rgba(54, 162, 235, 1)',
+		                    	'rgba(54, 162, 235, 1)',
+		                    	'rgba(54, 162, 235, 1)',
+		                    	'rgba(54, 162, 235, 1)'
+		                    ],
+		                    data:[data.in_january, data.in_february, data.in_march, data.in_april, data.in_may, data.in_june, 
+		                         data.in_july, data.in_august, data.in_september, data.in_october, data.in_november, data.in_december],
+			            	fill: true
+		                },
+		                {
+		                    label: getParam("year")+'년 월별 지출 내역 차트',
+		                    backgroundColor: [
+		                    	'rgba(255, 99, 132, 0.2)',
+		                    	'rgba(255, 99, 132, 0.2)',
+		                    	'rgba(255, 99, 132, 0.2)',
+		                    	'rgba(255, 99, 132, 0.2)',
+		                    	'rgba(255, 99, 132, 0.2)',
+		                    	'rgba(255, 99, 132, 0.2)',
+		                    	'rgba(255, 99, 132, 0.2)',
+		                    	'rgba(255, 99, 132, 0.2)',
+		                    	'rgba(255, 99, 132, 0.2)',
+		                    	'rgba(255, 99, 132, 0.2)',
+		                    	'rgba(255, 99, 132, 0.2)',
+		                    	'rgba(255, 99, 132, 0.2)'
+		                    ],
+		                    borderColor: [
+		                    	'rgba(255, 99, 132, 1)',
+		                    	'rgba(255, 99, 132, 1)',
+		                    	'rgba(255, 99, 132, 1)',
+		                    	'rgba(255, 99, 132, 1)',
+		                    	'rgba(255, 99, 132, 1)',
+		                    	'rgba(255, 99, 132, 1)',
+		                    	'rgba(255, 99, 132, 1)',
+		                    	'rgba(255, 99, 132, 1)',
+		                    	'rgba(255, 99, 132, 1)',
+		                    	'rgba(255, 99, 132, 1)',
+		                    	'rgba(255, 99, 132, 1)',
+		                    	'rgba(255, 99, 132, 1)'
+		                    ],
+		                    data:[data.out_january, data.out_february, data.out_march, data.out_april, data.out_may, data.out_june, 
+		                         data.out_july, data.out_august, data.out_september, data.out_october, data.out_november, data.out_december],
+                       		fill: true
+		                },
+		                {
+		                    label: getParam("year")+'년 월별 수입-지출 차트',
+		                    backgroundColor: [
+		                    	'rgba(75, 192, 192, 0.2)',
+		                    	'rgba(75, 192, 192, 0.2)',
+		                    	'rgba(75, 192, 192, 0.2)',
+		                    	'rgba(75, 192, 192, 0.2)',
+		                    	'rgba(75, 192, 192, 0.2)',
+		                    	'rgba(75, 192, 192, 0.2)',
+		                    	'rgba(75, 192, 192, 0.2)',
+		                    	'rgba(75, 192, 192, 0.2)',
+		                    	'rgba(75, 192, 192, 0.2)',
+		                    	'rgba(75, 192, 192, 0.2)',
+		                    	'rgba(75, 192, 192, 0.2)',
+		                    	'rgba(75, 192, 192, 0.2)'
+		                    ],
+		                    borderColor: [
+		                    	'rgba(75, 192, 192, 1)',
+		                    	'rgba(75, 192, 192, 1)',
+		                    	'rgba(75, 192, 192, 1)',
+		                    	'rgba(75, 192, 192, 1)',
+		                    	'rgba(75, 192, 192, 1)',
+		                    	'rgba(75, 192, 192, 1)',
+		                    	'rgba(75, 192, 192, 1)',
+		                    	'rgba(75, 192, 192, 1)',
+		                    	'rgba(75, 192, 192, 1)',
+		                    	'rgba(75, 192, 192, 1)',
+		                    	'rgba(75, 192, 192, 1)',
+		                    	'rgba(75, 192, 192, 1)'
+		                    ],
+		                    data:[data.sum_january, data.sum_february, data.sum_march, data.sum_april, data.sum_may, data.sum_june, 
+		                         data.sum_july, data.sum_august, data.sum_september, data.sum_october, data.sum_november, data.sum_december],
+	                   		fill: true
+		                }]
+		            },
+		
+		            // Configuration options go here
+		        	options: {}
+				});
+			}
 		});
 	</script>
 </html>
