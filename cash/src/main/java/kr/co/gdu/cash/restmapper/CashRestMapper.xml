@@ -207,4 +207,42 @@
       WHERE cashbook_kind = '지출'
       AND YEAR(cashbook_date) = #{year}
    </select>
+   
+   <select id="selectAverageInOfMonthByYear" parameterType="java.util.Map" resultType="java.util.Map">
+      SELECT
+         AVG(CASE WHEN MONTH(cashbook_date)=1 THEN cashbook_price END) january,
+         AVG(CASE WHEN MONTH(cashbook_date)=2 THEN cashbook_price END) february,
+         AVG(CASE WHEN MONTH(cashbook_date)=3 THEN cashbook_price END) march,
+         AVG(CASE WHEN MONTH(cashbook_date)=4 THEN cashbook_price END) april,
+         AVG(CASE WHEN MONTH(cashbook_date)=5 THEN cashbook_price END) may,
+         AVG(CASE WHEN MONTH(cashbook_date)=6 THEN cashbook_price END) june,
+         AVG(CASE WHEN MONTH(cashbook_date)=7 THEN cashbook_price END) july,
+         AVG(CASE WHEN MONTH(cashbook_date)=8 THEN cashbook_price END) august,
+         AVG(CASE WHEN MONTH(cashbook_date)=9 THEN cashbook_price END) september,
+         AVG(CASE WHEN MONTH(cashbook_date)=10 THEN cashbook_price END) october,
+         AVG(CASE WHEN MONTH(cashbook_date)=11 THEN cashbook_price END) november,
+         AVG(CASE WHEN MONTH(cashbook_date)=12 THEN cashbook_price END) december
+      FROM cashbook
+      WHERE YEAR(cashbook_date) = #{year}
+      AND cashbook.cashbook_kind = '수입';
+   </select>
+   
+   <select id="selectAverageOutOfMonthByYear" parameterType="java.util.Map" resultType="java.util.Map">
+      SELECT
+         AVG(CASE WHEN MONTH(cashbook_date)=1 THEN cashbook_price END) january,
+         AVG(CASE WHEN MONTH(cashbook_date)=2 THEN cashbook_price END) february,
+         AVG(CASE WHEN MONTH(cashbook_date)=3 THEN cashbook_price END) march,
+         AVG(CASE WHEN MONTH(cashbook_date)=4 THEN cashbook_price END) april,
+         AVG(CASE WHEN MONTH(cashbook_date)=5 THEN cashbook_price END) may,
+         AVG(CASE WHEN MONTH(cashbook_date)=6 THEN cashbook_price END) june,
+         AVG(CASE WHEN MONTH(cashbook_date)=7 THEN cashbook_price END) july,
+         AVG(CASE WHEN MONTH(cashbook_date)=8 THEN cashbook_price END) august,
+         AVG(CASE WHEN MONTH(cashbook_date)=9 THEN cashbook_price END) september,
+         AVG(CASE WHEN MONTH(cashbook_date)=10 THEN cashbook_price END) october,
+         AVG(CASE WHEN MONTH(cashbook_date)=11 THEN cashbook_price END) november,
+         AVG(CASE WHEN MONTH(cashbook_date)=12 THEN cashbook_price END) december
+      FROM cashbook
+      WHERE YEAR(cashbook_date) = #{year}
+      AND cashbook.cashbook_kind = '지출';
+   </select>
 </mapper>

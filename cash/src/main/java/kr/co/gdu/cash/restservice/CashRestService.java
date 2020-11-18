@@ -71,4 +71,14 @@ public class CashRestService {
    public Map<String, Object> getCategoryOutByYear(int year) {
       return cashRestMapper.selectCategoryOutByYear(year);
    }
+   
+   public Map<String, Object> getAverageInOfMonthByYear(int year) {
+	  System.out.println("getAverageInOfMonthByYear 호출성공");
+      return cashRestMapper.selectAverageInOfMonthByYear(year);
+   }
+   
+   public Map<String, Object> getAverageOutOfMonthByYear(int year) {
+	  System.out.println("getAverageOutOfMonthByYear 호출성공");
+      return cashRestMapper.selectAverageOutOfMonthByYear(year);
+   }
 }

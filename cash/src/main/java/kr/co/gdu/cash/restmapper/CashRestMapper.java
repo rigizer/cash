@@ -35,4 +35,10 @@ public interface CashRestMapper {
 	
 	// 연간 카테고리별 지출 내역
 	public Map<String, Object> selectCategoryOutByYear(int year);
+	
+	// 월별 일일 평균 수입 내역
+	public Map<String, Object> selectAverageInOfMonthByYear(int year);
+	
+	// 월별 일일 평균 지출 내역
+	public Map<String, Object> selectAverageOutOfMonthByYear(int year);
 }

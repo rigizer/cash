@@ -92,4 +92,20 @@ public class CashRestController {
 		Map<String, Object> map = cashRestService.getCategoryOutByYear(year);
 		return map;
 	}
+	
+	@GetMapping("/admin/averageInOfMonthByYear/{year}")
+	public Map<String, Object> averageInOfMonthByYear(
+			@PathVariable(name = "year") int year) {
+		System.out.println("averageInOfMonthByYear 호출성공");
+		Map<String, Object> map = cashRestService.getAverageInOfMonthByYear(year);
+		return map;
+	}
+	
+	@GetMapping("/admin/averageOutOfMonthByYear/{year}")
+	public Map<String, Object> averageOutOfMonthByYear(
+			@PathVariable(name = "year") int year) {
+		System.out.println("averageOutOfMonthByYear 호출성공");
+		Map<String, Object> map = cashRestService.getAverageOutOfMonthByYear(year);
+		return map;
+	}
 }

@@ -17,16 +17,18 @@
 			<li><a href="${pageContext.request.contextPath}/admin/addMember">Member</a></li>
 			<li class="drop-down"><a href="#">Statistics</a>
 				<ul>
-					<li><a href="${pageContext.request.contextPath}/admin/chart/chart1.jsp">월별 수입 내역</a></li>
-					<li><a href="${pageContext.request.contextPath}/admin/chart/chart2.jsp">월별 지출 내역</a></li>
-					<li><a href="${pageContext.request.contextPath}/admin/chart/chart3.jsp">월간 카테고리별 수입 내역</a></li>
-					<li><a href="${pageContext.request.contextPath}/admin/chart/chart4.jsp">월간 카테고리별 지출 내역</a></li>
-					<li><a href="${pageContext.request.contextPath}/admin/chart/chart5.jsp">월별 수입/지출 내역</a></li>
-					<li><a href="${pageContext.request.contextPath}/admin/chart/chart6.jsp">연도별 수입/지출 내역</a></li>
-					<li><a href="${pageContext.request.contextPath}/admin/chart/chart7.jsp">월별 자산 내역</a></li>
-					<li><a href="${pageContext.request.contextPath}/admin/chart/chart8.jsp">연간 누적 자산 내역</a></li>
-					<li><a href="${pageContext.request.contextPath}/admin/chart/chart9.jsp">연간 카테고리별 수입 내역</a></li>
-					<li><a href="${pageContext.request.contextPath}/admin/chart/chart10.jsp">연간 카테고리별 지출 내역</a></li>
+					<li><a href="${pageContext.request.contextPath}/admin/chart/chart1.jsp?year=2019">월별 수입 내역</a></li>
+					<li><a href="${pageContext.request.contextPath}/admin/chart/chart2.jsp?year=2019">월별 지출 내역</a></li>
+					<li><a href="${pageContext.request.contextPath}/admin/chart/chart3.jsp?year=2019&month=6">월간 카테고리별 수입 내역</a></li>
+					<li><a href="${pageContext.request.contextPath}/admin/chart/chart4.jsp?year=2019&month=6">월간 카테고리별 지출 내역</a></li>
+					<li><a href="${pageContext.request.contextPath}/admin/chart/chart5.jsp?year=2019">월별 수입/지출 내역</a></li>
+					<li><a href="${pageContext.request.contextPath}/admin/chart/chart6.jsp?year=2019">연도별 수입/지출 내역</a></li>
+					<li><a href="${pageContext.request.contextPath}/admin/chart/chart7.jsp?year=2019">월별 자산 내역</a></li>
+					<li><a href="${pageContext.request.contextPath}/admin/chart/chart8.jsp?year=2019">연간 누적 자산 내역</a></li>
+					<li><a href="${pageContext.request.contextPath}/admin/chart/chart9.jsp?year=2019">연간 카테고리별 수입 내역</a></li>
+					<li><a href="${pageContext.request.contextPath}/admin/chart/chart10.jsp?year=2019">연간 카테고리별 지출 내역</a></li>
+					<li><a href="${pageContext.request.contextPath}/admin/chart/chart11.jsp?year=2019">월별 일일 평균 수입 내역</a></li>
+					<li><a href="${pageContext.request.contextPath}/admin/chart/chart12.jsp?year=2019">월별 일일 평균 지출 내역</a></li>
 				</ul>
 			</li>
 			<li><a href="${pageContext.request.contextPath}/admin/logout"><font color="red">Logout</font></a></li>
