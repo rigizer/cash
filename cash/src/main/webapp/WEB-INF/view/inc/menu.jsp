@@ -29,6 +29,8 @@
 					<li><a href="${pageContext.request.contextPath}/admin/chart/chart10.jsp?year=2019">연간 카테고리별 지출 내역</a></li>
 					<li><a href="${pageContext.request.contextPath}/admin/chart/chart11.jsp?year=2019">월별 일일 평균 수입 내역</a></li>
 					<li><a href="${pageContext.request.contextPath}/admin/chart/chart12.jsp?year=2019">월별 일일 평균 지출 내역</a></li>
+					<li><a href="${pageContext.request.contextPath}/admin/chart/chart13.jsp?startDate=2018-09-01&endDate=2019-08-31">기간지정 카테고리별 수입 내역</a></li>
+					<li><a href="${pageContext.request.contextPath}/admin/chart/chart14.jsp?startDate=2018-09-01&endDate=2019-08-31">기간지정 카테고리별 지출 내역</a></li>
 				</ul>
 			</li>
 			<li><a href="${pageContext.request.contextPath}/admin/logout"><font color="red">Logout</font></a></li>

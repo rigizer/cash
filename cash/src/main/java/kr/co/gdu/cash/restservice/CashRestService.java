@@ -81,4 +81,24 @@ public class CashRestService {
 	  System.out.println("getAverageOutOfMonthByYear 호출성공");
       return cashRestMapper.selectAverageOutOfMonthByYear(year);
    }
+   
+   public Map<String, Object> getCategoryInByDateTerm(String startDate, String endDate) {
+	  System.out.println("getCategoryInByDateTerm 호출성공");
+	  
+	  Map<String, String> map = new HashMap<String, String>();
+	  map.put("startDate", startDate);
+	  map.put("endDate", endDate);
+	  
+      return cashRestMapper.selectCategoryInByDateTerm(map);
+   }
+   
+   public Map<String, Object> getCategoryOutByDateTerm(String startDate, String endDate) {
+	  System.out.println("getCategoryOutByDateTerm 호출성공");
+	  
+	  Map<String, String> map = new HashMap<String, String>();
+	  map.put("startDate", startDate);
+	  map.put("endDate", endDate);
+		  
+      return cashRestMapper.selectCategoryOutByDateTerm(map);
+   }
 }

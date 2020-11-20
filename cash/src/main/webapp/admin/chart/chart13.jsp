@@ -6,7 +6,7 @@
 		<meta charset="utf-8">
 		<meta content="width=device-width, initial-scale=1.0" name="viewport">
 		
-		<title>chart9</title>
+		<title>chart13</title>
 		<meta content="" name="descriptison">
 		<meta content="" name="keywords">
 		
@@ -121,9 +121,9 @@
 					<ol>
 						<li><a href="${pageContext.request.contextPath}/admin/index">Home</a></li>
 						<li>Statistics</li>
-						<li>연간 카테고리별 수입 내역</li>
+						<li>기간지정 카테고리별 수입 내역</li>
 					</ol>
-					<h2>연간 카테고리별 수입 내역</h2>
+					<h2>기간지정 카테고리별 수입 내역</h2>
 				</div>
 			</section>
 			<!-- End Breadcrumbs -->
@@ -132,22 +132,27 @@
 				<div class="container">
 					<div class="input-group mb-3" style="width: 50%;">
 						<div class="input-group-prepend">
-					    	<span class="input-group-text">조회 연도</span>
+					    	<span class="input-group-text">조회 기간</span>
 					    </div>
-						<input type="text" class="form-control" id="year">
+						<input type="date" class="form-control" id="startDate">
+						<div class="input-group-prepend">
+					    	<span class="input-group-text">~</span>
+					    </div>
+						<input type="date" class="form-control" id="endDate">
 						
 						<script>
-						  	$('#year').val(getParam("year"));
-					  	</script>
+							$('#startDate').val(getParam("startDate"));
+							$('#endDate').val(getParam("endDate"));
+						</script>
 						
 						<div class="input-group-append">
-							<button type="submit" class="btn btn-sm btn-info" onclick="location.href='${pageContext.request.contextPath}/admin/chart/' + getPageName() + '?year='+$('#year').val()">입력</button>
+							<button type="submit" class="btn btn-sm btn-info" onclick="location.href='${pageContext.request.contextPath}/admin/chart/' + getPageName() + '?startDate='+$('#startDate').val()+'&endDate='+$('#endDate').val()">입력</button>
 						</div>
 					</div>
 					
 					<!-- Chart -->
 					<div>
-						<canvas id="categoryInByYearChartResult"></canvas>
+						<canvas id="categoryInByDateTermChartResult"></canvas>
 					</div>
 				</div>
 			</section>
@@ -192,23 +197,23 @@
 	<script>
 		<!-- Chart -->
 		$.ajax({
-			url:'${pageContext.request.contextPath}/admin/categoryInByYear/' + getParam("year"),
+			url:'${pageContext.request.contextPath}/admin/categoryInByDateTerm/' + getParam("startDate") + '/' + getParam("endDate"),
             type:'GET',
             success: function(data) {
-               let chartResult = $('#categoryInByYearChartResult');
+               let chartResult = $('#categoryInByDateTermChartResult');
                let chart = new Chart(chartResult, {
                   type: 'doughnut',
                   data: {
                      datasets: [{
                    	 	data: [data.급여, data.용돈], 
-                        label: getParam("year")+'년 카테고리별 수입 내역 차트',
+                   	 label: getParam("startDate")+' ~ '+getParam("endDate")+' 카테고리별 수입 내역 차트',
                         backgroundColor: [
                            	  'rgba(54, 162, 235, 0.2)',
                               'rgba(255, 99, 132, 0.2)'
                            ], 
                            borderColor: [
-                              'rgba(54, 162, 235, 1)', 
-                              'rgba(255, 99, 132, 1)'
+                        	   'rgba(54, 162, 235, 1)',
+                               'rgba(255, 99, 132, 1)'
                            ]
                      }], 
                      labels: ['급여', '용돈']

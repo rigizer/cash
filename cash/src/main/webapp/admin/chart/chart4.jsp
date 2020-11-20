@@ -147,6 +147,11 @@
 					  			<option>${i}</option>
 					  		</c:forEach>
 					  	</select>
+					  	
+					  	<script>
+						  	$('#year').val(getParam("year"));
+						  	$('#month').val(getParam("month"));
+					  	</script>
 						
 						<div class="input-group-append">
 							<button type="submit" class="btn btn-sm btn-info" onclick="location.href='${pageContext.request.contextPath}/admin/chart/' + getPageName() + '?year=' + $('#year').val() + '&month=' + $('#month').val()">입력</button>

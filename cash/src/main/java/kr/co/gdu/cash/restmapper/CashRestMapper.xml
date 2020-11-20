@@ -188,7 +188,7 @@
       WHERE YEAR(cashbook_date) = #{year}
    </select>
    
-   <select id="selectCategoryInByYear" parameterType="java.util.Map" resultType="java.util.Map">
+   <select id="selectCategoryInByYear" parameterType="int" resultType="java.util.Map">
       SELECT 
          SUM(CASE WHEN category_name='급여' THEN cashbook_price END) '급여',
          SUM(CASE WHEN category_name='용돈' THEN cashbook_price END) '용돈'
@@ -197,7 +197,7 @@
       AND YEAR(cashbook_date) = #{year}
    </select>
    
-   <select id="selectCategoryOutByYear" parameterType="java.util.Map" resultType="java.util.Map">
+   <select id="selectCategoryOutByYear" parameterType="int" resultType="java.util.Map">
       SELECT
       	 SUM(CASE WHEN category_name='관광' THEN cashbook_price END) '관광',
          SUM(CASE WHEN category_name='생활' THEN cashbook_price END) '생활',
@@ -208,7 +208,7 @@
       AND YEAR(cashbook_date) = #{year}
    </select>
    
-   <select id="selectAverageInOfMonthByYear" parameterType="java.util.Map" resultType="java.util.Map">
+   <select id="selectAverageInOfMonthByYear" parameterType="int" resultType="java.util.Map">
       SELECT
          AVG(CASE WHEN MONTH(cashbook_date)=1 THEN cashbook_price END) january,
          AVG(CASE WHEN MONTH(cashbook_date)=2 THEN cashbook_price END) february,
@@ -227,7 +227,7 @@
       AND cashbook.cashbook_kind = '수입';
    </select>
    
-   <select id="selectAverageOutOfMonthByYear" parameterType="java.util.Map" resultType="java.util.Map">
+   <select id="selectAverageOutOfMonthByYear" parameterType="int" resultType="java.util.Map">
       SELECT
          AVG(CASE WHEN MONTH(cashbook_date)=1 THEN cashbook_price END) january,
          AVG(CASE WHEN MONTH(cashbook_date)=2 THEN cashbook_price END) february,
@@ -243,6 +243,28 @@
          AVG(CASE WHEN MONTH(cashbook_date)=12 THEN cashbook_price END) december
       FROM cashbook
       WHERE YEAR(cashbook_date) = #{year}
+      AND cashbook.cashbook_kind = '지출';
+   </select>
+   
+   <select id="selectCategoryInByDateTerm" parameterType="java.util.Map" resultType="java.util.Map">
+      SELECT
+         SUM(CASE WHEN category_name='급여' THEN cashbook_price END) '급여',
+         SUM(CASE WHEN category_name='용돈' THEN cashbook_price END) '용돈'
+      FROM cashbook
+      WHERE <![CDATA[ DATE(cashbook_date) >= STR_TO_DATE(#{startDate}, '%Y-%m-%d') ]]>
+      AND <![CDATA[ DATE(cashbook_date) <= STR_TO_DATE(#{endDate}, '%Y-%m-%d') ]]>
+      AND cashbook.cashbook_kind = '수입';
+   </select>
+   
+   <select id="selectCategoryOutByDateTerm" parameterType="java.util.Map" resultType="java.util.Map">
+      SELECT
+      	 SUM(CASE WHEN category_name='관광' THEN cashbook_price END) '관광',
+         SUM(CASE WHEN category_name='생활' THEN cashbook_price END) '생활',
+         SUM(CASE WHEN category_name='식비' THEN cashbook_price END) '식비',
+         SUM(CASE WHEN category_name='의료' THEN cashbook_price END) '의료'
+      FROM cashbook
+      WHERE <![CDATA[ DATE(cashbook_date) >= STR_TO_DATE(#{startDate}, '%Y-%m-%d') ]]>
+      AND <![CDATA[ DATE(cashbook_date) <= STR_TO_DATE(#{endDate}, '%Y-%m-%d') ]]>
       AND cashbook.cashbook_kind = '지출';
    </select>
 </mapper>

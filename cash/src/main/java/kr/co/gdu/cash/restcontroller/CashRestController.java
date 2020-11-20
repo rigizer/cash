@@ -108,4 +108,22 @@ public class CashRestController {
 		Map<String, Object> map = cashRestService.getAverageOutOfMonthByYear(year);
 		return map;
 	}
+	
+	@GetMapping("/admin/categoryInByDateTerm/{startDate}/{endDate}")
+	public Map<String, Object> categoryInByDateTerm(
+			@PathVariable(name = "startDate") String startDate,
+			@PathVariable(name = "endDate") String endDate) {
+		System.out.println("categoryInByDateTerm 호출성공");
+		Map<String, Object> map = cashRestService.getCategoryInByDateTerm(startDate, endDate);
+		return map;
+	}
+	
+	@GetMapping("/admin/categoryOutByDateTerm/{startDate}/{endDate}")
+	public Map<String, Object> categoryOutByDateTerm(
+			@PathVariable(name = "startDate") String startDate,
+			@PathVariable(name = "endDate") String endDate) {
+		System.out.println("categoryOutByDateTerm 호출성공");
+		Map<String, Object> map = cashRestService.getCategoryOutByDateTerm(startDate, endDate);
+		return map;
+	}
 }

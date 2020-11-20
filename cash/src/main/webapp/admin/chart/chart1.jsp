@@ -135,6 +135,11 @@
 					    	<span class="input-group-text">조회 연도</span>
 					    </div>
 						<input type="text" class="form-control" id="year">
+						
+						<script>
+							$('#year').val(getParam("year"));
+						</script>
+						
 						<div class="input-group-append">
 							<button type="submit" class="btn btn-sm btn-info" onclick="location.href='${pageContext.request.contextPath}/admin/chart/' + getPageName() + '?year='+$('#year').val()">입력</button>
 						</div>
