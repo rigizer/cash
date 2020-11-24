@@ -98,12 +98,12 @@
 									<table class="table" style="width: 70%; margin: auto;">
 										<tr>
 											<td>
-												<input type="text" class="form-control" name="id" placeholder="ID" value="admin">
+												<input type="text" class="form-control" name="id" placeholder="ID">
 											</td>
 										</tr>
 										<tr>
 											<td>
-												<input type="password" class="form-control" name="pw" placeholder="Password" value="1234">
+												<input type="password" class="form-control" name="pw" placeholder="Password">
 											</td>
 										</tr>
 										<tr>

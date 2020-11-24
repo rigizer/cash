@@ -1,9 +1,11 @@
 package kr.co.gdu.cash.controller;
 
+import java.io.File;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import kr.co.gdu.cash.service.NoticeService;
 import kr.co.gdu.cash.vo.Notice;
+import kr.co.gdu.cash.vo.NoticeForm;
+import kr.co.gdu.cash.vo.Noticefile;
 
 @Controller
 public class NoticeController {
@@ -70,32 +74,56 @@ public class NoticeController {
 	
 	// 공지사항 입력 Action
 	@PostMapping("/admin/addNotice")
-	public String addNotice(Notice notice) {
-		System.out.println("Debug: " + notice);
-		noticeService.addNotice(notice);
+	public String addNotice(NoticeForm noticeForm, HttpServletRequest request) {
+		System.out.println("Debug: " + noticeForm);
 		
-		return "redirect:/admin/noticeList/1";
+		String path = request.getSession().getServletContext().getRealPath("/admin/upload/");
+		Notice notice = noticeService.addNotice(noticeForm, path);
+		
+		return "redirect:/admin/noticeOne/" + notice.getNoticeId();
 	}
 	
 	// 공지사항 상세 페이지
 	@GetMapping("/admin/noticeOne/{noticeId}")
-	public String noticeOne(Model model, 
+	public String noticeOne(Model model, HttpSession session, 
 			@PathVariable(value = "noticeId") int noticeId) {
-		
-		Notice notice = noticeService.getNoticeOne(noticeId);
+		List<Notice> notice = noticeService.getNoticeOne(noticeId);
 		System.out.println("Debug: " + notice);
+		
 		model.addAttribute("notice", notice);
+		model.addAttribute("loginId", session.getAttribute("loginId"));
 		
 		return "noticeOne";
 	}
 	
+	// 공지사항 개별 첨부파일 삭제
+	@GetMapping("/removeFile/{noticeId}/{noticefileId}/{noticefileName}")
+	public String removeFile(Model model, HttpServletRequest request,
+			@PathVariable(value = "noticeId") int noticeId, 
+			@PathVariable(value = "noticefileId") int noticefileId, 
+			@PathVariable(value = "noticefileName") String noticefileName) {
+		
+		Noticefile noticeFile = new Noticefile();
+		noticeFile.setNoticefileId(noticefileId);
+		noticeFile.setNoticefileName(noticefileName);
+		
+		System.out.println("Debug: boardfile[" + noticeFile +"] 삭제");
+		
+		String path = request.getSession().getServletContext().getRealPath("/admin/upload/");
+		noticeService.removeFile(noticeFile, path);
+		
+		return "redirect:/admin/modifyNotice/" + noticeId;
+	}
+	
 	// 공지사항 삭제
 	@GetMapping("/admin/removeNotice/{noticeId}")
-	public String removeNotice(Model model,
+	public String removeNotice(Model model, HttpServletRequest request, 
 			@PathVariable(value = "noticeId") int noticeId) {
 		
 		System.out.println("Debug: noticeId[" + noticeId + "] 삭제");
-		noticeService.removeNotice(noticeId);
+		
+		String path = request.getSession().getServletContext().getRealPath("/admin/upload/");
+		noticeService.removeNotice(noticeId, path);
 		
 		return "redirect:/admin/noticeList/1";
 	}
@@ -105,7 +133,7 @@ public class NoticeController {
 	public String modifyNoticeForm(Model model, 
 			@PathVariable(value = "noticeId") int noticeId) {
 	
-		Notice notice = noticeService.getNoticeOne(noticeId);
+		List<Notice> notice = noticeService.getNoticeOne(noticeId);
 		System.out.println("Debug: " + notice);
 		model.addAttribute("notice", notice);
 		
@@ -114,10 +142,12 @@ public class NoticeController {
 	
 	// 공지사항 수정 Action
 	@PostMapping("/admin/modifyNotice")
-	public String modifyNoticeAction(Notice notice) {
-		System.out.println("Debug: " + notice);
-		noticeService.modifyNotice(notice);
+	public String modifyNoticeAction(NoticeForm noticeForm, HttpServletRequest request) {
+		System.out.println("Debug: " + noticeForm);
 		
-		return "redirect:/admin/noticeOne/" + notice.getNoticeId();
+		String path = request.getSession().getServletContext().getRealPath("/admin/upload/");
+		noticeService.modifyNotice(noticeForm, path);
+		
+		return "redirect:/admin/noticeOne/" + noticeForm.getNoticeId();
 	}
 }

@@ -88,37 +88,111 @@
 				<div class="container">
 					<!-- 공지사항 내용 -->
 					<div>
-						<table class="table">
-							<tr>
-								<td width="20%">번호</td>
-								<td width="80%">${notice.noticeId}</td>
-							</tr>
-							<tr>
-								<td>제목</td>
-								<td>${notice.noticeTitle}</td>
-							</tr>
-							<tr>
-								<td>날짜</td>
-								<td>${notice.noticeDate}</td>
-							</tr>
-							<tr>
-								<td>내용</td>
-								<td>${notice.noticeContent}</td>
-							</tr>
-						</table>
-						
-						<button type="button" class="btn btn-dark" style="float: left;" onclick="location.href='${pageContext.request.contextPath}/admin/noticeList/1'">목록</button>
+						<button type="button" class="btn btn-sm btn-dark" style="float: left;" onclick="location.href='${pageContext.request.contextPath}/admin/noticeList/1'">목록</button>
 						
 						<table style="float: right;">
 							<tr>
 								<td>
-									<button type="button" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/admin/modifyNotice/${notice.noticeId}'">수정</button>
+									<button type="button" class="btn btn-sm btn-primary" onclick="location.href='${pageContext.request.contextPath}/admin/modifyNotice/${notice[0].noticeId}'">수정</button>
 								</td>
 								<td>&nbsp;</td>
 								<td>
-									<button type="button" class="btn btn-danger" onclick="location.href='${pageContext.request.contextPath}/admin/removeNotice/${notice.noticeId}'">삭제</button>
+									<button type="button" class="btn btn-sm btn-danger" onclick="location.href='${pageContext.request.contextPath}/admin/removeNotice/${notice[0].noticeId}'">삭제</button>
 								</td>
 							</tr>
+						</table>
+						
+						<br><br>
+					
+						<table class="table">
+							<tr>
+								<td width="20%">번호</td>
+								<td width="80%">${notice[0].noticeId}</td>
+							</tr>
+							<tr>
+								<td>제목</td>
+								<td>${notice[0].noticeTitle}</td>
+							</tr>
+							<tr>
+								<td>날짜</td>
+								<td>${notice[0].noticeDate}</td>
+							</tr>
+							<tr>
+								<td>내용</td>
+								<td>${notice[0].noticeContent}</td>
+							</tr>
+							<tr>
+								<td>첨부파일</td>
+								<td>
+									<c:if test="${null ne notice[0].noticefileList[0]}">
+										<c:forEach var="nf" items="${notice[0].noticefileList}">
+											<div>
+												<a href="${pageContext.request.contextPath}/admin/upload/${nf.noticefileName}">
+													${nf.noticefileName}
+												</a>
+											</div>
+										</c:forEach>
+								    </c:if>
+								    <c:if test="${null eq notice[0].noticefileList[0].noticefileName}">
+										(첨부파일이 없습니다)
+								    </c:if>
+								</td>
+							</tr>
+						</table>
+					</div>
+					
+					<br>
+					
+					<!-- 공지사항 댓글 -->
+					<div>
+						<table class="table center tb-fixed">
+							<thead>
+								<th width="10%">번호</th>
+								<th width="15%">작성자</th>
+								<th width="35%">내용</th>
+								<th width="20%">작성일</th>
+								<th width="10%">삭제</th>
+							</thead>
+							<tbody>
+								<c:forEach var="c" items="${notice[0].commentList}">
+									<c:if test="${!empty c.commentContent}">
+										<tr>
+											<td>${c.commentId}</td>
+											<td>${c.commentWriter}</td>
+											<td>${c.commentContent}</td>
+											<td>${c.commentDate}</td>
+											<td>
+												<button type="button" class="btn btn-sm btn-danger" onclick="location.href='${pageContext.request.contextPath}/admin/removeComment/${c.commentId}/${c.noticeId}'">삭제</button>
+											</td>
+										</tr>
+									</c:if>
+									
+									<c:if test="${empty c.commentContent}">
+										<tr>
+											<td colspan="5">(댓글이 없습니다)</td>
+										</tr>
+									</c:if>
+								</c:forEach>
+								
+								<tr>
+									<form action="${pageContext.request.contextPath}/admin/addComment" method="post">
+										<td>
+											<div>
+												<input type="text" class="form-control" name="commentWriter" value="${loginId}" readonly="readonly">
+											</div>
+										</td>
+										<td colspan="4">
+												<input type="hidden" name="noticeId" value="${notice[0].noticeId}">
+												<div class="input-group">
+													<input type="text" class="form-control" name="commentContent"></input>
+													<div class="input-group-append">
+														<button type="submit" class="btn btn-sm btn-dark">댓글 입력</button>
+													</div>
+												</div>
+										</td>
+									</form>
+								</tr>
+							</tbody>
 						</table>
 					</div>
 				</div>

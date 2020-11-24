@@ -3,6 +3,27 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.gdu.cash.mapper.NoticeMapper">
+  <resultMap type="kr.co.gdu.cash.vo.Notice" id="selectNoticeOneResult">
+	<result property="noticeId" column="notice_id" />
+	<result property="noticeTitle" column="notice_title" />
+	<result property="noticeContent" column="notice_content" />
+	<result property="noticeDate" column="notice_date" />
+	<collection property="noticefileList" ofType="kr.co.gdu.cash.vo.Noticefile">
+		<result property="noticefileId" column="noticefile_id" />
+		<result property="noticeId" column="notice_id" />
+		<result property="noticefileName" column="noticefile_name" />
+		<result property="noticefileType" column="noticefile_type" />
+		<result property="noticefileSize" column="noticefile_size" />
+	</collection>
+	<collection property="commentList" ofType="kr.co.gdu.cash.vo.Comment">
+		<result property="commentId" column="comment_id" />
+		<result property="noticeId" column="notice_id" />
+		<result property="commentWriter" column="comment_writer" />
+		<result property="commentContent" column="comment_content" />
+		<result property="commentDate" column="comment_date" />
+	</collection>
+  </resultMap>
+
   <select id="selectLatestNoticeList" resultType="kr.co.gdu.cash.vo.Notice">
     select
     	notice_id as noticeId,
@@ -24,19 +45,40 @@
   </select>
   
   <select id="countNotice" resultType="Integer">
-  	SELECT COUNT(*) FROM notice
+  	SELECT COUNT(*)
+  	FROM notice n
+  	LEFT OUTER JOIN noticefile nf
+	ON n.notice_id = nf.notice_id
   </select>
   
-  <select id="selectNoticeOne" parameterType="Integer" resultType="kr.co.gdu.cash.vo.Notice">
-  	SELECT notice_id AS noticeId, 
-	notice_title noticeTitle, 
-	notice_content noticeContent, 
-	notice_date noticeDate
-	FROM notice
-	WHERE notice_id = #{noticeId}
+  <select id="selectNoticeOne" parameterType="Integer" resultMap="selectNoticeOneResult">
+	SELECT
+		n.notice_id,
+		n.notice_title,
+		n.notice_content, 
+		n.notice_date, 
+		nf.noticefile_id, 
+		nf.notice_id, 
+		nf.noticefile_name, 
+		nf.noticefile_type, 
+		nf.noticefile_size, 
+		c.comment_id, 
+		c.notice_id, 
+		c.comment_writer, 
+		c.comment_content, 
+		c.comment_date
+	FROM notice n
+	LEFT OUTER JOIN noticefile nf
+	ON n.notice_id = nf.notice_id
+	LEFT OUTER JOIN comment c
+	ON n.notice_id = c.notice_id
+	WHERE n.notice_id = #{noticeId}
   </select>
   
   <insert id="insertNotice" parameterType="kr.co.gdu.cash.vo.Notice">
+	<selectKey resultType="int" keyProperty="noticeId" order="AFTER">
+		SELECT LAST_INSERT_ID()
+	</selectKey>
 	insert into notice (
 		notice_title, 
 		notice_content, 
@@ -49,10 +91,11 @@
   </insert>
   
   <update id="updateNotice" parameterType="kr.co.gdu.cash.vo.Notice">
-  	update notice set
-	notice_title = #{noticeTitle}, 
-	notice_content = #{noticeContent}, 
-	notice_date = now()
+  	update notice
+  	set
+		notice_title = #{noticeTitle}, 
+		notice_content = #{noticeContent}, 
+		notice_date = now()
 	where notice_id = #{noticeId}
   </update>
   

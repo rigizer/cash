@@ -1,10 +1,14 @@
 package kr.co.gdu.cash.vo;
 
+import java.util.List;
+
 public class Notice {
 	private int noticeId;
 	private String noticeTitle;
 	private String noticeContent;
 	private String noticeDate;
+	private List<Noticefile> noticefileList;
+	private List<Comment> commentList;
 	
 	public int getNoticeId() {
 		return noticeId;
@@ -30,10 +34,23 @@ public class Notice {
 	public void setNoticeDate(String noticeDate) {
 		this.noticeDate = noticeDate;
 	}
+	public List<Noticefile> getNoticefileList() {
+		return noticefileList;
+	}
+	public void setNoticefileList(List<Noticefile> noticefileList) {
+		this.noticefileList = noticefileList;
+	}
+	public List<Comment> getCommentList() {
+		return commentList;
+	}
+	public void setCommentList(List<Comment> commentList) {
+		this.commentList = commentList;
+	}
 	
 	@Override
 	public String toString() {
-		return "Notice [noticeNo=" + noticeId + ", noticeTitle=" + noticeTitle + ", noticeContent=" + noticeContent
-				+ ", noticeDate=" + noticeDate + "]";
+		return "Notice [noticeId=" + noticeId + ", noticeTitle=" + noticeTitle + ", noticeContent=" + noticeContent
+				+ ", noticeDate=" + noticeDate + ", noticefileList=" + noticefileList + ", commentList=" + commentList
+				+ "]";
 	}
 }

@@ -68,7 +68,18 @@
 			$(document).ready(function() {	// 문서가 로드되면 이 스크립트를 제일 마지막에 실행해주세요
 				$('#noticeTitle').focus();	// 시작 시 폼 커서를 noticeTitle쪽으로 이동
 				
-				$("#btn").click(function() {	// 버튼 클릭시 폼 내용의 유효성 검사를 수행
+				// 파일 추가 버튼을 누를 때
+				$('#addBtn').click(function() {
+					html = '<div><input type="file" class="form-control noticefileList" name="noticefileList"></div>';
+					$('#fileinput').append(html);
+				});
+
+				// 파일 삭제 버튼을 누르면 마지막에 append된 첨부파일이 삭제
+				$('#delBtn').click(function() {
+					$('#fileinput').children().last().remove();
+				});
+
+				$("#submitBtn").click(function() {	// 버튼 클릭시 폼 내용의 유효성 검사를 수행
 					if ($("#noticeTitle").val() == "") {	// noticeTitle이 공백인 경우 수행
 						$("#noticeTitleMsg").html('');	// 메시지 초기화
 						$('#noticeTitleMsg').append('<div style="margin-top: 10px;">제목을 입력하세요<div>');
@@ -88,7 +99,26 @@
 					} else {
 						$("#noticeContentMsg").html('');	// 메시지 초기화
 					}
-					$("#noticeForm").submit();
+					
+					// 비어있는 파일이 있는지 체크 (없으면 true, 하나라도 있으면 false)
+					let ck = true;
+					
+					// 반복문을 돌리면서 각 첨부파일을 확인
+					$('.noticefileList').each(function(index, item) {
+						console.log($(item).val());
+						
+						// 비어있는 파일이 하나라도 있는 경우
+						if($(item).val() == '') {
+							ck = false;
+						}
+					});
+
+					// ck가 true일 때만 폼 입력 가능
+					if (ck == true) {
+						$('#noticeForm').submit();
+					} else {	// 아닌 경우 경고창 띄우기
+						alert('선택하지 않은 파일이 있습니다.\n다시 한 번 확인해주세요.');
+					}
 				});
 			});
 		</script>
@@ -130,7 +160,7 @@
 				<div class="container">
 					<!-- 공지사항 작성 -->
 					<div>
-						<form method="post" action="${pageContext.request.contextPath}/admin/addNotice" id="noticeForm">
+						<form method="post" action="${pageContext.request.contextPath}/admin/addNotice" enctype="multipart/form-data" id="noticeForm">
 							<table class="table">
 								<tr>
 									<td width="20%">제목</td>
@@ -147,8 +177,18 @@
 									</td>
 								</tr>
 								<tr>
+									<td>첨부파일</td>
+									<td>
+										<div>
+											<button type="button" class="btn btn-sm btn-dark" id="addBtn">파일 추가</button>
+											<button type="button" class="btn btn-sm btn-dark" id="delBtn">파일 삭제</button>
+										</div>
+										<div id="fileinput"></div>
+									</td>
+								</tr>
+								<tr>
 									<td colspan="2">
-										<button type="button" class="btn btn-success btn-block" id="btn">글쓰기</button>
+										<button type="button" class="btn btn-success btn-block" id="submitBtn">글쓰기</button>
 									</td>
 								</tr>
 							</table>

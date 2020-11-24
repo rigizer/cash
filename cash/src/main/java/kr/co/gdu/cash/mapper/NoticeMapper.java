@@ -18,7 +18,7 @@ public interface NoticeMapper {
 	int countNotice();
 	
 	// 공지사항 내용
-	Notice selectNoticeOne(int noticeId);
+	List<Notice> selectNoticeOne(int noticeId);
 	
 	// 공지사항 입력
 	int insertNotice(Notice notice);

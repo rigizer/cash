@@ -62,6 +62,44 @@
 				color: #FF0000;
 			}
 		</style>
+		
+		<script>
+			$(document).ready(function() {
+				// 파일 추가 버튼을 누를 때
+				$('#addBtn').click(function() {
+					html = '<div><input type="file" class="form-control noticefileList" name="noticefileList"></div>';
+					$('#fileinput').append(html);
+				});
+
+				// 파일 삭제 버튼을 누르면 마지막에 append된 첨부파일이 삭제
+				$('#delBtn').click(function() {
+					$('#fileinput').children().last().remove();
+				});
+
+				// 입력 버튼을 누를 때
+				$('#submitBtn').click(function() {
+					// 비어있는 파일이 있는지 체크 (없으면 true, 하나라도 있으면 false)
+					let ck = true;
+					
+					// 반복문을 돌리면서 각 첨부파일을 확인
+					$('.noticefileList').each(function(index, item) {
+						console.log($(item).val());
+						
+						// 비어있는 파일이 하나라도 있는 경우
+						if($(item).val() == '') {
+							ck = false;
+						}
+					});
+
+					// ck가 true일 때만 폼 입력 가능
+					if (ck == true) {
+						$('#noticeForm').submit();
+					} else {	// 아닌 경우 경고창 띄우기
+						alert('선택하지 않은 파일이 있습니다.\n다시 한 번 확인해주세요.');
+					}
+				});
+			});
+		</script>
 	</head>
 	
 	<body>
@@ -100,27 +138,50 @@
 				<div class="container">
 					<!-- 공지사항 수정 -->
 					<div>
-						<form method="post" action="${pageContext.request.contextPath}/admin/modifyNotice" id="noticeForm">
+						<form method="post" action="${pageContext.request.contextPath}/admin/modifyNotice" enctype="multipart/form-data" id="noticeForm">
 							<table class="table">
 								<tr>
 									<td width="20%">번호</td>
-									<td width="80%"><input type="text" class="form-control" name="noticeId" id="noticeId" value="${notice.noticeId}" readonly="readonly"></td>
+									<td width="80%"><input type="text" class="form-control" name="noticeId" id="noticeId" value="${notice[0].noticeId}" readonly="readonly"></td>
 								</tr>
 								<tr>
 									<td>날짜</td>
-									<td><input type="text" class="form-control" name="noticeDate" id="noticeDate" value="${notice.noticeDate}" readonly="readonly"></td>
+									<td><input type="text" class="form-control" name="noticeDate" id="noticeDate" value="${notice[0].noticeDate}" readonly="readonly"></td>
 								</tr>
 								<tr>
 									<td>제목</td>
-									<td><input type="text" class="form-control" name="noticeTitle" id="noticeTitle" value="${notice.noticeTitle}"></td>
+									<td><input type="text" class="form-control" name="noticeTitle" id="noticeTitle" value="${notice[0].noticeTitle}"></td>
 								</tr>
 								<tr>
 									<td>내용</td>
-									<td><textarea class="form-control" name="noticeContent" id="noticeContent">${notice.noticeContent}</textarea></td>
+									<td><textarea class="form-control" name="noticeContent" id="noticeContent">${notice[0].noticeContent}</textarea></td>
+								</tr>
+								<tr>
+									<td>기존 첨부파일</td>
+									<td>
+										<c:forEach var="nf" items="${notice[0].noticefileList}">
+											<div class="input-group mb-3">
+												<input type="text" class="form-control" value="${nf.noticefileName}">
+												<div class="input-group-append">
+													<button type="button" class="btn btn-sm btn-danger" onClick="location.href='${pageContext.request.contextPath}/removeFile/${nf.noticeId}/${nf.noticefileId}/${nf.noticefileName}'">파일 삭제</button>
+												</div>
+											</div>
+										</c:forEach>
+									</td>
+								</tr>
+								<tr>
+									<td>신규 첨부파일</td>
+									<td>
+										<div>
+											<button type="button" class="btn btn-sm btn-dark" id="addBtn">파일 추가</button>
+											<button type="button" class="btn btn-sm btn-dark" id="delBtn">파일 삭제</button>
+										</div>
+										<div id="fileinput"></div>
+									</td>
 								</tr>
 								<tr>
 									<td colspan="2">
-										<button type="submit" class="btn btn-primary btn-block" id="btn">수정</button>
+										<button type="button" class="btn btn-primary btn-block" id="submitBtn">수정</button>
 									</td>
 								</tr>
 							</table>
