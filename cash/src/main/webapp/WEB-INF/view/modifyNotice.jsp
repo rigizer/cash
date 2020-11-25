@@ -160,12 +160,17 @@
 									<td>기존 첨부파일</td>
 									<td>
 										<c:forEach var="nf" items="${notice[0].noticefileList}">
-											<div class="input-group mb-3">
-												<input type="text" class="form-control" value="${nf.noticefileName}">
-												<div class="input-group-append">
-													<button type="button" class="btn btn-sm btn-danger" onClick="location.href='${pageContext.request.contextPath}/removeFile/${nf.noticeId}/${nf.noticefileId}/${nf.noticefileName}'">파일 삭제</button>
+											<c:if test="${null ne notice[0].noticefileList[0].noticefileName}">
+												<div class="input-group mb-3">
+													<input type="text" class="form-control" value="${nf.noticefileName}" readonly="readonly">
+													<div class="input-group-append">
+														<button type="button" class="btn btn-sm btn-danger" onClick="location.href='${pageContext.request.contextPath}/removeFile/${nf.noticeId}/${nf.noticefileId}/${nf.noticefileName}'">파일 삭제</button>
+													</div>
 												</div>
-											</div>
+											</c:if>
+											<c:if test="${null eq notice[0].noticefileList[0].noticefileName}">
+												(첨부파일이 없습니다)
+										    </c:if>
 										</c:forEach>
 									</td>
 								</tr>

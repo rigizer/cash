@@ -75,7 +75,7 @@
 	
 					<ol>
 						<li><a href="${pageContext.request.contextPath}/admin/index">Home</a></li>
-						<li><a href="${pageContext.request.contextPath}/admin/noticeList">NoticeList</a></li>
+						<li><a href="${pageContext.request.contextPath}/admin/noticeList/1">NoticeList</a></li>
 						<li>NoticeOne</li>
 					</ol>
 					<h2>공지사항 내용</h2>
@@ -124,18 +124,18 @@
 							<tr>
 								<td>첨부파일</td>
 								<td>
-									<c:if test="${null ne notice[0].noticefileList[0]}">
-										<c:forEach var="nf" items="${notice[0].noticefileList}">
+									<c:forEach var="nf" items="${notice[0].noticefileList}">
+										<c:if test="${null ne notice[0].noticefileList[0].noticefileName}">
 											<div>
 												<a href="${pageContext.request.contextPath}/admin/upload/${nf.noticefileName}">
 													${nf.noticefileName}
 												</a>
 											</div>
-										</c:forEach>
-								    </c:if>
-								    <c:if test="${null eq notice[0].noticefileList[0].noticefileName}">
-										(첨부파일이 없습니다)
-								    </c:if>
+										</c:if>
+										<c:if test="${null eq notice[0].noticefileList[0].noticefileName}">
+											(첨부파일이 없습니다)
+									    </c:if>
+									</c:forEach>
 								</td>
 							</tr>
 						</table>
@@ -182,13 +182,13 @@
 											</div>
 										</td>
 										<td colspan="4">
-												<input type="hidden" name="noticeId" value="${notice[0].noticeId}">
-												<div class="input-group">
-													<input type="text" class="form-control" name="commentContent"></input>
-													<div class="input-group-append">
-														<button type="submit" class="btn btn-sm btn-dark">댓글 입력</button>
-													</div>
+											<input type="hidden" name="noticeId" value="${notice[0].noticeId}">
+											<div class="input-group">
+												<input type="text" class="form-control" name="commentContent"></input>
+												<div class="input-group-append">
+													<button type="submit" class="btn btn-sm btn-dark">댓글 입력</button>
 												</div>
+											</div>
 										</td>
 									</form>
 								</tr>
