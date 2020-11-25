@@ -15,6 +15,7 @@
 			<li><a href="${pageContext.request.contextPath}/admin/cashbookList/1">Cashbook List</a></li>
 			<li><a href="${pageContext.request.contextPath}/admin/noticeList/1">Notice</a></li>
 			<li><a href="${pageContext.request.contextPath}/admin/addMember">Member</a></li>
+			<li><a href="${pageContext.request.contextPath}/admin/guestbookList/1">Guest Book</a></li>
 			<li class="drop-down"><a href="#">Statistics</a>
 				<ul>
 					<li><a href="${pageContext.request.contextPath}/admin/chart/chart1.jsp?year=2019">월별 수입 내역</a></li>
