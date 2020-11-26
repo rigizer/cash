@@ -40,11 +40,25 @@ public class GuestbookService {
 	}
 	
 	public int addGuestbook(Guestbook guestbook) {
-		return guestbookMapper.insertGuestbook(guestbook);
+		Guestbook returnGuestbook = new Guestbook();
+		// 자바스크립트 코드가 데이터베이스에 입력되는 것을 방지
+		returnGuestbook.setGuestbookTitle(guestbook.getGuestbookTitle().replaceAll("(?i)<script", "&lt;script"));
+		returnGuestbook.setGuestbookContent(guestbook.getGuestbookContent().replaceAll("(?i)<script", "&lt;script"));
+		returnGuestbook.setGuestbookWriter(guestbook.getGuestbookWriter().replaceAll("(?i)<script", "&lt;script"));
+		
+		return guestbookMapper.insertGuestbook(returnGuestbook);
 	}
 	
 	public void modifyGuestbook(Guestbook guestbook) {
-		guestbookMapper.updateGuestbook(guestbook);
+		Guestbook returnGuestbook = new Guestbook();
+		// 자바스크립트 코드가 데이터베이스에 입력되는 것을 방지
+		returnGuestbook.setGuestbookId(guestbook.getGuestbookId());
+		returnGuestbook.setGuestbookTitle(guestbook.getGuestbookTitle().replaceAll("(?i)<script", "&lt;script"));
+		returnGuestbook.setGuestbookContent(guestbook.getGuestbookContent().replaceAll("(?i)<script", "&lt;script"));
+		returnGuestbook.setGuestbookWriter(guestbook.getGuestbookWriter().replaceAll("(?i)<script", "&lt;script"));
+		returnGuestbook.setGuestbookDate(guestbook.getGuestbookDate());
+		
+		guestbookMapper.updateGuestbook(returnGuestbook);
 	}
 	
 	public void removeGuestbook(int guestbookId) {

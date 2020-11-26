@@ -65,8 +65,9 @@ public class NoticeService {
 	public Notice addNotice(NoticeForm noticeForm, String myPath) {
 		// 1. notice DB 입력 -> Key 값을 받는다
 		Notice notice = new Notice();
-		notice.setNoticeTitle(noticeForm.getNoticeTitle());
-		notice.setNoticeContent(noticeForm.getNoticeContent());
+		// 자바스크립트가 데이터베이스에 입력되는 것을 방지
+		notice.setNoticeTitle(noticeForm.getNoticeTitle().replaceAll("(?i)<script", "&lt;script"));
+		notice.setNoticeContent(noticeForm.getNoticeContent().replaceAll("(?i)<script", "&lt;script"));
 		
 		noticeMapper.insertNotice(notice);	// setNoticeId(SELECT LAST_INSERT_ID())
 		
@@ -120,9 +121,10 @@ public class NoticeService {
 	public void modifyNotice(NoticeForm noticeForm, String myPath) {
 		// 1. notice DB 입력 -> Key 값을 받는다
 		Notice notice = new Notice();
+		// 자바스크립트가 데이터베이스에 입력되는 것을 방지
 		notice.setNoticeId(noticeForm.getNoticeId());
-		notice.setNoticeTitle(noticeForm.getNoticeTitle());
-		notice.setNoticeContent(noticeForm.getNoticeContent());
+		notice.setNoticeTitle(noticeForm.getNoticeTitle().replaceAll("(?i)<script", "&lt;script"));
+		notice.setNoticeContent(noticeForm.getNoticeContent().replaceAll("(?i)<script", "&lt;script"));
 		
 		noticeMapper.updateNotice(notice);
 		
