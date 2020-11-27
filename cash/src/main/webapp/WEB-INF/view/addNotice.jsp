@@ -37,6 +37,9 @@
 		<!-- jQuery library -->
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 		
+		<!-- Naver Smart Editor 2.8.2.3 HuskyEZCreator -->
+		<script type="text/javascript" src="${pageContext.request.contextPath}/smarteditor2/js/HuskyEZCreator.js" charset="utf-8"></script>
+		
 		<style>
 			textarea {
 				min-height: 300px;
@@ -89,7 +92,8 @@
 					} else {
 						$("#noticeTitleMsg").text('');	// 메시지 초기화
 					}
-					
+
+					/*
 					if ($("#noticeContent").val() == "") { // noticeContent가 공백인 경우 수행
 						$("#noticeContentMsg").html('');	// 메시지 초기화
 						$('#noticeContentMsg').append('<div style="margin-top: 10px;">내용을 입력하세요<div>');
@@ -99,6 +103,7 @@
 					} else {
 						$("#noticeContentMsg").html('');	// 메시지 초기화
 					}
+					*/
 					
 					// 비어있는 파일이 있는지 체크 (없으면 true, 하나라도 있으면 false)
 					let ck = true;
@@ -115,10 +120,21 @@
 
 					// ck가 true일 때만 폼 입력 가능
 					if (ck == true) {
+						oEditors.getById["noticeContent"].exec("UPDATE_CONTENTS_FIELD",[]);	// 스마트에디터 입력시 필요
 						$('#noticeForm').submit();
 					} else {	// 아닌 경우 경고창 띄우기
 						alert('선택하지 않은 파일이 있습니다.\n다시 한 번 확인해주세요.');
 					}
+				});
+
+				// 스마트에디터 스킨 불러오기
+				var oEditors = [];
+
+				nhn.husky.EZCreator.createInIFrame({
+					oAppRef : oEditors,
+					elPlaceHolder : "noticeContent",
+					sSkinURI : "${pageContext.request.contextPath}/smarteditor2/SmartEditor2Skin.html",
+					fCreator : "createSEditor2"
 				});
 			});
 		</script>
@@ -172,8 +188,10 @@
 								<tr>
 									<td>내용</td>
 									<td>
-										<textarea class="form-control" name="noticeContent" id="noticeContent"></textarea>
-										<div class="msgDiv" id="noticeContentMsg"></div>
+<!-- 										<textarea class="form-control" name="noticeContent" id="noticeContent"></textarea> -->
+<!-- 										<div class="msgDiv" id="noticeContentMsg"></div> -->
+										
+										<textarea name="noticeContent" id="noticeContent" style="width:100%;"></textarea>
 									</td>
 								</tr>
 								<tr>

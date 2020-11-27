@@ -27,7 +27,7 @@ public class NoticeController {
 	// 공지사항 목록
 	@GetMapping("/admin/noticeList/{currentPage}")
 	public String noticeList(Model model,
-			@PathVariable(value = "") int currentPage) {
+			@PathVariable(value = "currentPage") int currentPage) {
 		int rowPerPage = 10;
 		
 		List<Notice> noticeList = noticeService.getNoticeListPage(currentPage, rowPerPage);
